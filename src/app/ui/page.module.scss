@@ -1,0 +1,35 @@
+.container {
+  position: relative;
+  height: 100vh; // Full viewport height
+  width: 100vw; // Full viewport width
+  overflow: hidden; // Prevent scrolling beyond visible sections
+  display: flex; // Flex layout to enable smooth transitions
+}
+
+.section {
+  flex-shrink: 0; // Prevent sections from shrinking
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: white;
+}
+
+.section1 {
+  background-color: #4caf50;
+}
+
+.section2 {
+  background-color: #2196f3;
+}
+
+.section3 {
+  background-color: #f44336;
+  height: 150vh; // Taller section for vertical scrolling
+}
+
+.section4 {
+  background-color: #ff9800;
+}
