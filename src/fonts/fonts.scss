@@ -1,0 +1,25 @@
+/* ---------------- Typography ---------------- */
+
+@font-face {
+  font-family: "PP-regular";
+  src: url("./PPMori-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: auto;
+}
+
+@font-face {
+  font-family: "PP-light";
+  src: url("./PPMori-Extralight.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: auto;
+}
+
+@font-face {
+  font-family: "PP-bold";
+  src: url("./PPMori-SemiBold.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: auto;
+}
