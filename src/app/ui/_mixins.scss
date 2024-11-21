@@ -144,14 +144,6 @@ $breakpoint-desktop: 1024px;
   pointer-events: all;
 }
 
-@mixin small-circle {
-  position: absolute;
-  width: clamp(1em, 1.5vw, 1.5em);
-  height: clamp(1em, 1.5vw, 1.5em);
-  background-color: $color-light;
-  border-radius: 50%;
-}
-
 @mixin next-responsive-image {
   position: relative;
   width: 100%;
