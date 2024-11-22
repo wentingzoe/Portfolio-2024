@@ -6,23 +6,26 @@ import { useMousePosition } from "@/context/MousePositionContext";
 
 const Creative: React.FC = () => {
   const mousePosition = useMousePosition();
-  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  const starRef = useRef<SVGSVGElement | null>(null);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!starRef.current) return;
+
+    gsap.set(starRef.current, {
+      transformOrigin: "center center",
+    });
 
     const starTL = gsap.timeline({ repeat: -1, repeatDelay: 0.5 });
 
     starTL
-      .to(".star", {
+      .to(starRef.current, {
         rotate: 360,
-        transformOrigin: "50% 50%",
         duration: 1,
         stagger: 0.5,
       })
-      .to(".star", {
+      .to(starRef.current, {
         scale: 1.5,
-        transformOrigin: "50% 50%",
         duration: 0.2,
         ease: "power1.out",
         repeat: 1,
@@ -85,14 +88,28 @@ const Creative: React.FC = () => {
           xmlns="http://www.w3.org/2000/svg"
         >
           <path d="M29.4176 127H10.5376V42.2H29.4176V127Z" fill="white" />
-          <path
-            className="star"
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M20.1758 0H19.8436H20.1369C19.6688 11.2156 10.833 20.1588 0 20.1635C10.833 20.1682 19.6688 29.1114 20.1369 40H19.8436H20.1758C20.644 29.1114 29.4798 20.1682 40 20.1635C29.4798 20.1588 20.644 11.2156 20.1758 0Z"
-            fill="var(--color-secondary)"
-          />
         </svg>
+
+        <div className={styles.creative__star}>
+          <svg
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            ref={starRef}
+            style={{
+              transformBox: "fill-box",
+              transformOrigin: "center",
+              overflow: "visible",
+            }}
+          >
+            <path
+              d="M20.1758 0H19.8436H20.1369C19.6688 11.2156 10.833 20.1588 0 20.1635C10.833 20.1682 19.6688 29.1114 20.1369 40H19.8436H20.1758C20.644 29.1114 29.4798 20.1682 40 20.1635C29.4798 20.1588 20.644 11.2156 20.1758 0Z"
+              fill="var(--color-secondary)"
+            />
+          </svg>
+        </div>
       </div>
       <div className={styles.creative__ve}>
         <svg

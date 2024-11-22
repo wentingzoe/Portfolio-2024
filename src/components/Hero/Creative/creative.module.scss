@@ -1,11 +1,11 @@
 .creative {
-  border: blueviolet solid 1px;
   position: relative;
   display: flex;
   flex-direction: row;
   align-items: flex-end;
   z-index: 11;
   min-width: 45.5%;
+  overflow: visible;
 
   &__cr {
     position: relative;
@@ -27,5 +27,14 @@
 
   &__i {
     position: relative;
+    overflow: visible;
+  }
+
+  &__star {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: visible;
   }
 }
