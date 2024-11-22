@@ -3,7 +3,7 @@ import path from 'path';
 const nextConfig = {
   reactStrictMode: true,
   sassOptions: {
-    includePaths: [path.join(__dirname, 'src/app/ui')],
+    includePaths: [path.join(__dirname, 'src/app/')],
     prependData: `
       @import "_variables.scss";
       @import "_mixins.scss";
