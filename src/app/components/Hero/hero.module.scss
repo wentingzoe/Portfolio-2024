@@ -1,8 +1,15 @@
 .hero {
-  position: absolute;
+  position: relative;
   height: 100vh;
   width: 100%;
   display: flex;
+
+  &__title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
   &__bg {
     position: absolute;

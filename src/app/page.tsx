@@ -3,19 +3,13 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import styles from "@/app/ui/page.module.scss";
+import { MousePositionProvider } from "@/app/context/MousePositionContext";
 import Hero from "./components/Hero";
-import FollowEye from "./components/FollowEye";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Home = () => {
   const sectionsRef = useRef<HTMLDivElement>(null);
-  const [mousePosition, setMousePosition] = useState<{
-    x: number;
-    y: number;
-  } | null>(null);
-
-  // Horizontal and Vertical Scrolling
   useEffect(() => {
     const sections = sectionsRef.current?.children;
 
@@ -47,38 +41,23 @@ const Home = () => {
     }
   }, []);
 
-  // Mouse Movement
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-
-    document.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
-
   return (
-    <div ref={sectionsRef} className={styles.container}>
-      <section className={`${styles.section} ${styles.section1}`}>
-        <Hero />
-        <FollowEye
-          backgroundColor="var(--color-secondary)"
-          mousePosition={mousePosition}
-        />
-      </section>
-      <section className={`${styles.section} ${styles.section2}`}>
-        Section 2
-      </section>
-      <section className={`${styles.section} ${styles.section3}`}>
-        Section 3
-      </section>
-      <section className={`${styles.section} ${styles.section4}`}>
-        Section 4
-      </section>
-    </div>
+    <MousePositionProvider>
+      <div ref={sectionsRef} className={styles.container}>
+        <section className={`${styles.section} ${styles.section1}`}>
+          <Hero />
+        </section>
+        <section className={`${styles.section} ${styles.section2}`}>
+          Section 2
+        </section>
+        <section className={`${styles.section} ${styles.section3}`}>
+          Section 3
+        </section>
+        <section className={`${styles.section} ${styles.section4}`}>
+          Section 4
+        </section>
+      </div>
+    </MousePositionProvider>
   );
 };
 
