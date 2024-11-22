@@ -6,6 +6,11 @@
   --section-padding: clamp(5em, 21vh, 12em);
   --container-padding: clamp(2.5em, 8vw, 8em);
   --gap-padding: clamp(1.5em, 4vw, 2.5em);
+
+  --color-primary: #0f0f0f;
+  --color-secondary: #f28705;
+  --color-tertiary: #dcb373;
+  --color-light: #ffffff;
 }
 
 @include respond-to("small") {
