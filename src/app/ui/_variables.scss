@@ -21,9 +21,16 @@ $color-secondary: #f28705;
 $color-tertiary: #dcb373;
 $color-light: #ffffff;
 
-$gradient-90deg: linear-gradient(90deg, $color-secondary, $color-tertiary);
-$gradient-45deg: linear-gradient(45deg, $color-secondary, $color-tertiary);
-$gradient-180deg: linear-gradient(180deg, $color-secondary, $color-tertiary);
+$bg-linear: linear-gradient(
+  309deg,
+  $color-secondary 40.13%,
+  $color-tertiary 67.65%
+);
+$bg-linear-reverse: linear-gradient(
+  302deg,
+  $color-tertiary 34.39%,
+  $color-secondary 51.88%
+);
 
 $color-border: rgba(242, 240, 228, 0.5);
 $color-border-solid: #f2f0e4;
