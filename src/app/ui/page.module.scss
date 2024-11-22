@@ -1,9 +1,9 @@
 .container {
   position: relative;
-  height: 100vh; // Full viewport height
-  width: 100vw; // Full viewport width
-  overflow: hidden; // Prevent scrolling beyond visible sections
-  display: flex; // Flex layout to enable smooth transitions
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
 }
 
 .section {
@@ -11,8 +11,6 @@
   width: 100vw;
   height: 100vh;
   display: flex;
-  // justify-content: center;
-  // align-items: center;
   font-size: 2rem;
   color: white;
 }
