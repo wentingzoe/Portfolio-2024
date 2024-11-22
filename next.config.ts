@@ -1,11 +1,12 @@
-import { join } from 'path';
+import path from 'path';
 
 const nextConfig = {
+  reactStrictMode: true,
   sassOptions: {
-    includePaths: [join(__dirname, 'styles')],
-    additionalData: `
-      @use "@/app/ui/_variables.scss" as *;
-      @use "@/app/ui/_mixins.scss" as *;
+    includePaths: [path.join(__dirname, 'src/app/ui')],
+    prependData: `
+      @import "_variables.scss";
+      @import "_mixins.scss";
     `,
   },
 };
