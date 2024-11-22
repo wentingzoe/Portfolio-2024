@@ -2,11 +2,14 @@
 import React from "react";
 import styles from "./hero.module.scss";
 import Image from "next/image";
+import Creative from "./Creative";
 
 export default function Hero() {
   return (
     <div className={styles.hero}>
-      <div className={styles.hero__title}></div>
+      <div className={styles.hero__title}>
+        <Creative />
+      </div>
       <div className={styles.hero__bg}>
         <Image
           className={styles.hero__image}

@@ -1,0 +1,24 @@
+.creative {
+  border: blueviolet solid 1px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  z-index: 11;
+  min-width: 45.5%;
+
+  &__cr {
+    position: relative;
+    min-width: 11.125rem;
+    min-height: 7.375rem;
+    background-color: var(--color-primary);
+    overflow: hidden;
+  }
+
+  &__e {
+    position: relative;
+    min-width: 5.625rem;
+    min-height: 5.625rem;
+    margin-bottom: 10px;
+  }
+}
