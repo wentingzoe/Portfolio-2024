@@ -12,7 +12,6 @@
     min-width: 11.125rem;
     min-height: 7.375rem;
     background-color: var(--color-primary);
-    overflow: hidden;
   }
 
   &__e {
@@ -20,5 +19,13 @@
     min-width: 5.625rem;
     min-height: 5.625rem;
     margin-bottom: 10px;
+  }
+
+  &__at {
+    position: relative;
+  }
+
+  &__i {
+    position: relative;
   }
 }

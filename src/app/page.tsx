@@ -1,10 +1,10 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import styles from "@/app/ui/page.module.scss";
-import { MousePositionProvider } from "@/app/context/MousePositionContext";
-import Hero from "./components/Hero";
+import styles from "@/app/page.module.scss";
+import { MousePositionProvider } from "@/context/MousePositionContext";
+import Hero from "../components/Hero";
 
 gsap.registerPlugin(ScrollTrigger);
 
