@@ -3,9 +3,9 @@
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-  z-index: 11;
   min-width: 45.5%;
   overflow: visible;
+  z-index: 2;
 
   &__cr {
     position: relative;
