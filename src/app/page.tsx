@@ -20,7 +20,7 @@ const Home = () => {
           pin: true,
           scrub: 1,
           start: "top top",
-          end: "+=600%",
+          end: () => `+=${sectionsRef.current?.scrollWidth}`,
         },
       });
 
