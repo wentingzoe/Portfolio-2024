@@ -7,6 +7,8 @@ const FollowEye: React.FC<{
   mousePosition?: { x: number; y: number } | null;
 }> = ({ backgroundColor, mousePosition }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
+
+  // console.log("FollowEye -> mousePosition", mousePosition);
   useEffect(() => {
     if (!containerRef.current || !mousePosition) return;
 

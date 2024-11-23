@@ -1,32 +1,47 @@
 @import "@/fonts/fonts.scss";
-// @import "@/app/ui/mixins";
-// @import "@/app/ui/variables";
 
 :root {
-  --section-padding: clamp(5em, 21vh, 12em);
-  --container-padding: clamp(2.5em, 8vw, 8em);
-  --gap-padding: clamp(1.5em, 4vw, 2.5em);
-
+  /* ---------------- Color Variables ---------------- */
   --color-primary: #0f0f0f;
   --color-secondary: #f28705;
   --color-tertiary: #dcb373;
   --color-light: #ffffff;
+
+  --bg-linear: linear-gradient(
+    309deg,
+    var(--color-secondary) 40.13%,
+    var(--color-tertiary) 67.65%
+  );
+  --bg-linear-reverse: linear-gradient(
+    302deg,
+    var(--color-tertiary) 34.39%,
+    var(--color-secondary) 51.88%
+  );
+
+  --color-border: rgba(242, 240, 228, 0.5);
+  --color-border-solid: #f2f0e4;
+  --color-border-light: rgba(242, 240, 228, 0.5);
+
+  --color-text-light: #ffffff;
+  --color-text-dark: #1c1d20;
+
+  /* ---------------- Animation variables ---------------- */
+  --animation-primary: all 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+  --animation-fast: all 0.3s cubic-bezier(0.7, 0, 0.3, 1);
+  --animation-smooth: all 0.7s cubic-bezier(0.7, 0, 0.3, 1);
+  --animation-slow: all 0.9s cubic-bezier(0.7, 0, 0.3, 1);
+
+  /* ---------------- Container Padding variables ---------------- */
+  --section-padding: clamp(5em, 21vh, 12em);
+  --container-padding: clamp(1em, 5vw, 5em);
+  --gap-padding: clamp(1.5em, 4vw, 2.5em);
 }
 
-@include respond-to("small") {
-  // :root {
-  //   background-color: $gradient-90deg; //test
-  // }
+@include mobile {
 }
-@include respond-to("medium") {
-  // :root {
-  //   background-color: $color-secondary; //test
-  // }
+@include tablet {
 }
-@include respond-to("large") {
-  // :root {
-  //   background-color: $color-tertiary; //test
-  // }
+@include desktop {
 }
 
 /* ------------------------- Body -------------------------------------------------- */
@@ -35,7 +50,7 @@
   //cursor: none;
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 *,
 *:after,
@@ -61,9 +76,9 @@ body {
   margin: 0px;
   overflow: hidden;
   /* cursor: wait; Add after Preloader*/
-  color: $color-text-dark;
-  //  background-color: $color-primary;
-  font-size: $base-font-size;
+  color: var(--color-text-dark);
+  //  background-color: var(--color-primary);
+  font-size: var(--base-font-size);
   font-size: clamp(16px, 1.2vw, 19px);
 }
 
@@ -100,10 +115,10 @@ strong:last-child {
   margin-bottom: 0;
 }
 h1 {
+  @include responsive-font-size(60px, 160px);
   font-family: "PP-bold", sans-serif;
   font-weight: 450;
   font-style: normal;
-  font-size: $base-h1-size;
   line-height: 1.065;
 }
 h2 {
@@ -153,7 +168,7 @@ p {
   font-family: "PP-light", sans-serif;
   font-weight: 450;
   font-style: normal;
-  color: $color-text-light;
+  color: var(--color-text-light);
   font-size: 1em;
   line-height: 1.66;
   margin-bottom: 1em;

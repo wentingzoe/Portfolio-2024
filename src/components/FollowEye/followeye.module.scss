@@ -1,8 +1,8 @@
 .followeye {
   @include flex-all-center;
-  position: absolute;
-  width: 7rem;
-  height: 7rem;
+  //position: absolute;
+  width: 100%;
+  height: 100%;
   z-index: 10;
 
   &__content {
