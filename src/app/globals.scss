@@ -13,17 +13,17 @@
   --color-light: #ffffff;
 }
 
-@include respond-to("small") {
+@include mobile {
   // :root {
   //   background-color: $gradient-90deg; //test
   // }
 }
-@include respond-to("medium") {
+@include tablet {
   // :root {
   //   background-color: $color-secondary; //test
   // }
 }
-@include respond-to("large") {
+@include desktop {
   // :root {
   //   background-color: $color-tertiary; //test
   // }
@@ -101,10 +101,10 @@ strong:last-child {
   margin-bottom: 0;
 }
 h1 {
+  @include responsive-font-size(60px, 160px);
   font-family: "PP-bold", sans-serif;
   font-weight: 450;
   font-style: normal;
-  font-size: $base-h1-size;
   line-height: 1.065;
 }
 h2 {
