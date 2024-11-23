@@ -51,7 +51,6 @@
   //cursor: none;
   margin: 0;
   padding: 0;
-  overflow: hidden;
 }
 *,
 *:after,
@@ -75,10 +74,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0px;
-  overflow: hidden;
-  /* cursor: wait; Add after Preloader*/
+  overflow-x: hidden;
+  overflow-y: auto;
   color: var(--color-text-dark);
-  //  background-color: var(--color-primary);
+
   font-size: var(--base-font-size);
   font-size: clamp(16px, 1.2vw, 19px);
 }
