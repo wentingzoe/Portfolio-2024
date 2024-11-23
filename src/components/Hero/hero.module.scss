@@ -5,11 +5,10 @@
   display: flex;
 
   &__title {
-    display: flex;
-    flex-direction: column;
+    @include flex-column;
+
     justify-content: center;
-    // align-items: center;
-    border: ghostwhite 1px solid;
+    // border: ghostwhite 1px solid;
     z-index: 10;
   }
 
