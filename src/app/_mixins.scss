@@ -1,3 +1,4 @@
+@use "sass:math";
 /* ----------------  Define breakpoints ---------------- */
 
 // Breakpoints
@@ -26,7 +27,7 @@ $breakpoint-desktop: 1024px;
 
 // Responsive Clamp
 @function responsive-clamp($min, $max, $min-viewport, $max-viewport) {
-  $scaling-factor: ($max - $min) / ($max-viewport - $min-viewport);
+  $scaling-factor: math.div($max - $min, $max-viewport - $min-viewport);
   @return clamp(
     #{$min},
     calc(#{$min} + (100vw - #{$min-viewport}) * #{$scaling-factor}),
