@@ -1,0 +1,31 @@
+.titles {
+  position: relative;
+  height: responsive-clamp(
+    60px,
+    160px,
+    $breakpoint-mobile,
+    $breakpoint-desktop
+  );
+  width: responsive-clamp(
+    295px,
+    840px,
+    $breakpoint-mobile,
+    $breakpoint-desktop
+  );
+  overflow: hidden;
+  text-align: start;
+
+  &__item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  &__letter {
+    @include responsive-font-size(60px, 160px);
+    display: inline-block;
+    line-height: 1;
+    color: var(--color-text-light);
+  }
+}
