@@ -1,23 +1,4 @@
 /* ----------------  Define breakpoints ---------------- */
-$breakpoints: (
-  "small": 540px,
-  // Mobile devices
-  "medium": 768px,
-  // Tablets
-  "large": 1024px,
-  // Small desktops
-);
-
-/** ----  for responsive design ---- **/
-@mixin respond-to($breakpoint) {
-  @if map-has-key($breakpoints, $breakpoint) {
-    @media (min-width: map-get($breakpoints, $breakpoint)) {
-      @content;
-    }
-  } @else {
-    @warn "Unknown breakpoint: #{$breakpoint}.";
-  }
-}
 
 // Breakpoints
 $breakpoint-mobile: 540px;
@@ -42,6 +23,30 @@ $breakpoint-desktop: 1024px;
     @content;
   }
 }
+
+// Responsive Clamp
+@function responsive-clamp($min, $max, $min-viewport, $max-viewport) {
+  $scaling-factor: ($max - $min) / ($max-viewport - $min-viewport);
+  @return clamp(
+    #{$min},
+    calc(#{$min} + (100vw - #{$min-viewport}) * #{$scaling-factor}),
+    #{$max}
+  );
+}
+
+// Mixin for Responsive Font Size
+@mixin responsive-font-size($min-size, $max-size) {
+  $min-viewport: $breakpoint-mobile;
+  $max-viewport: $breakpoint-desktop;
+
+  font-size: responsive-clamp(
+    $min-size,
+    $max-size,
+    $min-viewport,
+    $max-viewport
+  );
+}
+
 /* ----------------  Display Flex variables ---------------- */
 @mixin flex-cross-center {
   display: flex;

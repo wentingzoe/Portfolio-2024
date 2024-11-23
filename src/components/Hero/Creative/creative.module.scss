@@ -1,0 +1,40 @@
+.creative {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  min-width: 45.5%;
+  overflow: visible;
+  z-index: 2;
+
+  &__cr {
+    position: relative;
+    min-width: 11.125rem;
+    min-height: 7.375rem;
+    background-color: var(--color-primary);
+  }
+
+  &__e {
+    position: relative;
+    min-width: 5.625rem;
+    min-height: 5.625rem;
+    margin-bottom: 10px;
+  }
+
+  &__at {
+    position: relative;
+  }
+
+  &__i {
+    position: relative;
+    overflow: visible;
+  }
+
+  &__star {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: visible;
+  }
+}

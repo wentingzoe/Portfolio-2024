@@ -16,18 +16,18 @@
 }
 
 .section1 {
-  background: $bg-linear;
+  background: var(--bg-linear);
 }
 
 .section2 {
-  background: $bg-linear-reverse;
+  background: var(--bg-linear-reverse);
 }
 
 .section3 {
-  background-color: $color-primary;
+  background-color: var(--color-primary);
   height: 150vh;
 }
 
 .section4 {
-  background: $bg-linear;
+  background: var(--bg-linear);
 }
