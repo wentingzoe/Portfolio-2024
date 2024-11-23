@@ -4,7 +4,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import styles from "@/app/page.module.scss";
 import { MousePositionProvider } from "@/context/MousePositionContext";
-import Hero from "../components/Hero";
+import Hero from "../components/Hero/Hero";
 
 gsap.registerPlugin(ScrollTrigger);
 
