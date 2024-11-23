@@ -23,7 +23,6 @@
   }
 
   &__letter {
-    @include responsive-font-size(60px, 160px);
     display: inline-block;
     line-height: 1;
     color: var(--color-text-light);
