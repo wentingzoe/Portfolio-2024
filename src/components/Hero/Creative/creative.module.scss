@@ -1,35 +1,43 @@
 @use "@/app/mixins" as *;
 
 .creative {
-  position: relative;
   display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  min-width: 45.5%;
+  align-items: baseline;
   overflow: visible;
   z-index: 2;
 
-  &__cr {
-    position: relative;
-    min-width: 11.125rem;
-    min-height: 7.375rem;
-    background-color: var(--color-primary);
-  }
+  margin-bottom: -4.2%;
 
-  &__e {
-    position: relative;
-    min-width: 5.625rem;
-    min-height: 5.625rem;
-    margin-bottom: 10px;
-  }
-
-  &__at {
-    position: relative;
+  &__eye {
+    width: responsive-clamp(
+      38px,
+      90px,
+      $breakpoint-mobile,
+      $breakpoint-desktop
+    );
+    height: responsive-clamp(
+      38px,
+      90px,
+      $breakpoint-mobile,
+      $breakpoint-desktop
+    );
   }
 
   &__i {
     position: relative;
     overflow: visible;
+    width: responsive-clamp(
+      16.56px,
+      40px,
+      $breakpoint-mobile,
+      $breakpoint-desktop
+    );
+    max-height: responsive-clamp(
+      52.59px,
+      127px,
+      $breakpoint-mobile,
+      $breakpoint-desktop
+    );
   }
 
   &__star {
@@ -38,5 +46,12 @@
     left: 0;
     width: 100%;
     overflow: visible;
+  }
+
+  .responsiveSvg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
   }
 }
