@@ -1,9 +1,18 @@
+@use "mixins" as *;
+
 .container {
   position: relative;
   height: 100vh;
-  width: 100vw;
   overflow: hidden;
   display: flex;
+
+  @media (max-width: #{$breakpoint-desktop - 1}) {
+    width: 100vw;
+    height: auto;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
 }
 
 .section {
@@ -13,6 +22,11 @@
   display: flex;
   font-size: 2rem;
   color: white;
+
+  @media (max-width: #{$breakpoint-desktop - 1}) {
+    position: relative;
+    transform: none !important;
+  }
 }
 
 .section1 {
