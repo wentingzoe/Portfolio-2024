@@ -1,3 +1,4 @@
+@use "@/app/mixins" as *;
 .titles {
   position: relative;
   height: responsive-clamp(
