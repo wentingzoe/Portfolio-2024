@@ -59,7 +59,12 @@ const FollowEye: React.FC<{
   return (
     <div className={`${styles.followeye} box`} ref={containerRef}>
       <div className={styles.followeye__content}>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="xMidYMid meet"
+          className={styles.responsiveSvg}
+        >
           <defs>
             <clipPath id="clip-mask">
               <path
