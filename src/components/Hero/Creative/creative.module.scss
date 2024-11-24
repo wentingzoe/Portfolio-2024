@@ -6,12 +6,7 @@
   overflow: visible;
   z-index: 2;
 
-  margin-bottom: responsive-clamp(
-    -16px,
-    -60px,
-    $breakpoint-mobile,
-    $breakpoint-desktop
-  );
+  margin-bottom: -4.2%;
 
   &__eye {
     width: responsive-clamp(
