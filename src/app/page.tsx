@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -6,13 +7,18 @@ import styles from "@/app/page.module.scss";
 import { MousePositionProvider } from "@/context/MousePositionContext";
 import Hero from "../components/Hero/Hero";
 
-gsap.registerPlugin(ScrollTrigger);
-
 const DESKTOP_BREAKPOINT = 1024;
 
 const Home = () => {
   const sectionsRef = useRef<HTMLDivElement>(null);
   const [isDesktop, setIsDesktop] = useState(false);
+
+  // Ensure ScrollTrigger is registered only on the client
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      gsap.registerPlugin(ScrollTrigger);
+    }
+  }, []);
 
   // Handle resize and check screen width
   useEffect(() => {
@@ -92,22 +98,24 @@ const Home = () => {
   }, [isDesktop]);
 
   return (
-    <MousePositionProvider>
-      <div ref={sectionsRef} className={styles.container}>
-        <section className={`${styles.section} ${styles.section1}`}>
-          <Hero />
-        </section>
-        <section className={`${styles.section} ${styles.section2}`}>
-          Section 2
-        </section>
-        <section className={`${styles.section} ${styles.section3}`}>
-          Section 3
-        </section>
-        <section className={`${styles.section} ${styles.section4}`}>
-          Section 4
-        </section>
-      </div>
-    </MousePositionProvider>
+    <main>
+      <MousePositionProvider>
+        <div ref={sectionsRef} className={styles.container}>
+          <section className={`${styles.section} ${styles.section1}`}>
+            <Hero />
+          </section>
+          <section className={`${styles.section} ${styles.section2}`}>
+            Section 2
+          </section>
+          <section className={`${styles.section} ${styles.section3}`}>
+            Section 3
+          </section>
+          <section className={`${styles.section} ${styles.section4}`}>
+            Section 4
+          </section>
+        </div>
+      </MousePositionProvider>
+    </main>
   );
 };
 
