@@ -51,7 +51,6 @@
   //cursor: none;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 *,
 *:after,
@@ -83,6 +82,15 @@ body {
   font-size: clamp(16px, 1.2vw, 19px);
 }
 
+/* Hide scrollbar */
+html,
+body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
 /* Typography */
 h1,
 h2,
