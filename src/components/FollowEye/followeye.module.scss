@@ -1,3 +1,5 @@
+@use "@/app/mixins" as *;
+
 .followeye {
   @include flex-all-center;
   //position: absolute;
