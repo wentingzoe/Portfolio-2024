@@ -2,8 +2,8 @@
 import React from "react";
 import styles from "./hero.module.scss";
 import Image from "next/image";
-import Creative from "./Creative/Creative";
-import Titles from "./Titles/Titles";
+import Creative from "./Creative";
+import Titles from "./Titles";
 
 export default function Hero() {
   return (
