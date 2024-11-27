@@ -1,35 +1,15 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import styles from "./floatingbox.module.scss";
+import { useBreakpoint } from "@/context/BreakpointContext";
 
 const FloatingBox: React.FC = () => {
+  const breakpoint = useBreakpoint();
   const floatingRectRef = useRef<SVGRectElement>(null);
   const fixedRectRef = useRef<SVGRectElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
-  const [breakpoint, setBreakpoint] = useState("desktop");
-
-  useEffect(() => {
-    const updateBreakpoint = () => {
-      const width = window.innerWidth;
-
-      if (width <= 540) {
-        setBreakpoint("mobile");
-      } else if (width <= 820) {
-        setBreakpoint("tablet");
-      } else {
-        setBreakpoint("desktop");
-      }
-    };
-
-    updateBreakpoint(); // Set initial breakpoint
-    window.addEventListener("resize", updateBreakpoint);
-
-    return () => {
-      window.removeEventListener("resize", updateBreakpoint);
-    };
-  }, []);
 
   useEffect(() => {
     const floatingRect = floatingRectRef.current;
@@ -95,15 +75,12 @@ const FloatingBox: React.FC = () => {
       if (breakpoint === "desktop") {
         xMax = initialFloatingX - rectSize;
         yMax = initialFloatingY - rectSize / 4;
-        console.log("xMax: ", xMax, "yMax: ", yMax);
       } else if (breakpoint === "tablet") {
         xMax = initialFloatingX - rectSize / 2;
         yMax = initialFloatingY - rectSize / 4;
-        console.log("xMax: ", xMax, "yMax: ", yMax);
       } else if (breakpoint === "mobile") {
         xMax = initialFloatingX - rectSize / 2;
         yMax = initialFloatingY - rectSize;
-        console.log("xMax: ", xMax, "yMax: ", yMax);
       }
 
       gsap.to(floatingRect, {
