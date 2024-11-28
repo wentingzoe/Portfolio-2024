@@ -27,8 +27,6 @@
     width: 35%;
     align-items: stretch;
 
-    border: rebeccapurple 1px solid;
-
     &__fn {
       color: var(--color-secondary);
     }
@@ -49,7 +47,6 @@
     display: flex;
     position: relative;
     width: 20%;
-    border: rebeccapurple 1px solid;
 
     justify-content: space-between;
     align-items: center;
@@ -59,7 +56,6 @@
       width: 2em;
       height: 2em;
       width: 10;
-      border: rebeccapurple 1px solid;
     }
 
     &__time {
