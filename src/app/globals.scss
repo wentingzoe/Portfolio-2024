@@ -131,10 +131,10 @@ h1 {
   line-height: 1.065;
 }
 h2 {
+  @include responsive-font-size(18px, 48px);
   font-family: "PP-bold", sans-serif;
   font-weight: 450;
   font-style: normal;
-  font-size: clamp(2.66em, 4.65vw, 5.32em);
   line-height: 1.065;
 }
 
@@ -174,18 +174,17 @@ span {
 }
 
 p {
+  @include responsive-font-size(12px, 18px);
   font-family: "PP-light", sans-serif;
   font-weight: 450;
   font-style: normal;
   color: var(--color-text-light);
-  font-size: 1em;
-  line-height: 1.66;
-  margin-bottom: 1em;
+  line-height: 1.1;
 }
 
 p.small {
-  font-size: 0.8em;
-  line-height: 1.75;
+  @include responsive-font-size(10px, 14px);
+  line-height: 1.05;
   letter-spacing: 0.015em;
 }
 
