@@ -1,36 +1,14 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./hero.module.scss";
 import Image from "next/image";
 import Creative from "./Creative";
 import Titles from "./Titles";
 import FloatingBox from "./FloatingBox";
+import { useCurrentTime } from "@/hooks/useCurrentTime";
 
 export default function Hero() {
-  const [currentTime, setCurrentTime] = useState<string>("");
-
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      const options: Intl.DateTimeFormatOptions = {
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: true,
-      };
-      const formattedTime = now.toLocaleTimeString("en-US", options);
-      setCurrentTime(formattedTime);
-    };
-
-    // Update time initially
-    updateTime();
-
-    // Set interval to update time every second
-    const intervalId = setInterval(updateTime, 1000);
-
-    // Clean up the interval on unmount
-    return () => clearInterval(intervalId);
-  }, []);
+  const currentTime = useCurrentTime("en-US", { timeZone: "America/Toronto" });
 
   return (
     <div className={styles.hero}>
