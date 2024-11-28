@@ -5,15 +5,11 @@ import Image from "next/image";
 import Creative from "./Creative";
 import Titles from "./Titles";
 import FloatingBox from "./FloatingBox";
-import { BreakpointProvider } from "@/context/BreakpointContext";
 
 export default function Hero() {
   return (
     <div className={styles.hero}>
-      <BreakpointProvider>
-        <FloatingBox />
-      </BreakpointProvider>
-
+      <FloatingBox />
       <div className={styles.hero__content}>
         <div className={styles.hero__name}>
           <h2 className={styles.hero__name__fn}>Wenting</h2>
