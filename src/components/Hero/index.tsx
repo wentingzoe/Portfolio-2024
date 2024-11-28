@@ -36,7 +36,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* 
       <div className={styles.hero__portrait}>
         <Image
           className={styles.hero__image}
@@ -45,7 +44,7 @@ export default function Hero() {
           fill
           priority
         />
-      </div> */}
+      </div>
     </div>
   );
 }
