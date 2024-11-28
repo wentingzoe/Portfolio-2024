@@ -34,7 +34,7 @@ const FloatingBox: React.FC = () => {
       const svgHeight = svg.clientHeight;
 
       const rectSize = Math.min(svgWidth, svgHeight) * 0.15;
-      const smallRectSize = rectSize * 0.5;
+      const smallRectSize = rectSize * 0.4;
 
       let fixedRectWidth = 0;
       let fixedRectHeight = 0;
@@ -74,8 +74,8 @@ const FloatingBox: React.FC = () => {
         finalFloatingY = initialFloatingY - rectSize / 4;
 
         // Small rectangle positions
-        initialSmallX = fixedRectWidth - smallRectSize / 2;
-        initialSmallY = fixedRectHeight * 0.5 - smallRectSize / 2;
+        initialSmallX = fixedRectWidth - smallRectSize * 2;
+        initialSmallY = fixedRectHeight * 0.6 - smallRectSize / 2;
         finalSmallX = initialSmallX - smallRectSize * 2;
         finalSmallY = initialSmallY - smallRectSize;
       } else if (breakpoint === "mobile") {
