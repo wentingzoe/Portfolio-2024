@@ -1,3 +1,4 @@
+"use client";
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 type Breakpoint = "mobile" | "tablet" | "desktop";
@@ -13,9 +14,9 @@ export const BreakpointProvider: React.FC<{ children: React.ReactNode }> = ({
     const updateBreakpoint = () => {
       const width = window.innerWidth;
 
-      if (width <= 540) {
+      if (width <= 840) {
         setBreakpoint("mobile");
-      } else if (width <= 820) {
+      } else if (width <= 1024) {
         setBreakpoint("tablet");
       } else {
         setBreakpoint("desktop");
