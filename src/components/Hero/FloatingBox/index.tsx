@@ -8,98 +8,167 @@ import { useBreakpoint } from "@/context/BreakpointContext";
 const FloatingBox: React.FC = () => {
   const breakpoint = useBreakpoint();
   const floatingRectRef = useRef<SVGRectElement>(null);
+  const smallRectRef = useRef<SVGRectElement>(null);
   const fixedRectRef = useRef<SVGRectElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
+  const groupRef = useRef<SVGGElement>(null);
 
   useEffect(() => {
-    const floatingRect = floatingRectRef.current;
     const fixedRect = fixedRectRef.current;
+    const floatingRect = floatingRectRef.current;
+    const smallRect = smallRectRef.current;
     const svg = svgRef.current;
+    const group = groupRef.current;
 
-    if (!floatingRect || !fixedRect || !svg) return;
+    if (!fixedRect || !floatingRect || !smallRect || !svg || !group) return;
 
-    let svgWidth = svg.clientWidth;
-    let svgHeight = svg.clientHeight;
-    let rectSize: number;
-    let fixedRectWidth: number;
-    let fixedRectHeight: number;
-    let initialFloatingX: number;
-    let initialFloatingY: number;
+    let floatingRectAnimation: gsap.core.Tween;
+    let smallRectAnimation: gsap.core.Tween;
 
     const updateDimensions = () => {
-      svgWidth = svg.clientWidth;
-      svgHeight = svg.clientHeight;
+      // Kill existing animations
+      if (floatingRectAnimation) floatingRectAnimation.kill();
+      if (smallRectAnimation) smallRectAnimation.kill();
 
+      const svgWidth = svg.clientWidth;
+      const svgHeight = svg.clientHeight;
+
+      const rectSize = Math.min(svgWidth, svgHeight) * 0.15;
+      const smallRectSize = rectSize * 0.5;
+
+      let fixedRectWidth = 0;
+      let fixedRectHeight = 0;
+      let initialFloatingX = 0;
+      let initialFloatingY = 0;
+      let finalFloatingX = 0;
+      let finalFloatingY = 0;
+      let initialSmallX = 0;
+      let initialSmallY = 0;
+      let finalSmallX = 0;
+      let finalSmallY = 0;
+
+      // Calculate positions based on breakpoint
       if (breakpoint === "desktop") {
-        // Desktop settings
-        rectSize = Math.min(svgWidth, svgHeight) * 0.15;
         fixedRectWidth = svgWidth * 0.53;
         fixedRectHeight = svgHeight;
+
+        // Floating rectangle positions
         initialFloatingX = fixedRectWidth - rectSize / 2;
         initialFloatingY = fixedRectHeight * 0.2 - rectSize / 2;
+        finalFloatingX = initialFloatingX - rectSize;
+        finalFloatingY = initialFloatingY - rectSize / 4;
+
+        // Small rectangle positions
+        initialSmallX = fixedRectWidth - smallRectSize / 2;
+        initialSmallY = fixedRectHeight * 0.8 - smallRectSize / 2;
+        finalSmallX = initialSmallX - smallRectSize * 2;
+        finalSmallY = initialSmallY - smallRectSize;
       } else if (breakpoint === "tablet") {
-        // Tablet settings
-        rectSize = Math.min(svgWidth, svgHeight) * 0.15;
-        fixedRectWidth = Math.min(svgWidth, svgHeight) * 0.8; // Square
+        fixedRectWidth = Math.min(svgWidth, svgHeight) * 0.8;
         fixedRectHeight = fixedRectWidth;
+
+        // Floating rectangle positions
         initialFloatingX = fixedRectWidth - rectSize / 2;
         initialFloatingY = fixedRectHeight * 0.5 - rectSize / 2;
+        finalFloatingX = initialFloatingX - rectSize / 2;
+        finalFloatingY = initialFloatingY - rectSize / 4;
+
+        // Small rectangle positions
+        initialSmallX = fixedRectWidth - smallRectSize / 2;
+        initialSmallY = fixedRectHeight * 0.5 - smallRectSize / 2;
+        finalSmallX = initialSmallX - smallRectSize * 2;
+        finalSmallY = initialSmallY - smallRectSize;
       } else if (breakpoint === "mobile") {
-        // Mobile settings
-        rectSize = Math.min(svgWidth, svgHeight) * 0.15;
         fixedRectWidth = svgHeight;
         fixedRectHeight = svgHeight * 0.7;
+
+        // Floating rectangle positions
         initialFloatingX = fixedRectWidth * 0.2 - rectSize / 2;
         initialFloatingY = fixedRectHeight - rectSize / 2;
+        finalFloatingX = initialFloatingX - rectSize / 2;
+        finalFloatingY = initialFloatingY - rectSize;
+
+        // Small rectangle positions
+        initialSmallX = fixedRectWidth * 0.8 - smallRectSize / 2;
+        initialSmallY = fixedRectHeight * 0.2 - smallRectSize / 2;
+        finalSmallX = initialSmallX - smallRectSize;
+        finalSmallY = initialSmallY - smallRectSize * 2;
       }
 
-      // Update fixed rectangle attributes
-      fixedRect.setAttribute("width", fixedRectWidth.toString());
-      fixedRect.setAttribute("height", fixedRectHeight.toString());
+      // Set initial attributes
+      gsap.set(fixedRect, {
+        attr: {
+          width: fixedRectWidth,
+          height: fixedRectHeight,
+          x: 0,
+          y: 0,
+        },
+      });
 
-      // Update floating rectangle attributes
-      floatingRect.setAttribute("width", rectSize.toString());
-      floatingRect.setAttribute("height", rectSize.toString());
       gsap.set(floatingRect, {
+        attr: {
+          width: rectSize,
+          height: rectSize,
+        },
+      });
+
+      gsap.set(smallRect, {
+        attr: {
+          width: smallRectSize,
+          height: smallRectSize,
+        },
+      });
+
+      // Animate rectangles to new initial positions
+      gsap.to(floatingRect, {
         attr: {
           x: initialFloatingX,
           y: initialFloatingY,
         },
-      });
-    };
-
-    const animateFloatingRect = () => {
-      // Adjust animation bounds based on breakpoint
-      let xMax: number = 0,
-        yMax: number = 0;
-      if (breakpoint === "desktop") {
-        xMax = initialFloatingX - rectSize;
-        yMax = initialFloatingY - rectSize / 4;
-      } else if (breakpoint === "tablet") {
-        xMax = initialFloatingX - rectSize / 2;
-        yMax = initialFloatingY - rectSize / 4;
-      } else if (breakpoint === "mobile") {
-        xMax = initialFloatingX - rectSize / 2;
-        yMax = initialFloatingY - rectSize;
-      }
-
-      gsap.to(floatingRect, {
-        attr: {
-          // x: () => Math.random() * xMax,
-          // y: () => Math.random() * yMax,
-          x: xMax,
-          y: yMax,
+        duration: 0.5,
+        ease: "power1.out",
+        onComplete: () => {
+          // Start movement animation
+          floatingRectAnimation = gsap.to(floatingRect, {
+            attr: {
+              x: finalFloatingX,
+              y: finalFloatingY,
+            },
+            duration: 3,
+            ease: "sine.inOut",
+            repeat: -1,
+            yoyo: true,
+          });
         },
-        duration: 4,
-        ease: "sine.inOut",
-        repeat: -1,
-        yoyo: true,
+      });
+
+      gsap.to(smallRect, {
+        attr: {
+          x: initialSmallX,
+          y: initialSmallY,
+        },
+        duration: 0.5,
+        ease: "power1.out",
+        onComplete: () => {
+          // Start movement animation
+          smallRectAnimation = gsap.to(smallRect, {
+            attr: {
+              x: finalSmallX,
+              y: finalSmallY,
+            },
+            duration: 3,
+            ease: "sine.inOut",
+            repeat: -1,
+            yoyo: true,
+          });
+        },
       });
     };
 
+    // Initial update
     updateDimensions();
-    animateFloatingRect();
 
+    // Update on resize
     const handleResize = () => {
       updateDimensions();
     };
@@ -108,6 +177,8 @@ const FloatingBox: React.FC = () => {
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      if (floatingRectAnimation) floatingRectAnimation.kill();
+      if (smallRectAnimation) smallRectAnimation.kill();
     };
   }, [breakpoint]);
 
@@ -119,16 +190,23 @@ const FloatingBox: React.FC = () => {
             {/* Input images */}
             <feImage xlinkHref="#fixedRect" result="fixed" />
             <feImage xlinkHref="#floatingRect" result="floating" />
+            <feImage xlinkHref="#smallRect" result="small" />
+
+            {/* Combine floatingRect and smallRect */}
+            <feMerge result="floatingCombined">
+              <feMergeNode in="floating" />
+              <feMergeNode in="small" />
+            </feMerge>
 
             {/* Create the overlap area */}
             <feComposite
               in="fixed"
-              in2="floating"
+              in2="floatingCombined"
               operator="in"
               result="overlap"
             />
 
-            {/* Subtract the overlap from both shapes */}
+            {/* Subtract the overlap from fixedRect and floatingCombined */}
             <feComposite
               in="fixed"
               in2="overlap"
@@ -136,7 +214,7 @@ const FloatingBox: React.FC = () => {
               result="fixedFinal"
             />
             <feComposite
-              in="floating"
+              in="floatingCombined"
               in2="overlap"
               operator="out"
               result="floatingFinal"
@@ -149,30 +227,20 @@ const FloatingBox: React.FC = () => {
             </feMerge>
           </filter>
         </defs>
-
-        {/* Group the shapes and apply the filter */}
-        <g filter="url(#subtract-overlap)">
+        {/* Apply the filter to the group and set ref */}
+        <g filter="url(#subtract-overlap)" ref={groupRef}>
           {/* Fixed rectangle */}
-          <rect
-            id="fixedRect"
-            ref={fixedRectRef}
-            x="0"
-            y="0"
-            width="0"
-            height="0"
-            fill="black"
-          />
-
+          <rect id="fixedRect" ref={fixedRectRef} x="0" y="0" fill="black" />
           {/* Floating rectangle */}
           <rect
             id="floatingRect"
             ref={floatingRectRef}
             x="0"
             y="0"
-            width="0"
-            height="0"
             fill="black"
           />
+          {/* Small rectangle */}
+          <rect id="smallRect" ref={smallRectRef} x="0" y="0" fill="black" />
         </g>
       </svg>
     </div>
