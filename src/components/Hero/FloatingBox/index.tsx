@@ -22,80 +22,111 @@ const FloatingBox: React.FC = () => {
 
     if (!fixedRect || !floatingRect || !smallRect || !svg || !group) return;
 
-    let floatingRectAnimation: gsap.core.Tween;
-    let smallRectAnimation: gsap.core.Tween;
+    let floatingRectTween: gsap.core.Tween;
+    let smallRectTween: gsap.core.Tween;
+
+    const animateFloatingRect = () => {
+      // Define movement area for floatingRect
+      let minX = 0;
+      let maxX = 0;
+      let minY = 0;
+      let maxY = 0;
+
+      if (breakpoint === "desktop") {
+        minX = fixedRectWidth - rectSize;
+        maxX = fixedRectWidth + rectSize * 0.3;
+        minY = fixedRectHeight * 0.15;
+        maxY = fixedRectHeight * 0.25 - rectSize;
+      } else if (breakpoint === "tablet") {
+        minX = fixedRectWidth * 0.15;
+        maxX = fixedRectWidth * 0.25 - rectSize;
+        minY = fixedRectHeight - rectSize * 0.8;
+        maxY = fixedRectHeight + rectSize * 0.1;
+      } else if (breakpoint === "mobile") {
+        minX = fixedRectWidth * 0.1;
+        maxX = fixedRectWidth * 0.2 - rectSize;
+        minY = fixedRectHeight - rectSize * 0.8;
+        maxY = fixedRectHeight + rectSize * 0.1;
+      }
+      // Generate random positions within the area
+      const randomX = gsap.utils.random(minX, maxX);
+      const randomY = gsap.utils.random(minY, maxY);
+
+      // Animate to random position
+      floatingRectTween = gsap.to(floatingRect, {
+        attr: { x: randomX, y: randomY },
+        duration: gsap.utils.random(1, 3),
+        ease: "sine.inOut",
+        onComplete: animateFloatingRect, // Recursively animate
+      });
+    };
+
+    const animateSmallRect = () => {
+      // Define movement area for smallRect
+
+      let minX = 0;
+      let maxX = 0;
+      let minY = 0;
+      let maxY = 0;
+      if (breakpoint === "desktop") {
+        minX = fixedRectWidth;
+        maxX = fixedRectWidth + smallRectSize * 0.3;
+        minY = fixedRectHeight * 0.75;
+        maxY = fixedRectHeight * 0.85 - smallRectSize;
+      } else if (breakpoint === "tablet") {
+        minX = fixedRectWidth - smallRectSize;
+        maxX = fixedRectWidth + smallRectSize * 2;
+        minY = fixedRectHeight * 0.15 - smallRectSize * 0.5;
+        maxY = fixedRectHeight * 0.25;
+      } else if (breakpoint === "mobile") {
+        minX = fixedRectWidth * 0.7 - smallRectSize;
+        maxX = fixedRectWidth * 0.8;
+        minY = fixedRectHeight * 0.15 - smallRectSize * 0.5;
+        maxY = fixedRectHeight * 0.25;
+      }
+
+      // Generate random positions within the area
+      const randomX = gsap.utils.random(minX, maxX);
+      const randomY = gsap.utils.random(minY, maxY);
+
+      // Animate to random position
+      smallRectTween = gsap.to(smallRect, {
+        attr: { x: randomX, y: randomY },
+        duration: gsap.utils.random(2, 4),
+        ease: "sine.inOut",
+        onComplete: animateSmallRect,
+      });
+    };
+
+    let fixedRectWidth = 0;
+    let fixedRectHeight = 0;
+    let rectSize = 0;
+    let smallRectSize = 0;
 
     const updateDimensions = () => {
       // Kill existing animations
-      if (floatingRectAnimation) floatingRectAnimation.kill();
-      if (smallRectAnimation) smallRectAnimation.kill();
+      if (floatingRectTween) floatingRectTween.kill();
+      if (smallRectTween) smallRectTween.kill();
 
       const svgWidth = svg.clientWidth;
       const svgHeight = svg.clientHeight;
 
-      const rectSize = Math.min(svgWidth, svgHeight) * 0.15;
-      const smallRectSize = rectSize * 0.4;
+      rectSize = Math.min(svgWidth, svgHeight) * 0.15;
+      smallRectSize = rectSize * 0.4;
 
-      let fixedRectWidth = 0;
-      let fixedRectHeight = 0;
-      let initialFloatingX = 0;
-      let initialFloatingY = 0;
-      let finalFloatingX = 0;
-      let finalFloatingY = 0;
-      let initialSmallX = 0;
-      let initialSmallY = 0;
-      let finalSmallX = 0;
-      let finalSmallY = 0;
-
-      // Calculate positions based on breakpoint
+      // Calculate fixed rectangle dimensions based on breakpoint
       if (breakpoint === "desktop") {
         fixedRectWidth = svgWidth * 0.53;
         fixedRectHeight = svgHeight;
-
-        // Floating rectangle positions
-        initialFloatingX = fixedRectWidth - rectSize / 2;
-        initialFloatingY = fixedRectHeight * 0.2 - rectSize / 2;
-        finalFloatingX = initialFloatingX - rectSize;
-        finalFloatingY = initialFloatingY - rectSize / 4;
-
-        // Small rectangle positions
-        initialSmallX = fixedRectWidth - smallRectSize / 2;
-        initialSmallY = fixedRectHeight * 0.8 - smallRectSize / 2;
-        finalSmallX = initialSmallX - smallRectSize * 2;
-        finalSmallY = initialSmallY - smallRectSize;
       } else if (breakpoint === "tablet") {
         fixedRectWidth = Math.min(svgWidth, svgHeight) * 0.8;
         fixedRectHeight = fixedRectWidth;
-
-        // Floating rectangle positions
-        initialFloatingX = fixedRectWidth - rectSize / 2;
-        initialFloatingY = fixedRectHeight * 0.5 - rectSize / 2;
-        finalFloatingX = initialFloatingX - rectSize / 2;
-        finalFloatingY = initialFloatingY - rectSize / 4;
-
-        // Small rectangle positions
-        initialSmallX = fixedRectWidth - smallRectSize * 2;
-        initialSmallY = fixedRectHeight * 0.6 - smallRectSize / 2;
-        finalSmallX = initialSmallX - smallRectSize * 2;
-        finalSmallY = initialSmallY - smallRectSize;
       } else if (breakpoint === "mobile") {
         fixedRectWidth = svgHeight;
-        fixedRectHeight = svgHeight * 0.7;
-
-        // Floating rectangle positions
-        initialFloatingX = fixedRectWidth * 0.2 - rectSize / 2;
-        initialFloatingY = fixedRectHeight - rectSize / 2;
-        finalFloatingX = initialFloatingX - rectSize / 2;
-        finalFloatingY = initialFloatingY - rectSize;
-
-        // Small rectangle positions
-        initialSmallX = fixedRectWidth * 0.8 - smallRectSize / 2;
-        initialSmallY = fixedRectHeight * 0.2 - smallRectSize / 2;
-        finalSmallX = initialSmallX - smallRectSize;
-        finalSmallY = initialSmallY - smallRectSize * 2;
+        fixedRectHeight = svgHeight * 0.5;
       }
 
-      // Set initial attributes
+      // Set fixed rectangle attributes
       gsap.set(fixedRect, {
         attr: {
           width: fixedRectWidth,
@@ -105,10 +136,74 @@ const FloatingBox: React.FC = () => {
         },
       });
 
+      // Set initial positions of floating rectangles within the area
+      let floatingRectInitX = 0;
+      let floatingRectInitY = 0;
+      let smallRectInitX = 0;
+      let smallRectInitY = 0;
+      if (breakpoint === "desktop") {
+        floatingRectInitX = gsap.utils.random(
+          fixedRectWidth - rectSize * 1.2,
+          fixedRectWidth + rectSize * 0.4
+        );
+        floatingRectInitY = gsap.utils.random(
+          fixedRectHeight * 0.18,
+          fixedRectHeight * 0.25 - rectSize * 0.5
+        );
+
+        smallRectInitX = gsap.utils.random(
+          fixedRectWidth * 0.8,
+          fixedRectWidth - smallRectSize * 0.5
+        );
+        smallRectInitY = gsap.utils.random(
+          fixedRectHeight * 0.8,
+          fixedRectHeight * 0.9 - smallRectSize * 0.5
+        );
+      } else if (breakpoint === "tablet") {
+        floatingRectInitX = gsap.utils.random(
+          fixedRectWidth * 0.2,
+          fixedRectWidth * 0.3 - rectSize
+        );
+        floatingRectInitY = gsap.utils.random(
+          fixedRectHeight - rectSize * 0.9,
+          fixedRectHeight + rectSize * 0.1
+        );
+
+        smallRectInitX = gsap.utils.random(
+          fixedRectWidth - smallRectSize * 0.5,
+          fixedRectWidth + smallRectSize * 2.5
+        );
+        smallRectInitY = gsap.utils.random(
+          fixedRectHeight * 0.15 - smallRectSize,
+          fixedRectHeight * 0.3
+        );
+      } else if (breakpoint === "mobile") {
+        floatingRectInitX = gsap.utils.random(
+          fixedRectWidth * 0.2,
+          fixedRectWidth * 0.3 - rectSize
+        );
+        floatingRectInitY = gsap.utils.random(
+          fixedRectHeight - rectSize * 0.9,
+          fixedRectHeight + rectSize * 0.1
+        );
+
+        smallRectInitX = gsap.utils.random(
+          fixedRectWidth - smallRectSize * 0.5,
+          fixedRectWidth + smallRectSize * 2.5
+        );
+        smallRectInitY = gsap.utils.random(
+          fixedRectHeight * 0.15 - smallRectSize,
+          fixedRectHeight * 0.3
+        );
+      }
+
+      // Set initial attributes of floating rectangles
       gsap.set(floatingRect, {
         attr: {
           width: rectSize,
           height: rectSize,
+          x: floatingRectInitX,
+          y: floatingRectInitY,
         },
       });
 
@@ -116,53 +211,14 @@ const FloatingBox: React.FC = () => {
         attr: {
           width: smallRectSize,
           height: smallRectSize,
+          x: smallRectInitX,
+          y: smallRectInitY,
         },
       });
 
-      // Animate rectangles to new initial positions
-      gsap.to(floatingRect, {
-        attr: {
-          x: initialFloatingX,
-          y: initialFloatingY,
-        },
-        duration: 0.5,
-        ease: "power1.out",
-        onComplete: () => {
-          // Start movement animation
-          floatingRectAnimation = gsap.to(floatingRect, {
-            attr: {
-              x: finalFloatingX,
-              y: finalFloatingY,
-            },
-            duration: 3,
-            ease: "sine.inOut",
-            repeat: -1,
-            yoyo: true,
-          });
-        },
-      });
-
-      gsap.to(smallRect, {
-        attr: {
-          x: initialSmallX,
-          y: initialSmallY,
-        },
-        duration: 0.5,
-        ease: "power1.out",
-        onComplete: () => {
-          // Start movement animation
-          smallRectAnimation = gsap.to(smallRect, {
-            attr: {
-              x: finalSmallX,
-              y: finalSmallY,
-            },
-            duration: 3,
-            ease: "sine.inOut",
-            repeat: -1,
-            yoyo: true,
-          });
-        },
-      });
+      // Start the random floating animations
+      animateFloatingRect();
+      animateSmallRect();
     };
 
     // Initial update
@@ -177,8 +233,8 @@ const FloatingBox: React.FC = () => {
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      if (floatingRectAnimation) floatingRectAnimation.kill();
-      if (smallRectAnimation) smallRectAnimation.kill();
+      if (floatingRectTween) floatingRectTween.kill();
+      if (smallRectTween) smallRectTween.kill();
     };
   }, [breakpoint]);
 
