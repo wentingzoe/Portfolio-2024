@@ -15,21 +15,28 @@ export default function Hero() {
       <FloatingBox />
       <div className={styles.hero__content}>
         <div className={styles.hero__name}>
-          <h2 className={styles.hero__name__fn}>Wenting</h2>
-          <h2 className={styles.hero__name__ln}>Yong</h2>
+          <h2 className={styles.hero__firstName}>Wenting</h2>
+          <h2 className={styles.hero__lastName}>Yong</h2>
         </div>
         <div className={styles.hero__title}>
           <Creative />
           <Titles />
-          <p className={styles.hero__title__subtitle}>
-            specialized in Web Design, UX / UI, SEO, and Front End Development.
+          <p className={styles.hero__subtitle}>
+            Specialized in Web Design, UX / UI, SEO, and Front End Development.
           </p>
         </div>
         <div className={styles.hero__location}>
-          <div className={styles.hero__location__icon}>
-            <Image src="/images/star.svg" alt="location" fill priority />
+          <div className={styles.hero__icon}>
+            <Image
+              src="/images/star.svg"
+              alt="location"
+              width={40}
+              height={40}
+              layout="responsive"
+              priority
+            />
           </div>
-          <p className={`${styles.hero__location__time} small`}>
+          <p className={`${styles.hero__time} small`}>
             Based in Canada EST {currentTime}
           </p>
         </div>
