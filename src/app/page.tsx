@@ -29,7 +29,6 @@ const Home = () => {
 
     if (breakpoint === "desktop") {
       // Horizontal scroll animation for desktop
-
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: sectionsRef.current,
