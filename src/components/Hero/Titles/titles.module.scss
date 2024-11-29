@@ -2,13 +2,13 @@
 .titles {
   position: relative;
   height: responsive-clamp(
-    60px,
+    98px,
     160px,
     $breakpoint-mobile,
     $breakpoint-desktop
   );
   width: responsive-clamp(
-    295px,
+    450px,
     840px,
     $breakpoint-mobile,
     $breakpoint-desktop
