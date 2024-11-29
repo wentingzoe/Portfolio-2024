@@ -1,4 +1,5 @@
 @use "@/app/mixins" as *;
+
 .hero {
   position: relative;
   height: 100vh;
@@ -13,33 +14,46 @@
   &__content {
     @include flex-column;
     position: relative;
-
     margin: var(--side-gap);
     z-index: 2;
-    border: red 1px solid;
+
+    @include tablet {
+      // margin: var(--side-gap-small);
+    }
+
+    @include mobile {
+      margin: var(--side-gap-small);
+    }
   }
 
   &__name {
     @include flex-column;
     position: relative;
-    width: 35%;
-    align-items: stretch;
-
-    &__fn {
-      color: var(--color-secondary);
-    }
-
-    &__ln {
-      text-align: right;
-    }
+    width: responsive-clamp(
+      166px,
+      293px,
+      $breakpoint-mobile,
+      $breakpoint-desktop
+    );
+    //padding-top: 10%;
   }
+
+  &__firstName {
+    color: var(--color-secondary);
+  }
+
+  &__lastName {
+    text-align: right;
+  }
+
   &__title {
     @include flex-column;
     margin-top: 8%;
-    &__subtitle {
-      max-width: 30ch;
-      margin-top: 1em;
-    }
+  }
+
+  &__subtitle {
+    max-width: 30ch;
+    margin-top: 1em;
   }
 
   &__location {
@@ -47,21 +61,21 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 20%;
+    min-width: 20%;
+    max-width: 35%;
     justify-content: space-between;
     align-items: center;
-
-    &__icon {
-      position: relative;
-      width: 2em;
-      height: 2em;
-      width: 10;
+    @include tablet {
     }
+  }
 
-    &__time {
-      max-width: 15ch;
-      padding-left: 0.5em;
-    }
+  &__icon {
+    position: relative;
+  }
+
+  &__time {
+    max-width: 15ch;
+    padding-left: 0.5em;
   }
 
   &__image {
@@ -72,18 +86,43 @@
   &__portrait {
     position: absolute;
     z-index: 1;
-    width: clamp(35vw, 55%, 842px);
+    width: clamp(35vw, 52%, 840px);
     max-height: 100%;
     min-height: 95%;
     bottom: 0;
     right: 0;
+    border: royalblue 1px solid;
 
-    @include tablet {
-      width: clamp(40vw, 60%, 899px);
+    @include tablet(landscape) {
+      border: red 1px solid;
+      width: responsive-clamp(
+        280px,
+        650px,
+        $breakpoint-mobile,
+        $breakpoint-tablet
+      );
       max-height: 80%;
       min-height: 75%;
+      right: responsive-clamp(
+        -33px,
+        -50px,
+        $breakpoint-mobile,
+        $breakpoint-tablet
+      );
+    }
+
+    @include tablet(portrait) {
+      width: responsive-clamp(
+        330px,
+        700px,
+        $breakpoint-mobile,
+        $breakpoint-tablet
+      );
+      max-height: 75%;
+      min-height: 65%;
       bottom: 0;
-      right: clamp(-5vw, -3%, -41px);
+      right: 0;
+      border: salmon 1px solid;
     }
 
     @include mobile {
@@ -93,6 +132,7 @@
       max-height: 60%;
       left: 50%;
       transform: translateX(-50%);
+      border: yellowgreen 1px solid;
     }
   }
 }
