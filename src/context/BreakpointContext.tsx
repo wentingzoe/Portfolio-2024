@@ -14,7 +14,7 @@ export const BreakpointProvider: React.FC<{ children: React.ReactNode }> = ({
     const updateBreakpoint = () => {
       const width = window.innerWidth;
 
-      if (width <= 840) {
+      if (width <= 540) {
         setBreakpoint("mobile");
       } else if (width <= 1024) {
         setBreakpoint("tablet");
