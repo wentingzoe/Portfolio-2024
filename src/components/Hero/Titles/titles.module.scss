@@ -1,18 +1,8 @@
 @use "@/app/mixins" as *;
 .titles {
   position: relative;
-  height: responsive-clamp(
-    98px,
-    160px,
-    $breakpoint-mobile,
-    $breakpoint-desktop
-  );
-  width: responsive-clamp(
-    450px,
-    840px,
-    $breakpoint-mobile,
-    $breakpoint-desktop
-  );
+  height: clamp-xs-l(64px, 160px);
+  width: clamp-xs-l(293px, 840px);
   overflow: hidden;
   text-align: start;
 
@@ -27,5 +17,10 @@
     display: inline-block;
     line-height: 1;
     color: var(--color-text-light);
+
+    @include mobile-small {
+      font-size: 3rem !important;
+      color: red;
+    }
   }
 }
