@@ -13,9 +13,19 @@ $breakpoint-desktop: 1440px;
   }
 }
 
-@mixin tablet {
-  @media (min-width: #{$breakpoint-mobile + 1}) and (max-width: #{$breakpoint-tablet}) {
-    @content;
+@mixin tablet($orientation: null) {
+  @if $orientation == portrait {
+    @media (min-width: #{$breakpoint-mobile + 1}) and (max-width: #{$breakpoint-tablet}) and (orientation: portrait) {
+      @content;
+    }
+  } @else if $orientation == landscape {
+    @media (min-width: #{$breakpoint-mobile + 1}) and (max-width: #{$breakpoint-tablet}) and (orientation: landscape) {
+      @content;
+    }
+  } @else {
+    @media (min-width: #{$breakpoint-mobile + 1}) and (max-width: #{$breakpoint-tablet}) {
+      @content;
+    }
   }
 }
 
