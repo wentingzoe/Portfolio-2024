@@ -79,8 +79,8 @@ const FloatingBox: React.FC = () => {
         minY = fixedRectHeight * 0.15 - smallRectSize * 0.5;
         maxY = fixedRectHeight * 0.25;
       } else if (breakpoint === "mobile") {
-        minX = fixedRectWidth * 0.7 - smallRectSize;
-        maxX = fixedRectWidth * 0.8;
+        minX = fixedRectWidth * 0.5 - smallRectSize;
+        maxX = fixedRectWidth * 0.6;
         minY = fixedRectHeight * 0.15 - smallRectSize * 0.5;
         maxY = fixedRectHeight * 0.25;
       }
@@ -188,8 +188,8 @@ const FloatingBox: React.FC = () => {
         );
 
         smallRectInitX = gsap.utils.random(
-          fixedRectWidth - smallRectSize * 0.5,
-          fixedRectWidth + smallRectSize * 2.5
+          fixedRectWidth * 0.5 - smallRectSize * 0.5,
+          fixedRectWidth * 0.6
         );
         smallRectInitY = gsap.utils.random(
           fixedRectHeight * 0.15 - smallRectSize,
