@@ -10,13 +10,13 @@
 
   &__eye {
     width: responsive-clamp(
-      38px,
+      57px,
       90px,
       $breakpoint-mobile,
       $breakpoint-desktop
     );
     height: responsive-clamp(
-      38px,
+      57px,
       90px,
       $breakpoint-mobile,
       $breakpoint-desktop
@@ -27,13 +27,13 @@
     position: relative;
     overflow: visible;
     width: responsive-clamp(
-      16.56px,
+      25px,
       40px,
       $breakpoint-mobile,
       $breakpoint-desktop
     );
     max-height: responsive-clamp(
-      52.59px,
+      80px,
       127px,
       $breakpoint-mobile,
       $breakpoint-desktop
