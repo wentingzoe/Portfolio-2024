@@ -239,8 +239,8 @@ const FloatingBox: React.FC = () => {
   }, [breakpoint]);
 
   return (
-    <div className={styles.container}>
-      <svg className={styles.svg} ref={svgRef}>
+    <div className={styles.floatingBox}>
+      <svg className={styles.floatingBox__content} ref={svgRef}>
         <defs>
           <filter id="subtract-overlap" x="0" y="0" width="100%" height="100%">
             {/* Input images */}
