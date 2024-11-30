@@ -12,11 +12,10 @@ export default function MagneticContext({ children }: { children: ReactNode }) {
     const { clientX, clientY } = e;
     if (!ref.current) return;
     const { width, height, left, top } = ref.current.getBoundingClientRect();
-    const x = clientX - left - width / 2;
-    const y = clientY - top - height / 2;
-    const factor = 0.2;
+    const x = clientX - (left + width / 2);
+    const y = clientY - (top + height / 2);
 
-    setPosition({ x: x * factor, y: y * factor });
+    setPosition({ x: x, y: y });
   };
 
   const mouseLeave = () => {
