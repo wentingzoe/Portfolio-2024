@@ -7,21 +7,22 @@
   height: 100%;
   box-sizing: border-box;
 
-  .body {
+  &__content {
     display: flex;
     gap: 5%;
     flex-direction: column;
-    .linkContainer {
-      perspective: 120px;
-      perspective-origin: bottom;
-    }
+  }
+  &__link {
+    perspective: 120px;
+    perspective-origin: bottom;
     a {
       @include responsive-font-size(18px, 48px);
       text-decoration: none;
       color: var(--color-primary);
     }
   }
-  .footer {
+
+  &__footer {
     display: flex;
     flex-wrap: wrap;
 
