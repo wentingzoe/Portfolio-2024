@@ -39,9 +39,9 @@
         color: var(--color-secondary);
 
         &:nth-of-type(2) {
-          background-color: var(--color-primary);
+          background-color: var(--color-secondary);
           span {
-            color: var(--color-secondary);
+            color: var(--color-primary);
           }
         }
         &:hover .perspectiveText {
