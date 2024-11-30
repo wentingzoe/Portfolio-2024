@@ -166,7 +166,7 @@ const FloatingBox: React.FC = () => {
         );
         floatingRectInitY = gsap.utils.random(
           fixedRectHeight - rectSize * 0.9,
-          fixedRectHeight + rectSize * 0.1
+          fixedRectHeight
         );
 
         smallRectInitX = gsap.utils.random(
