@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import styles from "./button.module.scss";
+import DotSquare from "@/components/DotSquare";
 
 interface ButtonProps {
   isActive: boolean;
@@ -9,7 +10,11 @@ interface ButtonProps {
 export default function Button({ isActive, toggleMenu }: ButtonProps) {
   return (
     <div className={styles.buttonWrapper}>
-      <div className={styles.bg}></div>
+      <div className={styles.bg}>
+        <DotSquare
+          color={isActive ? "var(--color-primary)" : "var(--color-light)"}
+        />
+      </div>
       <div className={styles.button} onClick={toggleMenu}>
         <motion.div
           className={styles.slider}
