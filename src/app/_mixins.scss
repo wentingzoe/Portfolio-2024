@@ -2,9 +2,10 @@
 /* ----------------  Define breakpoints ---------------- */
 
 // Breakpoints
-$breakpoint-mobile: 540px;
-$breakpoint-tablet: 820px;
-$breakpoint-desktop: 1024px;
+$breakpoint-mobile-small: 320px; //xs
+$breakpoint-mobile: 540px; //s
+$breakpoint-tablet: 1024px; //m
+$breakpoint-desktop: 1440px; //l
 
 // Mixins for responsive design
 @mixin mobile {
@@ -13,9 +14,25 @@ $breakpoint-desktop: 1024px;
   }
 }
 
-@mixin tablet {
-  @media (min-width: #{$breakpoint-mobile + 1}) and (max-width: #{$breakpoint-tablet}) {
+@mixin mobile-small {
+  @media (max-width: #{$breakpoint-mobile-small}) {
     @content;
+  }
+}
+
+@mixin tablet($orientation: null) {
+  @if $orientation == portrait {
+    @media (min-width: #{$breakpoint-mobile + 1}) and (max-width: #{$breakpoint-tablet}) and (orientation: portrait) {
+      @content;
+    }
+  } @else if $orientation == landscape {
+    @media (min-width: #{$breakpoint-mobile + 1}) and (max-width: #{$breakpoint-tablet}) and (orientation: landscape) {
+      @content;
+    }
+  } @else {
+    @media (min-width: #{$breakpoint-mobile + 1}) and (max-width: #{$breakpoint-tablet}) {
+      @content;
+    }
   }
 }
 
@@ -35,9 +52,44 @@ $breakpoint-desktop: 1024px;
   );
 }
 
+// Extra Small to Large (xs to l)
+@function clamp-xs-l($min, $max) {
+  @return responsive-clamp(
+    $min,
+    $max,
+    $breakpoint-mobile-small,
+    $breakpoint-desktop
+  );
+}
+
+// Small to Large (s to l)
+@function clamp-s-l($min, $max) {
+  @return responsive-clamp($min, $max, $breakpoint-mobile, $breakpoint-desktop);
+}
+
+// Extra Small to Small (xs to s)
+@function clamp-xs-s($min, $max) {
+  @return responsive-clamp(
+    $min,
+    $max,
+    $breakpoint-mobile-small,
+    $breakpoint-mobile
+  );
+}
+
+// Medium to Large (m to l)
+@function clamp-m-l($min, $max) {
+  @return responsive-clamp($min, $max, $breakpoint-tablet, $breakpoint-desktop);
+}
+
+// Small to Medium (s to m)
+@function clamp-s-m($min, $max) {
+  @return responsive-clamp($min, $max, $breakpoint-mobile, $breakpoint-tablet);
+}
+
 // Mixin for Responsive Font Size
 @mixin responsive-font-size($min-size, $max-size) {
-  $min-viewport: $breakpoint-mobile;
+  $min-viewport: $breakpoint-mobile-small;
   $max-viewport: $breakpoint-desktop;
 
   font-size: responsive-clamp(

@@ -9,35 +9,15 @@
   margin-bottom: -4.2%;
 
   &__eye {
-    width: responsive-clamp(
-      38px,
-      90px,
-      $breakpoint-mobile,
-      $breakpoint-desktop
-    );
-    height: responsive-clamp(
-      38px,
-      90px,
-      $breakpoint-mobile,
-      $breakpoint-desktop
-    );
+    width: clamp-xs-l(38px, 90px);
+    height: clamp-xs-l(38px, 90px);
   }
 
   &__i {
     position: relative;
     overflow: visible;
-    width: responsive-clamp(
-      16.56px,
-      40px,
-      $breakpoint-mobile,
-      $breakpoint-desktop
-    );
-    max-height: responsive-clamp(
-      52.59px,
-      127px,
-      $breakpoint-mobile,
-      $breakpoint-desktop
-    );
+    width: clamp-xs-l(17px, 40px);
+    max-height: clamp-xs-l(53px, 127px);
   }
 
   &__star {

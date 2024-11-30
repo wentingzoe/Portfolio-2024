@@ -1,17 +1,16 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import styles from "@/app/page.module.scss";
 import { MousePositionProvider } from "@/context/MousePositionContext";
-import Hero from "../components/Hero/Hero";
-
-const DESKTOP_BREAKPOINT = 1024;
+import { useBreakpoint } from "@/context/BreakpointContext";
+import Hero from "../components/Hero/";
 
 const Home = () => {
   const sectionsRef = useRef<HTMLDivElement>(null);
-  const [isDesktop, setIsDesktop] = useState(false);
+  const breakpoint = useBreakpoint();
 
   // Ensure ScrollTrigger is registered only on the client
   useEffect(() => {
@@ -19,33 +18,6 @@ const Home = () => {
       gsap.registerPlugin(ScrollTrigger);
     }
   }, []);
-
-  // Handle resize and check screen width
-  useEffect(() => {
-    const checkScreenSize = () => {
-      const isDesktopView = window.innerWidth >= DESKTOP_BREAKPOINT;
-      if (isDesktopView !== isDesktop) {
-        setIsDesktop(isDesktopView);
-      }
-    };
-
-    // Check initial screen size
-    checkScreenSize();
-
-    // Add resize listener with debounce
-    let resizeTimer: NodeJS.Timeout;
-    const handleResize = () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(checkScreenSize, 100);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      clearTimeout(resizeTimer);
-    };
-  }, [isDesktop]);
 
   // GSAP animations
   useEffect(() => {
@@ -55,7 +27,7 @@ const Home = () => {
     // Clear any existing ScrollTriggers
     ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
 
-    if (isDesktop) {
+    if (breakpoint === "desktop") {
       // Horizontal scroll animation for desktop
       const timeline = gsap.timeline({
         scrollTrigger: {
@@ -95,7 +67,7 @@ const Home = () => {
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
-  }, [isDesktop]);
+  }, [breakpoint]);
 
   return (
     <main>

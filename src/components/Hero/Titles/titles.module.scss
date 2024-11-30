@@ -1,18 +1,8 @@
 @use "@/app/mixins" as *;
 .titles {
   position: relative;
-  height: responsive-clamp(
-    60px,
-    160px,
-    $breakpoint-mobile,
-    $breakpoint-desktop
-  );
-  width: responsive-clamp(
-    295px,
-    840px,
-    $breakpoint-mobile,
-    $breakpoint-desktop
-  );
+  height: clamp-xs-l(64px, 160px);
+  width: clamp-xs-l(293px, 840px);
   overflow: hidden;
   text-align: start;
 
