@@ -27,7 +27,7 @@ export const perspective = {
         translateX: -20,
     },
     enter: (custom: number) =>{ 
-        console.log("Custom index:", custom);
+    
         return{
         opacity: 1,
         rotateX: 0,
