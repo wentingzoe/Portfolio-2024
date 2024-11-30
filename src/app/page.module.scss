@@ -32,11 +32,12 @@
 }
 
 .section1 {
-  background: var(--bg-linear);
+  // background: var(--bg-linear);
 }
 
 .section2 {
-  background: var(--bg-linear-reverse);
+  //background: var(--bg-linear-reverse);
+  width: 100vw;
 }
 
 .section3 {
@@ -45,5 +46,5 @@
 }
 
 .section4 {
-  background: var(--bg-linear);
+  // background: var(--bg-linear);
 }

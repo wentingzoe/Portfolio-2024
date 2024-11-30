@@ -7,6 +7,7 @@ import styles from "@/app/page.module.scss";
 import { MousePositionProvider } from "@/context/MousePositionContext";
 import { useBreakpoint } from "@/context/BreakpointContext";
 import Hero from "../components/Hero/";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 const Home = () => {
   const sectionsRef = useRef<HTMLDivElement>(null);
@@ -71,6 +72,7 @@ const Home = () => {
 
   return (
     <main>
+      <AnimatedBackground />
       <MousePositionProvider>
         <div ref={sectionsRef} className={styles.container}>
           <section className={`${styles.section} ${styles.section1}`}>
