@@ -1,0 +1,12 @@
+.header {
+  position: fixed;
+  right: 2vw;
+  top: 2vw;
+  z-index: 1000;
+  .menu {
+    width: 45vw;
+    height: 45vw;
+    background-color: var(--color-secondary);
+    position: relative;
+  }
+}
