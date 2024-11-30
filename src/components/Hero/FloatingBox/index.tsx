@@ -69,10 +69,10 @@ const FloatingBox: React.FC = () => {
       let minY = 0;
       let maxY = 0;
       if (breakpoint === "desktop") {
-        minX = fixedRectWidth;
-        maxX = fixedRectWidth + smallRectSize * 0.3;
-        minY = fixedRectHeight * 0.75;
-        maxY = fixedRectHeight * 0.85 - smallRectSize;
+        minX = fixedRectWidth - smallRectSize * 5;
+        maxX = fixedRectWidth + smallRectSize * 0.5;
+        minY = fixedRectHeight * 0.8;
+        maxY = fixedRectHeight - smallRectSize;
       } else if (breakpoint === "tablet") {
         minX = fixedRectWidth - smallRectSize;
         maxX = fixedRectWidth + smallRectSize * 2;
@@ -143,8 +143,8 @@ const FloatingBox: React.FC = () => {
       let smallRectInitY = 0;
       if (breakpoint === "desktop") {
         floatingRectInitX = gsap.utils.random(
-          fixedRectWidth - rectSize * 1.2,
-          fixedRectWidth + rectSize * 0.4
+          fixedRectWidth - rectSize * 3,
+          fixedRectWidth + rectSize * 0.1
         );
         floatingRectInitY = gsap.utils.random(
           fixedRectHeight * 0.18,
