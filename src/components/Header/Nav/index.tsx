@@ -1,7 +1,7 @@
 import styles from "./nav.module.scss";
 import { motion } from "framer-motion";
-import { links, footerLinks } from "./data";
-import { perspective, slideIn } from "./anim";
+import { links, footerLinks } from "../../../utils/nav-items";
+import { perspective, slideIn } from "../../../utils/animation";
 
 export default function Nav() {
   return (
