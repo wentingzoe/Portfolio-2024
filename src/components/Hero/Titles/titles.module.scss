@@ -17,10 +17,5 @@
     display: inline-block;
     line-height: 1;
     color: var(--color-text-light);
-
-    @include mobile-small {
-      font-size: 3rem !important;
-      color: red;
-    }
   }
 }
