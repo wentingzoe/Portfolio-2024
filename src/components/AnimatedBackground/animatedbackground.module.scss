@@ -1,0 +1,99 @@
+/* animatedbackground.module.scss */
+
+.backgroundWrapper {
+  /* Position the background to cover the entire viewport */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1; /* Place it behind all other content */
+  overflow: hidden;
+  background: linear-gradient(
+    45deg,
+    var(--color-secondary, #f28705),
+    var(--color-tertiary, #dcb373),
+    var(--color-fourth, #eb532f)
+  );
+  background-size: 400% 400%;
+  transition-property: --color-secondary, --color-tertiary, --color-fourth;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.6;
+  }
+
+  &::before {
+    left: 20%;
+    top: 10%;
+    width: 70%;
+    height: 50%;
+    border-radius: 25px;
+    background: linear-gradient(
+      309deg,
+      var(--color-tertiary, #dcb373) 40.13%,
+      var(--color-secondary, #f28705) 67.65%
+    );
+    filter: blur(50px);
+    animation: blobAnimation 8s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    transform-origin: 60% 50%;
+  }
+
+  &::after {
+    background: linear-gradient(
+      302deg,
+      var(--color-fourth, #eb532f) 34.39%,
+      var(--color-secondary, #f28705) 51.88%
+    );
+    filter: blur(50px);
+    left: 40%;
+    top: 30%;
+    width: 70%;
+    height: 80%;
+    border-radius: 25px;
+    animation: blobAnimationReverse 10s infinite
+      cubic-bezier(0.215, 0.61, 0.355, 1);
+    transform-origin: 60% 50%;
+  }
+}
+
+/* Define keyframes globally */
+@keyframes blobAnimation {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  30% {
+    transform: translate(0, 0) rotate(40deg) scale(1);
+  }
+  50% {
+    transform: translate(300px, 390px) rotate(40deg) scale(1.1);
+  }
+  80% {
+    transform: translate(300px, 390px) rotate(90deg) scale(1.1);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+}
+
+@keyframes blobAnimationReverse {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  30% {
+    transform: translate(0, 0) rotate(-40deg) scale(1);
+  }
+  50% {
+    transform: translate(-300px, -390px) rotate(-40deg) scale(1.1);
+  }
+  80% {
+    transform: translate(-300px, -390px) rotate(-90deg) scale(1.1);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+}
