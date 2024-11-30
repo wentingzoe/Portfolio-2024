@@ -3,12 +3,17 @@
   right: 2vw;
   top: 2vw;
   z-index: 1000;
+
   .menu {
     width: 45vw;
     height: 45vw;
-
+    position: relative;
     background-color: var(--color-light);
     color: var(--color-secondary);
-    position: relative;
+
+    @include tablet {
+      width: 80vw;
+      height: 80vw;
+    }
   }
 }
