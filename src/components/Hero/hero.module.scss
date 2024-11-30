@@ -14,28 +14,30 @@
   &__content {
     @include flex-column;
     position: relative;
-    margin: var(--side-gap);
+    justify-content: center;
+    padding-left: clamp-xs-l(25px, 50px);
+    padding-bottom: clamp-xs-l(37px, 100px);
     z-index: 2;
 
-    @include tablet {
-      // margin: var(--side-gap-small);
+    @include tablet(landscape) {
+      width: 70vw;
+      height: 70vw;
     }
-
+    @include tablet(portrait) {
+      width: 80vw;
+      height: 80vw;
+      padding-left: clamp-s-m(30px, 60px);
+    }
     @include mobile {
-      margin: var(--side-gap-small);
+      width: 100vw;
+      height: 50vh;
     }
   }
 
   &__name {
     @include flex-column;
     position: relative;
-    width: responsive-clamp(
-      166px,
-      293px,
-      $breakpoint-mobile,
-      $breakpoint-desktop
-    );
-    //padding-top: 10%;
+    width: clamp-xs-l(108px, 293px);
   }
 
   &__firstName {
@@ -48,29 +50,42 @@
 
   &__title {
     @include flex-column;
-    margin-top: 8%;
+    margin-top: 5%;
+
+    @include tablet {
+      margin-top: 8%;
+    }
   }
 
   &__subtitle {
     max-width: 30ch;
-    margin-top: 1em;
+    margin-top: 2%;
   }
 
   &__location {
     display: flex;
     position: absolute;
-    bottom: 0;
-    left: 0;
-    min-width: 20%;
-    max-width: 35%;
+    bottom: clamp-s-l(25px, 38px);
+    left: clamp-xs-l(25px, 50px);
+    width: clamp-xs-l(88px, 187px);
     justify-content: space-between;
     align-items: center;
+
     @include tablet {
+      color: var(--color-primary);
+    }
+    @include mobile {
+      right: clamp-xs-l(15px, 45px);
+      left: auto;
+      bottom: clamp(40%, 45vh, 53%);
+      color: var(--color-primary);
     }
   }
 
   &__icon {
     position: relative;
+    width: clamp-xs-l(16px, 42px);
+    height: clamp-xs-l(16px, 42px);
   }
 
   &__time {
@@ -91,38 +106,20 @@
     min-height: 95%;
     bottom: 0;
     right: 0;
-    border: royalblue 1px solid;
 
     @include tablet(landscape) {
-      border: red 1px solid;
-      width: responsive-clamp(
-        280px,
-        650px,
-        $breakpoint-mobile,
-        $breakpoint-tablet
-      );
+      width: clamp-s-m(280px, 650px);
       max-height: 80%;
       min-height: 75%;
-      right: responsive-clamp(
-        -33px,
-        -50px,
-        $breakpoint-mobile,
-        $breakpoint-tablet
-      );
+      right: clamp-s-m(-33px, -50px);
     }
 
     @include tablet(portrait) {
-      width: responsive-clamp(
-        330px,
-        700px,
-        $breakpoint-mobile,
-        $breakpoint-tablet
-      );
+      width: clamp-s-m(330px, 700px);
       max-height: 75%;
       min-height: 65%;
       bottom: 0;
       right: 0;
-      border: salmon 1px solid;
     }
 
     @include mobile {
@@ -132,7 +129,6 @@
       max-height: 60%;
       left: 50%;
       transform: translateX(-50%);
-      border: yellowgreen 1px solid;
     }
   }
 }

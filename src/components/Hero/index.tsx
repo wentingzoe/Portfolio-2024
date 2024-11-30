@@ -6,9 +6,17 @@ import Creative from "./Creative";
 import Titles from "./Titles";
 import FloatingBox from "./FloatingBox";
 import { useCurrentTime } from "@/hooks/useCurrentTime";
+import { useBreakpoint } from "@/context/BreakpointContext";
+import Star from "@/components/Star";
 
 export default function Hero() {
   const currentTime = useCurrentTime("en-US", { timeZone: "America/Toronto" });
+  const breakpoint = useBreakpoint();
+
+  const starColor =
+    breakpoint === "desktop"
+      ? "var(--color-secondary)"
+      : "var(--color-primary)";
 
   return (
     <div className={styles.hero}>
@@ -25,21 +33,14 @@ export default function Hero() {
             Specialized in Web Design, UX / UI, SEO, and Front End Development.
           </p>
         </div>
-        <div className={styles.hero__location}>
-          <div className={styles.hero__icon}>
-            <Image
-              src="/images/star.svg"
-              alt="location"
-              width={40}
-              height={40}
-              layout="responsive"
-              priority
-            />
-          </div>
-          <p className={`${styles.hero__time} small`}>
-            Based in Canada EST {currentTime}
-          </p>
+      </div>
+      <div className={styles.hero__location}>
+        <div className={styles.hero__icon}>
+          <Star color={starColor} />
         </div>
+        <p className={`${styles.hero__time} small`}>
+          Based in Canada EST {currentTime}
+        </p>
       </div>
 
       <div className={styles.hero__portrait}>
