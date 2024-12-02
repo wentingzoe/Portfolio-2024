@@ -1,19 +1,13 @@
 .header {
   position: fixed;
-  right: 2vw;
-  top: 2vw;
+  top: var(--menu-padding);
+  right: var(--menu-padding);
+
   z-index: 1000;
 
   .menu {
-    width: 45vw;
-    height: 45vw;
     position: relative;
     background-color: var(--color-light);
     color: var(--color-secondary);
-
-    @include tablet {
-      width: 80vw;
-      height: 80vw;
-    }
   }
 }
