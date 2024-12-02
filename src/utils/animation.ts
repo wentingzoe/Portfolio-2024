@@ -1,9 +1,9 @@
 export const menu = {
   open: {
-    width: "45vw",
-    height: "45vw",
-    top: "-2vw",
-    right: "-2vw",
+    width: "var(--menu-animate-width)",
+    height: "var(--menu-animate-height)",
+    top: "var(--menu-open-padding)",
+    right: "var(--menu-open-padding)",
     transition: { duration: 0.75, type: "tween", ease: [0.76, 0, 0.24, 1] },
   },
   closed: {
