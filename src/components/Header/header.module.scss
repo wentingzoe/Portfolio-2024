@@ -1,0 +1,13 @@
+.header {
+  position: fixed;
+  top: var(--menu-padding);
+  right: var(--menu-padding);
+
+  z-index: 1000;
+
+  .menu {
+    position: relative;
+    background-color: var(--color-secondary);
+    color: var(--color-light);
+  }
+}
