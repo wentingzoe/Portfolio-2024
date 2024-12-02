@@ -49,10 +49,34 @@
 }
 
 @include mobile {
+  :root{
+    --menu-animate-width:100vw;
+    --menu-animate-height:100vh;
+    --menu-padding:5vw;
+    --menu-open-padding: -5vw;
+    
+    
+  }
 }
-@include tablet {
+@include tablet {  
+  :root{
+    --menu-animate-width:50vw;
+    --menu-animate-height:100vh;
+          --menu-padding:2vw;
+    --menu-open-padding: -2vw;
+   
+    
+  }
 }
 @include desktop {
+  :root{
+    --menu-animate-width:45vw;
+    --menu-animate-height:45vw;
+      --menu-padding:2vw;
+    --menu-open-padding: -2vw;
+ 
+    
+  }
 }
 
 /* ------------------------- Body -------------------------------------------------- */
@@ -177,11 +201,11 @@ h5 {
   opacity: 0.5;
 }
 
-span {
+span { @include responsive-font-size(10px, 24px);
   font-family: "PP-regular", sans-serif;
   font-weight: 450;
   font-style: normal;
-  font-size: clamp(1em, 1.5vw, 1.5em);
+ 
 }
 
 p {
