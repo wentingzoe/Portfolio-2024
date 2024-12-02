@@ -1,3 +1,4 @@
+import React from "react";
 import { motion } from "framer-motion";
 import styles from "./button.module.scss";
 import DotSquare from "@/components/DotSquare";
@@ -9,13 +10,17 @@ interface ButtonProps {
 
 export default function Button({ isActive, toggleMenu }: ButtonProps) {
   return (
-    <div className={styles.button}>
-      <div className={styles.button__bg}>
+    <motion.div
+      className={styles.button}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+    >
+      <motion.div className={styles.button__bg}>
         <DotSquare
           color={isActive ? "var(--color-primary)" : "var(--color-light)"}
         />
-      </div>
-      <div className={styles.button__content} onClick={toggleMenu}>
+      </motion.div>
+      <motion.div className={styles.button__content} onClick={toggleMenu}>
         <motion.div
           className={styles.button__slider}
           animate={{ top: isActive ? "-100%" : "0%" }}
@@ -32,8 +37,8 @@ export default function Button({ isActive, toggleMenu }: ButtonProps) {
             <PerspectiveText label="Close" />
           </div>
         </motion.div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
 
