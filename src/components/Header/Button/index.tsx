@@ -9,15 +9,15 @@ interface ButtonProps {
 
 export default function Button({ isActive, toggleMenu }: ButtonProps) {
   return (
-    <div className={styles.buttonWrapper}>
-      <div className={styles.bg}>
+    <div className={styles.button}>
+      <div className={styles.button__bg}>
         <DotSquare
           color={isActive ? "var(--color-primary)" : "var(--color-light)"}
         />
       </div>
-      <div className={styles.button} onClick={toggleMenu}>
+      <div className={styles.button__content} onClick={toggleMenu}>
         <motion.div
-          className={styles.slider}
+          className={styles.button__slider}
           animate={{ top: isActive ? "-100%" : "0%" }}
           transition={{
             duration: 0.5,
@@ -25,10 +25,10 @@ export default function Button({ isActive, toggleMenu }: ButtonProps) {
             ease: [0.76, 0, 0.24, 1],
           }}
         >
-          <div className={styles.el}>
+          <div className={styles.button__el}>
             <PerspectiveText label="Menu" />
           </div>
-          <div className={styles.el}>
+          <div className={styles.button__el}>
             <PerspectiveText label="Close" />
           </div>
         </motion.div>
