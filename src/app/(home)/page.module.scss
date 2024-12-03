@@ -1,0 +1,41 @@
+@use "mixins" as *;
+
+.container {
+  position: relative;
+  height: 100vh;
+  width: max-content;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+
+  @media (max-width: #{$breakpoint-tablet}) {
+    width: 100vw;
+    height: auto;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}
+
+.section {
+  flex-shrink: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  font-size: 2rem;
+  color: white;
+
+  @media (max-width: #{$breakpoint-tablet }) {
+    position: relative;
+    transform: none !important;
+  }
+}
+
+.section3 {
+  background-color: var(--color-primary);
+  height: 150vh;
+}
+
+.section4 {
+  // background: var(--bg-linear);
+}
