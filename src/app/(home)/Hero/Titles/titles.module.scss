@@ -1,0 +1,20 @@
+.titles {
+  position: relative;
+  height: clamp-xs-l(64px, 160px);
+  width: clamp-xs-l(293px, 840px);
+  overflow: hidden;
+  text-align: start;
+
+  &__item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  &__letter {
+    display: inline-block;
+    line-height: 1;
+    color: var(--color-text-light);
+  }
+}
