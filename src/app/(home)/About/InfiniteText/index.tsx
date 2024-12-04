@@ -2,27 +2,17 @@
 import React, { useRef, useEffect } from "react";
 import styles from "./infiniteText.module.scss";
 import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
 
 export default function Index() {
   const firstText = useRef(null);
   const secondText = useRef(null);
   const slider = useRef(null);
+  const infiniteText = useRef(null);
+
   let xPercent = 0;
   const direction = useRef(-1);
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.to(slider.current, {
-      scrollTrigger: {
-        trigger: document.documentElement,
-        scrub: 0.25,
-        start: 0,
-        end: window.innerWidth,
-        onUpdate: (e) => (direction.current = e.direction * -1),
-      },
-      x: "-300px",
-    });
     requestAnimationFrame(animate);
   }, []);
 
@@ -39,10 +29,10 @@ export default function Index() {
   };
 
   return (
-    <div className={styles.infiniteText}>
+    <div ref={infiniteText} className={styles.infiniteText}>
       <div ref={slider} className={styles.infiniteText__slider}>
-        <h1 ref={firstText}>Wenting Yong -</h1>
-        <h1 ref={secondText}>Wenting Yong -</h1>
+        <h1 ref={firstText}>Wenting Yong</h1>
+        <h1 ref={secondText}>Wenting Yong</h1>
       </div>
     </div>
   );
