@@ -1,18 +1,14 @@
-export const links = [
+export const pageLinks = [
     {
-        title: "Projects",
+        title: "About",
+        href: "/about"
+    },
+    {
+        title: "Works",
         href: "/"
     },
     {
-        title: "Agency",
-        href: "/"
-    },
-    {
-        title: "Expertise",
-        href: "/"
-    },
-    {
-        title: "Careers",
+        title: "Blogs",
         href: "/"
     },
     {
@@ -21,11 +17,16 @@ export const links = [
     }
 ]
 
-export const footerLinks = [
+export const socialLinks = [
     {
-        title: "Facebook",
+        title: "Resume",
         href: "/"
     },
+    {
+        title: "GitHub",
+        href: "/"
+    },
+
     {
         title: "LinkedIn",
         href: "/"
@@ -34,8 +35,5 @@ export const footerLinks = [
         title: "Instagram",
         href: "/"
     },
-    {
-        title: "Twitter",
-        href: "/"
-    }
+ 
 ]
