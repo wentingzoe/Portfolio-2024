@@ -23,7 +23,6 @@ export default function About() {
         </div>
         <div className={styles.about__welcome}>
           <div className={styles.about__decor}></div>
-
           <h5 className={styles.about__title}>About Me</h5>
           <div />
           <div className={styles.about__intro}>
