@@ -4,6 +4,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-items: stretch;
+  overflow: hidden;
 
   &__content {
     position: relative;
@@ -77,5 +78,6 @@
   &__skills {
     border: blue 1px solid;
     background-color: var(--color-primary);
+    //   z-index: 1;
   }
 }
