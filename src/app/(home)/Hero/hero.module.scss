@@ -99,12 +99,12 @@
 
   &__portrait {
     position: absolute;
-    z-index: 1;
     width: clamp(35vw, 52%, 840px);
     max-height: 100%;
     min-height: 95%;
     bottom: 0;
     right: 0;
+    z-index: 2;
 
     @include tablet(landscape) {
       width: clamp-s-m(280px, 650px);
