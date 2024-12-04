@@ -3,6 +3,7 @@ import styles from "./about.module.scss";
 import FollowEye from "@/components/FollowEye";
 import { useMousePosition } from "@/context/MousePositionContext";
 import DotSquare from "@/components/DotSquare";
+import InfiniteText from "@/app/(home)/About/InfiniteText";
 
 export default function About() {
   const mousePosition = useMousePosition();
@@ -40,6 +41,7 @@ export default function About() {
             </h4>
           </div>
         </div>
+        <InfiniteText />
       </div>
       <div className={styles.about__skills}></div>
     </div>
