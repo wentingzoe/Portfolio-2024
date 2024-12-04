@@ -1,14 +1,14 @@
 import styles from "./nav.module.scss";
 import { AnimatePresence, motion } from "framer-motion";
-import { links, footerLinks } from "../../../utils/nav-items";
-import { perspective, slideIn } from "../../../utils/animation";
+import { pageLinks, socialLinks } from "@/utils/nav-items";
+import { perspective, slideIn } from "@/utils/animation";
 
 export default function Nav() {
   return (
     <AnimatePresence>
       <nav className={styles.nav}>
         <div className={styles.nav__content}>
-          {links.map((link, i) => {
+          {pageLinks.map((link, i) => {
             const { title, href } = link;
             return (
               <motion.div
@@ -26,7 +26,7 @@ export default function Nav() {
           })}
         </div>
         <motion.div className={styles.nav__footer}>
-          {footerLinks.map((link, i) => {
+          {socialLinks.map((link, i) => {
             const { title, href } = link;
             return (
               <motion.a
