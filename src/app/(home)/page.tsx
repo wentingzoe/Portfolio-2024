@@ -37,6 +37,7 @@ const Home = () => {
           pin: true,
           scrub: 1,
           start: "top top",
+          //markers: true,
           end: () => `+=${sectionsRef.current?.scrollWidth}`,
           invalidateOnRefresh: true, // Recalculate on resize
         },
