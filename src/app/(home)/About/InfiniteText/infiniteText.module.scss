@@ -1,9 +1,9 @@
 .infiniteText {
   position: absolute;
-  top: calc(100vh - 170px);
-
-  //left: 0;
+  bottom: 0;
+  left: 0;
   z-index: 0;
+
   &__slider {
     position: relative;
     display: flex;
@@ -11,6 +11,7 @@
   }
 
   &__slider h1 {
+    @include responsive-font-size(48px, 130px);
     position: relative;
     padding-right: 50px;
     margin: 0;
