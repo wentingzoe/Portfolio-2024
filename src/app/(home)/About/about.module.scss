@@ -118,4 +118,23 @@
   &__listIcon {
     @include large-star;
   }
+
+  &__listItems {
+    display: flex;
+
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+  }
+
+  &__listItem {
+    width: 90%;
+    border-bottom: var(--color-light) 0.5px solid;
+    display: flex;
+    align-items: flex-start;
+
+    h4 {
+      padding-left: 5%;
+    }
+  }
 }
