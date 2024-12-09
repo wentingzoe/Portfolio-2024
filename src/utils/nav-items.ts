@@ -37,3 +37,24 @@ export const socialLinks = [
     },
  
 ]
+
+export const expertiseItems = [
+    {
+        title: "Website Development"
+    },
+    {
+        title: "UI/UX Design"
+    },
+    {
+        title: "Motion"
+    },
+    {
+        title: "Responsive Design"
+    },
+    {
+        title: "Web Accessibility"
+    },
+    {
+        title: "SEO & Marketing"
+    },
+]
