@@ -83,9 +83,7 @@
   }
 
   &__icon {
-    position: relative;
-    width: clamp-xs-l(16px, 42px);
-    height: clamp-xs-l(16px, 42px);
+    @include small-star;
   }
 
   &__time {
