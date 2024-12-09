@@ -2,5 +2,9 @@
   width: 100%;
   height: 100%;
   position: relative;
-  animation: fade-in-left-bottom 1.5s var(--animation-cubic);
+
+  &__svg {
+    width: 100%;
+    height: 100%;
+  }
 }
