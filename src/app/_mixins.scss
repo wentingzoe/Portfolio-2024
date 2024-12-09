@@ -176,3 +176,9 @@ $breakpoint-desktop: 1440px; //l
 }
 
 /* ----------------  Common Element ---------------- */
+
+@mixin small-star {
+  position: relative;
+  width: clamp-xs-l(16px, 42px);
+  height: clamp-xs-l(16px, 42px);
+}
