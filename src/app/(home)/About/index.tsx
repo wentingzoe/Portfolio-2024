@@ -6,6 +6,9 @@ import DotSquare from "@/components/DotSquare";
 import InfiniteText from "@/app/(home)/About/InfiniteText";
 import MoreInfo from "@/app/(home)/About/MoreInfo";
 import StarLine from "@/components/StarLine";
+import { motion } from "framer-motion";
+import { perspectiveRight } from "@/utils/animation";
+import { expertiseItems } from "@/utils/nav-items";
 
 export default function About() {
   const mousePosition = useMousePosition();
@@ -59,6 +62,24 @@ export default function About() {
             </div>
             <h3>Expertise</h3>
           </div>
+          <ul className={styles.about__listItems}>
+            {expertiseItems.map((item, i) => {
+              const { title } = item;
+              return (
+                <motion.li
+                  key={`e_${i}`}
+                  className={styles.about__listItem}
+                  custom={i}
+                  variants={perspectiveRight}
+                  initial="initial"
+                  animate="enter"
+                  exit="exit"
+                >
+                  <h4>{title}</h4>
+                </motion.li>
+              );
+            })}
+          </ul>
         </div>
       </div>
     </div>
