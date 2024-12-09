@@ -65,11 +65,6 @@ export default function DotSquare({
         width={widthSvg}
         height={heightSvg}
         ref={svgRef}
-        style={{
-          transformBox: "fill-box",
-          transformOrigin: "center",
-          overflow: "visible",
-        }}
         viewBox="0 0 54 57"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
