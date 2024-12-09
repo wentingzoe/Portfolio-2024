@@ -191,6 +191,7 @@ h5 {
   font-weight: 400;
   font-style: normal;
   line-height: 1.065;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 
 }
@@ -199,7 +200,12 @@ span { @include responsive-font-size(10px, 18px);
   font-family: "PP-regular", sans-serif;
   font-weight: 450;
   font-style: normal;
- 
+}
+
+span.bold {
+  font-family: "PP-bold", sans-serif;
+  font-weight: 600;
+  font-style: normal;
 }
 
 p {
