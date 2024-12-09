@@ -4,6 +4,8 @@ import FollowEye from "@/components/FollowEye";
 import { useMousePosition } from "@/context/MousePositionContext";
 import DotSquare from "@/components/DotSquare";
 import InfiniteText from "@/app/(home)/About/InfiniteText";
+import MoreInfo from "@/app/(home)/About/MoreInfo";
+import StarLine from "@/components/StarLine";
 
 export default function About() {
   const mousePosition = useMousePosition();
@@ -40,9 +42,25 @@ export default function About() {
             </h4>
           </div>
         </div>
+        <MoreInfo />
         <InfiniteText />
       </div>
-      <div className={styles.about__skills}></div>
+      <div className={styles.about__details}>
+        <h5 className={styles.about__detailsTitle}>What I do</h5>
+        <p className={styles.about__detailsCTA}>
+          I can assist you in designing a digital product or enhancing an
+          existing one to make it more visually appealing, interactive, and
+          user-friendly.{" "}
+        </p>
+        <div className={styles.about__list}>
+          <div className={styles.about__listTitle}>
+            <div className={styles.about__listIcon}>
+              <StarLine color="var(--color-light)" lineWidth={800} />
+            </div>
+            <h3>Expertise</h3>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
