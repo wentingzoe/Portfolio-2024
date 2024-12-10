@@ -27,7 +27,7 @@ export default function About() {
           </div>
         </div>
         <div className={styles.about__welcome}>
-          <div className={styles.about__decor}></div>
+          <div className={styles.about__decor} />
           <h5 className={styles.about__title}>About Me</h5>
           <div />
           <div className={styles.about__intro}>
@@ -36,7 +36,7 @@ export default function About() {
               <br />
               I&apos;m Wenting (Zoe)!
             </h3>
-            <h4 className={styles.about__detail}>
+            <h4 className={styles.about__text}>
               A <b className={styles.about__bold}>web developer</b> and{" "}
               <b className={styles.about__bold}>digital designer</b>, I love
               crafting <b className={styles.about__bold}>visual</b>,{" "}
@@ -45,8 +45,12 @@ export default function About() {
             </h4>
           </div>
         </div>
-        <MoreInfo />
-        <InfiniteText />
+        <div className={styles.about__moreInfo}>
+          <MoreInfo />
+        </div>
+        <div className={styles.about__infiniteText}>
+          <InfiniteText />
+        </div>
       </div>
       <div className={styles.about__details}>
         <h5 className={styles.about__detailsTitle}>What I do</h5>
