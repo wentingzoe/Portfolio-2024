@@ -1,5 +1,3 @@
-@use "mixins" as *;
-
 .container {
   position: relative;
   height: 100vh;
@@ -25,19 +23,19 @@
   font-size: 2rem;
   color: white;
 
-  @media (max-width: #{$breakpoint-tablet }) {
+  @include tablet {
     position: relative;
     transform: none !important;
   }
 }
 
 .section1 {
-  // background: var(--bg-linear);
 }
 
 .section2 {
-  //background: var(--bg-linear-reverse);
-  width: 100vw;
+  @include tablet {
+    height: auto;
+  }
 }
 
 .section3 {

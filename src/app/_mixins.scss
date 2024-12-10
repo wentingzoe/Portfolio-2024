@@ -8,14 +8,14 @@ $breakpoint-tablet: 1024px; //m
 $breakpoint-desktop: 1440px; //l
 
 // Mixins for responsive design
-@mixin mobile {
-  @media (max-width: #{$breakpoint-mobile}) {
-    @content;
-  }
-}
 
 @mixin mobile-small {
   @media (max-width: #{$breakpoint-mobile-small}) {
+    @content;
+  }
+}
+@mixin mobile {
+  @media (max-width: #{$breakpoint-mobile}) {
     @content;
   }
 }
@@ -30,7 +30,7 @@ $breakpoint-desktop: 1440px; //l
       @content;
     }
   } @else {
-    @media (min-width: #{$breakpoint-mobile + 1}) and (max-width: #{$breakpoint-tablet}) {
+    @media (max-width: #{$breakpoint-tablet}) {
       @content;
     }
   }
@@ -176,3 +176,15 @@ $breakpoint-desktop: 1440px; //l
 }
 
 /* ----------------  Common Element ---------------- */
+
+@mixin small-star {
+  position: relative;
+  width: clamp-xs-l(16px, 42px);
+  height: clamp-xs-l(16px, 42px);
+}
+
+@mixin large-star {
+  position: relative;
+  width: clamp-xs-l(24px, 72px);
+  height: clamp-xs-l(24px, 72px);
+}
