@@ -23,9 +23,18 @@
   font-size: 2rem;
   color: white;
 
-  @media (max-width: #{$breakpoint-tablet }) {
+  @include tablet {
     position: relative;
     transform: none !important;
+  }
+}
+
+.section1 {
+}
+
+.section2 {
+  @include tablet {
+    height: auto;
   }
 }
 
