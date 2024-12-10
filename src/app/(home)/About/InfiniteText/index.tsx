@@ -40,8 +40,8 @@ export default function InfiniteText() {
   return (
     <div ref={infiniteText} className={styles.infiniteText}>
       <div className={styles.infiniteText__slider}>
-        <h1 ref={firstText}>Wenting Yong</h1>
-        <h1 ref={secondText}>Wenting Yong</h1>
+        <h1 ref={firstText}>Wenting Yong - Wenting Yong -</h1>
+        <h1 ref={secondText}>Wenting Yong - Wenting Yong -</h1>
       </div>
     </div>
   );
