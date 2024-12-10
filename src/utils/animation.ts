@@ -66,3 +66,29 @@ export const slideIn = {
     }
 }
 
+export const perspectiveRight = {
+    initial: {
+        opacity: 0,
+        rotateX: 90,
+        translateX: 80,
+        translateY: -20,
+    },
+    enter: (custom: number) =>{ 
+    
+        return{
+        opacity: 1,
+        rotateX: 0,
+        translateY: 0,
+        translateX: 0,
+        transition: {
+            duration: 1, 
+            delay: 0.5 + (custom * 0.15), 
+            ease: [.215,.61,.355,1],
+            opacity: { duration: 0.35}
+        }
+    }},
+    exit: {
+        opacity: 0,
+        transition: { duration: 0.5, type: "linear", ease: [0.76, 0, 0.24, 1]}
+    }
+}

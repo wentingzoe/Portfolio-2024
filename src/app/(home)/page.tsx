@@ -3,11 +3,12 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import styles from "@/app/page.module.scss";
+import styles from "./page.module.scss";
 import { MousePositionProvider } from "@/context/MousePositionContext";
 import { useBreakpoint } from "@/context/BreakpointContext";
-import Hero from "../components/Hero/";
+import Hero from "./Hero";
 import AnimatedBackground from "@/components/AnimatedBackground";
+import About from "./About";
 
 const Home = () => {
   const sectionsRef = useRef<HTMLDivElement>(null);
@@ -36,6 +37,7 @@ const Home = () => {
           pin: true,
           scrub: 1,
           start: "top top",
+          //markers: true,
           end: () => `+=${sectionsRef.current?.scrollWidth}`,
           invalidateOnRefresh: true, // Recalculate on resize
         },
@@ -79,7 +81,7 @@ const Home = () => {
             <Hero />
           </section>
           <section className={`${styles.section} ${styles.section2}`}>
-            Section 2
+            <About />
           </section>
           <section className={`${styles.section} ${styles.section3}`}>
             Section 3

@@ -50,6 +50,7 @@
   &__title {
     @include flex-column;
     margin-top: 5%;
+    z-index: 3;
 
     @include tablet {
       margin-top: 8%;
@@ -82,9 +83,7 @@
   }
 
   &__icon {
-    position: relative;
-    width: clamp-xs-l(16px, 42px);
-    height: clamp-xs-l(16px, 42px);
+    @include small-star;
   }
 
   &__time {
@@ -99,12 +98,12 @@
 
   &__portrait {
     position: absolute;
-    z-index: 1;
     width: clamp(35vw, 52%, 840px);
     max-height: 100%;
     min-height: 95%;
     bottom: 0;
     right: 0;
+    z-index: 1;
 
     @include tablet(landscape) {
       width: clamp-s-m(280px, 650px);
