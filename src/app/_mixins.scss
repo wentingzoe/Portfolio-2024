@@ -103,13 +103,13 @@ $breakpoint-desktop: 1440px; //l
 /* ----------------  Display Flex variables ---------------- */
 
 @mixin flexbox(
-  $direction: row,
+  $dir: row,
   $justify: flex-start,
   $align: stretch,
   $wrap: nowrap
 ) {
   display: flex;
-  flex-direction: $direction;
+  flex-direction: $dir;
   justify-content: $justify;
   align-items: $align;
   flex-wrap: $wrap;
