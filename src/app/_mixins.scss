@@ -101,32 +101,17 @@ $breakpoint-desktop: 1440px; //l
 }
 
 /* ----------------  Display Flex variables ---------------- */
-@mixin flex-cross-center {
-  display: flex;
-  align-items: center;
-}
-
-@mixin flex-all-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-@mixin flex-column {
-  display: flex;
-  flex-direction: column;
-}
 
 @mixin flexbox(
+  $direction: row,
   $justify: flex-start,
   $align: stretch,
-  $direction: row,
   $wrap: nowrap
 ) {
   display: flex;
+  flex-direction: $direction;
   justify-content: $justify;
   align-items: $align;
-  flex-direction: $direction;
   flex-wrap: $wrap;
 }
 /* ----------------  Display Grid variables ---------------- */

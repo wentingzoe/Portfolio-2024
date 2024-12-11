@@ -11,9 +11,8 @@
   }
 
   &__content {
-    @include flex-column;
+    @include flexbox(column, center);
     position: relative;
-    justify-content: center;
     padding-left: clamp-xs-l(25px, 50px);
     padding-bottom: clamp-xs-l(37px, 100px);
     z-index: 2;
@@ -34,7 +33,7 @@
   }
 
   &__name {
-    @include flex-column;
+    @include flexbox(column);
     position: relative;
     width: clamp-xs-l(108px, 293px);
   }
@@ -48,7 +47,7 @@
   }
 
   &__title {
-    @include flex-column;
+    @include flexbox(column);
     margin-top: 5%;
     z-index: 3;
 
@@ -63,13 +62,11 @@
   }
 
   &__location {
-    display: flex;
+    @include flexbox(row, space-between, center);
     position: absolute;
     bottom: clamp-s-l(25px, 38px);
     left: clamp-xs-l(25px, 50px);
     width: clamp-xs-l(88px, 187px);
-    justify-content: space-between;
-    align-items: center;
 
     @include tablet {
       color: var(--color-primary);
