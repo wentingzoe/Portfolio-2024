@@ -179,8 +179,8 @@ h3 {
 
 h4 {
   @include responsive-font-size(14px, 30px);
-  font-family:"PP-light" ,"PP-bold", sans-serif;
-  font-weight: 450;
+  font-family:"PP-light" , sans-serif;
+  font-weight: 300;
   font-style: normal;
   line-height: 1.1;
 }
@@ -243,7 +243,26 @@ section {
   width: 100%;
 }
 
+.bold {
+  font-family: "PP-bold", sans-serif;
+}
+
+// .text-h3 {
+//   font-family: "PP-bold", sans-serif;
+//   font-weight: 450;
+//   font-style: normal;
+//   line-height: 1.065;
+// }
 /* ---- Animation ---- */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @keyframes fade-in-left-bottom {
   from {
     opacity: 0;
