@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styles from "./about.module.scss";
 import FollowEye from "@/components/FollowEye";
 import { useMousePosition } from "@/context/MousePositionContext";
@@ -6,16 +6,25 @@ import DotSquare from "@/components/DotSquare";
 import InfiniteText from "@/app/(home)/About/InfiniteText";
 import MoreInfo from "@/app/(home)/About/MoreInfo";
 import StarLine from "@/components/StarLine";
-import { motion } from "framer-motion";
-import { perspectiveRight } from "@/utils/animation";
+import { useInView, motion } from "framer-motion";
+import {
+  perspectiveRight,
+  opacity,
+  containerVariants,
+} from "@/utils/animation";
 import { expertiseItems } from "@/utils/nav-items";
+import TypingText from "@/components/TypingText";
+import { aboutDescription } from "@/utils/text";
 
 export default function About() {
   const mousePosition = useMousePosition();
+  const aboutRef = useRef(null);
+  const isInView = useInView(aboutRef, { amount: 0.5 });
   return (
-    <div className={styles.about}>
+    <motion.div ref={aboutRef} className={styles.about}>
       <div className={styles.about__content}>
-        <div className={styles.about__eye}>
+        <h5 className={styles.about__title}>About Me</h5>
+        <div className={styles.about__eyeDecor}>
           <div className={styles.about__followEye}>
             <FollowEye
               mousePosition={mousePosition}
@@ -26,31 +35,38 @@ export default function About() {
             <DotSquare color="var(--color-light)" />
           </div>
         </div>
-        <div className={styles.about__welcome}>
-          <div className={styles.about__decor} />
-          <h5 className={styles.about__title}>About Me</h5>
-          <div />
-          <div className={styles.about__intro}>
-            <h3>
-              Hey,
-              <br />
-              I&apos;m Wenting (Zoe)!
-            </h3>
-            <h4 className={styles.about__text}>
-              A <b className={styles.about__bold}>web developer</b> and{" "}
-              <b className={styles.about__bold}>digital designer</b>, I love
-              crafting <b className={styles.about__bold}>visual</b>,{" "}
-              <b className={styles.about__bold}>interactive</b>, and{" "}
-              <b className={styles.about__bold}>responsive</b> web experiences.
-            </h4>
-          </div>
-        </div>
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          className={styles.about__description}
+        >
+          <motion.div variants={opacity} className={styles.about__decor} />
+          <motion.div variants={opacity} className={styles.about__intro}>
+            <TypingText
+              text={aboutDescription.text1}
+              as="h3"
+              className={styles.about__text1}
+              speed={0.04}
+              initialDelay={1}
+              isVisible={isInView}
+            />
+            <TypingText
+              text={aboutDescription.text2}
+              as="h4"
+              className={styles.about__text2}
+              speed={0.05}
+              initialDelay={1.2}
+              isVisible={isInView}
+            />
+          </motion.div>
+        </motion.div>
         <div className={styles.about__moreInfo}>
           <MoreInfo />
         </div>
-        <div className={styles.about__infiniteText}>
+        <motion.div className={styles.about__infiniteText} variants={opacity}>
           <InfiniteText />
-        </div>
+        </motion.div>
       </div>
       <div className={styles.about__details}>
         <h5 className={styles.about__detailsTitle}>What I do</h5>
@@ -86,6 +102,6 @@ export default function About() {
           </ul>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
