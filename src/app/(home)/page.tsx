@@ -13,24 +13,19 @@ import About from "./About";
 const Home = () => {
   const sectionsRef = useRef<HTMLDivElement>(null);
   const breakpoint = useBreakpoint();
-
-  // Ensure ScrollTrigger is registered only on the client
   useEffect(() => {
     if (typeof window !== "undefined") {
       gsap.registerPlugin(ScrollTrigger);
     }
   }, []);
 
-  // GSAP animations
   useEffect(() => {
     const sections = sectionsRef.current?.children;
     if (!sections) return;
 
-    // Clear any existing ScrollTriggers
     ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
 
     if (breakpoint === "desktop") {
-      // Horizontal scroll animation for desktop
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: sectionsRef.current,
@@ -39,7 +34,7 @@ const Home = () => {
           start: "top top",
           //markers: true,
           end: () => `+=${sectionsRef.current?.scrollWidth}`,
-          invalidateOnRefresh: true, // Recalculate on resize
+          invalidateOnRefresh: true,
         },
       });
 
@@ -62,11 +57,10 @@ const Home = () => {
       gsap.set(sections, {
         xPercent: 0,
         y: 0,
-        clearProps: "all", // Clear all GSAP-added properties
+        clearProps: "all",
       });
     }
 
-    // Cleanup function
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
