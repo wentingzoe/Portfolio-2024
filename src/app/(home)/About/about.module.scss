@@ -15,10 +15,8 @@
   }
 
   &__content {
+    @include flexbox(center, center);
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 
   &__title {
@@ -78,9 +76,8 @@
     grid-row: 1;
   }
   &__intro {
-    @include flex-column;
+    @include flexbox(column, space-around);
     position: relative;
-    justify-content: space-around;
     background-color: var(--color-primary);
     padding: 13% 8% 18%;
 
@@ -104,7 +101,6 @@
 
   &__infiniteText {
     position: absolute;
-    position: absolute;
     bottom: 0;
     left: 0;
     z-index: 0;
@@ -114,7 +110,7 @@
     }
   }
   &__details {
-    @include flex-column;
+    @include flexbox(column);
     position: relative;
     background-color: var(--color-primary);
     color: var(--color-light);
@@ -123,7 +119,7 @@
   }
 
   // &__detailsTitle {
-  //   display: flex;
+
   // }
 
   &__detailsCTA {
