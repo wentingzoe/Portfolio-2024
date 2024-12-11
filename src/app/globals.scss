@@ -196,17 +196,14 @@ h5 {
 
 }
 
-span { @include responsive-font-size(10px, 18px);
+h6 {
+  @include responsive-font-size(10px, 18px);
   font-family: "PP-regular", sans-serif;
   font-weight: 450;
   font-style: normal;
+  line-height: 1.065;
 }
 
-span.bold {
-  font-family: "PP-bold", sans-serif;
-  font-weight: 600;
-  font-style: normal;
-}
 
 p {
   @include responsive-font-size(10px, 18px);
@@ -247,12 +244,7 @@ section {
   font-family: "PP-bold", sans-serif;
 }
 
-// .text-h3 {
-//   font-family: "PP-bold", sans-serif;
-//   font-weight: 450;
-//   font-style: normal;
-//   line-height: 1.065;
-// }
+
 /* ---- Animation ---- */
 @keyframes fade-in {
   from {
