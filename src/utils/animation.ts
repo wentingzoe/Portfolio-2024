@@ -1,3 +1,6 @@
+import { delay } from "framer-motion";
+import { s } from "framer-motion/client";
+
 export const menu = {
   open: {
     width: "var(--menu-animate-width)",
@@ -93,31 +96,7 @@ export const perspectiveRight = {
     }
 }
 
-//Text Animation
-export const slideRight = {
-    initial: {
-        x: "100%"
-    },
-    open: (i: number) => ({
-        x: "0%",
-        transition: {duration: 0.5, delay: 0.01 * i}
-    }),
-    closed: {
-        x: "100%",
-        transition: {duration: 0.5}
-    }
-}
-
-export const opacity = {
-  hidden: { opacity: 0, y: 20, x: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    x: 0,
-    transition: { duration: 0.5,type: "tween", ease: "easeInOut"}
-  }
-};
-
+//Delay Children Animation
 export const containerVariants = {
   hidden: { opacity: 0},
   visible: {
@@ -128,3 +107,22 @@ export const containerVariants = {
     },
   },
 };
+
+//Box Animation
+export const slideUp = {
+  hidden: { opacity: 0, scale: 0.5},
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.5,type: "tween", ease: [0.76, 0, 0.24, 1]}
+  }
+};
+
+export const opacity = {
+    hidden: { opacity: 0},  
+    visible: {
+      opacity: 1,
+    
+    }
+}
+
