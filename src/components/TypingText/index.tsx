@@ -63,14 +63,14 @@ export default function TypingText({
           }
 
           return (
-            <motion.div
+            <motion.span
               key={i}
               variants={wordVariants}
               style={{ display: "inline-block", marginRight: "0.25em" }}
               className={w.className}
             >
               {w.word}
-            </motion.div>
+            </motion.span>
           );
         })}
       </Tag>
