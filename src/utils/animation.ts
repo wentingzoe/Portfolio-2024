@@ -92,3 +92,39 @@ export const perspectiveRight = {
         transition: { duration: 0.5, type: "linear", ease: [0.76, 0, 0.24, 1]}
     }
 }
+
+//Text Animation
+export const slideRight = {
+    initial: {
+        x: "100%"
+    },
+    open: (i: number) => ({
+        x: "0%",
+        transition: {duration: 0.5, delay: 0.01 * i}
+    }),
+    closed: {
+        x: "100%",
+        transition: {duration: 0.5}
+    }
+}
+
+export const opacity = {
+  hidden: { opacity: 0, y: 20, x: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    x: 0,
+    transition: { duration: 0.5,type: "tween", ease: "easeInOut"}
+  }
+};
+
+export const containerVariants = {
+  hidden: { opacity: 0},
+  visible: {
+    opacity: 1,
+    transition: {
+    staggerChildren: 0.5,
+    delayChildren: 0.3,
+    },
+  },
+};
