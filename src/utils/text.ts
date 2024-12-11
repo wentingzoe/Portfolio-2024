@@ -12,5 +12,6 @@ export const aboutDescription = {
     { text: ", and " },
     { text: "responsive", className: "bold" },
     { text: " web experiences." }
-  ]
+  ],
+	text3:" I can assist you in designing a digital product or enhancing an existing one to make it more visually appealing, interactive, and user-friendly.",
 };
