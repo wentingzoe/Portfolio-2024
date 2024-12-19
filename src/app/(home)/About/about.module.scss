@@ -3,8 +3,6 @@
   height: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  justify-items: stretch;
-  align-items: stretch;
   overflow: hidden;
 
   @include tablet {
@@ -16,21 +14,17 @@
 
   &__content {
     @include flexbox($justify: center, $align: center);
-
+    padding: var(--container-padding);
     position: relative;
   }
 
   &__title {
-    position: absolute;
-    top: 5%;
-    left: 0%;
+    @include small-title;
+    color: var(--color-primary);
+    left: 1%;
 
-    &--dark {
-      color: var(--color-primary);
-    }
-
-    &--left {
-      left: 8%;
+    @include tablet {
+      left: var(--side-left);
     }
   }
   &__eyeDecor {
@@ -55,6 +49,7 @@
     bottom: 0;
     z-index: -1;
   }
+
   &__description {
     position: relative;
     width: clamp-xs-l(300px, 520px);
@@ -62,8 +57,9 @@
     display: grid;
     grid-template-columns: 1fr 9fr;
     grid-template-rows: 1fr 9fr;
-    margin-bottom: 15%;
+    margin-bottom: 10%;
     z-index: 1;
+    border: rebeccapurple 1px solid;
 
     @include tablet {
       margin-bottom: 0;
@@ -86,11 +82,11 @@
 
   &__moreInfo {
     position: absolute;
-    z-index: 2;
     width: clamp-xs-l(100px, 200px);
     height: clamp-xs-l(100px, 200px);
     right: -10%;
     top: 55%;
+    z-index: 2;
 
     @include tablet {
       right: 15%;
@@ -113,21 +109,25 @@
     position: relative;
     background-color: var(--color-primary);
     color: var(--color-light);
+    padding: var(--container-padding);
+    border: red 1px solid;
     z-index: 1;
-    padding: 10% 8%;
   }
 
-  // &__detailsTitle {
-
-  // }
+  &__detailsTitle {
+    @include small-title;
+  }
 
   &__detailsCTA {
     max-width: 40ch;
-    margin-top: 5%;
+    margin: var(--gap-margin) 0;
     border: chartreuse 1px solid;
   }
 
   &__list {
+    border: red 1px solid;
+    margin: var(--gap-margin) 0;
+    overflow: hidden;
   }
 
   &__listTitle {
