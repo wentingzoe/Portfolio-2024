@@ -11,7 +11,7 @@ export default function index() {
         <div className={styles.moreInfo__star}>
           <Star color="var(--color-primary)" />
         </div>
-        <span className="bold"> Know More About Me</span>
+        <h6 className="bold"> Know More About Me</h6>
       </div>
       <div className={styles.moreInfo__links}>
         {socialLinks.map((link, i) => {

@@ -3,8 +3,6 @@
   height: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  justify-items: stretch;
-  align-items: stretch;
   overflow: hidden;
 
   @include tablet {
@@ -15,25 +13,31 @@
   }
 
   &__content {
+    @include flexbox($justify: center, $align: center);
+    padding: var(--container-padding);
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
-  &__eye {
+
+  &__title {
+    @include small-title;
+    color: var(--color-primary);
+    left: 1%;
+
+    @include tablet {
+      left: var(--side-left);
+    }
+  }
+  &__eyeDecor {
     position: absolute;
     top: 30%;
     left: 0;
     width: clamp-xs-l(84px, 150px);
     height: clamp-xs-l(106px, 190px);
-
-    z-index: 1;
   }
 
   &__followEye {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
+
     width: 80%;
     z-index: 2;
   }
@@ -45,16 +49,17 @@
     bottom: 0;
     z-index: -1;
   }
-  &__welcome {
+
+  &__description {
     position: relative;
-    border: green 1px solid;
     width: clamp-xs-l(300px, 520px);
     height: clamp-xs-l(300px, 520px);
     display: grid;
     grid-template-columns: 1fr 9fr;
     grid-template-rows: 1fr 9fr;
-    margin-bottom: 15%;
+    margin-bottom: 10%;
     z-index: 1;
+    border: rebeccapurple 1px solid;
 
     @include tablet {
       margin-bottom: 0;
@@ -62,45 +67,20 @@
   }
   &__decor {
     background-color: var(--color-primary);
-  }
-  &__title {
-    color: var(--color-primary);
-    align-self: center;
-    padding-left: 2rem;
+    grid-column: 1;
+    grid-row: 1;
   }
   &__intro {
+    @include flexbox(column, space-around);
     position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-
     background-color: var(--color-primary);
-    flex-grow: 9;
     padding: 13% 8% 18%;
-  }
 
-  &__text {
-  }
-  &__bold {
-    font-family: "PP-bold";
-  }
-
-  &__moreInfo {
-    position: absolute;
-    z-index: 2;
-    width: clamp-xs-l(100px, 200px);
-    height: clamp-xs-l(100px, 200px);
-    right: -10%;
-    top: 55%;
-
-    @include tablet {
-      right: 15%;
-      top: 80%;
-    }
+    grid-column: 2;
+    grid-row: 2;
   }
 
   &__infiniteText {
-    position: absolute;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -111,24 +91,26 @@
     }
   }
   &__details {
+    @include flexbox(column);
+    position: relative;
     background-color: var(--color-primary);
-
+    color: var(--color-light);
+    padding: var(--container-padding);
     z-index: 1;
-    padding: 10% 8%;
   }
 
   &__detailsTitle {
-    display: flex;
+    @include small-title;
   }
 
   &__detailsCTA {
     max-width: 40ch;
-    margin-top: 8%;
-    margin-bottom: 8%;
+    margin: var(--gap-margin) 0;
   }
 
   &__list {
-    // border: chartreuse 1px solid;
+    margin: var(--gap-margin) 0;
+    overflow: hidden;
   }
 
   &__listTitle {
@@ -158,6 +140,20 @@
 
     h4 {
       padding-left: 5%;
+    }
+  }
+
+  &__moreInfo {
+    position: absolute;
+    width: clamp-xs-l(100px, 150px);
+    height: clamp-xs-l(100px, 150px);
+    right: 5%;
+    bottom: 5%;
+    z-index: 2;
+
+    @include tablet {
+      right: 5%;
+      top: -10%;
     }
   }
 }
