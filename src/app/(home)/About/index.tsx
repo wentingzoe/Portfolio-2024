@@ -14,7 +14,6 @@ import {
   containerVariants,
   opacity,
   slideRight,
-  slideIn,
 } from "@/utils/animation";
 import { expertiseItems } from "@/utils/nav-items";
 import { aboutDescription } from "@/utils/text";
