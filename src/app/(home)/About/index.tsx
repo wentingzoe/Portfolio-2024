@@ -13,6 +13,8 @@ import {
   slideUp,
   containerVariants,
   opacity,
+  slideRight,
+  slideIn,
 } from "@/utils/animation";
 import { expertiseItems } from "@/utils/nav-items";
 import { aboutDescription } from "@/utils/text";
@@ -24,19 +26,15 @@ export default function About() {
   const isInAbout = useInView(aboutRef, { amount: 0.5 });
   const isInDetails = useInView(detailsRef, { amount: 0.6 });
   return (
-    <motion.div
-      ref={aboutRef}
-      variants={containerVariants}
-      initial="hidden"
-      animate={isInAbout ? "visible" : "hidden"}
-      className={styles.about}
-    >
-      <div className={styles.about__content}>
-        <h5
-          className={`${styles["about__title"]} ${styles["about__title--dark"]}`}
-        >
-          About Me
-        </h5>
+    <div className={styles.about}>
+      <motion.div
+        className={styles.about__content}
+        ref={aboutRef}
+        variants={containerVariants}
+        initial="hidden"
+        animate={isInAbout ? "visible" : "hidden"}
+      >
+        <h5 className={styles.about__title}>About Me</h5>
         <div className={styles.about__eyeDecor}>
           <div className={styles.about__followEye}>
             <FollowEye
@@ -73,13 +71,15 @@ export default function About() {
         <motion.div variants={opacity} className={styles.about__infiniteText}>
           <InfiniteText />
         </motion.div>
-      </div>
-      <div ref={detailsRef} className={styles.about__details}>
-        <h5
-          className={`${styles["about__title"]} ${styles["about__title--left"]}`}
-        >
-          What I do
-        </h5>
+      </motion.div>
+      <motion.div
+        ref={detailsRef}
+        // variants={containerVariants}
+        // initial="hidden"
+        // animate={isInDetails ? "visible" : "hidden"}
+        className={styles.about__details}
+      >
+        <h5 className={styles.about__detailsTitle}>What I do</h5>
         <TypingText
           text={aboutDescription.text3}
           as="p"
@@ -87,14 +87,28 @@ export default function About() {
           isVisible={isInDetails}
         />
 
-        <div className={styles.about__list}>
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInDetails ? "visible" : "hidden"}
+          className={styles.about__list}
+        >
           <div className={styles.about__listTitle}>
             <div className={styles.about__listIcon}>
-              <StarLine color="var(--color-light)" lineWidth={800} />
+              <StarLine
+                color="var(--color-light)"
+                lineWidth={800}
+                isInDetails={isInDetails}
+              />
             </div>
-            <h3>Expertise</h3>
+            <h4>Expertise</h4>
           </div>
-          <ul className={styles.about__listItems}>
+          <motion.ul
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInDetails ? "visible" : "hidden"}
+            className={styles.about__listItems}
+          >
             {expertiseItems.map((item, i) => {
               const { title } = item;
               return (
@@ -103,17 +117,14 @@ export default function About() {
                   className={styles.about__listItem}
                   custom={i}
                   variants={perspectiveRight}
-                  initial="initial"
-                  animate="enter"
-                  exit="exit"
                 >
                   <h4>{title}</h4>
                 </motion.li>
               );
             })}
-          </ul>
-        </div>
-      </div>
-    </motion.div>
+          </motion.ul>
+        </motion.div>
+      </motion.div>
+    </div>
   );
 }
