@@ -65,18 +65,16 @@ export default function About() {
             />
           </motion.div>
         </motion.div>
-        <div className={styles.about__moreInfo}>
-          <MoreInfo />
-        </div>
+
         <motion.div variants={opacity} className={styles.about__infiniteText}>
           <InfiniteText />
         </motion.div>
       </motion.div>
       <motion.div
         ref={detailsRef}
-        // variants={containerVariants}
-        // initial="hidden"
-        // animate={isInDetails ? "visible" : "hidden"}
+        variants={containerVariants}
+        initial="hidden"
+        animate={isInDetails ? "visible" : "hidden"}
         className={styles.about__details}
       >
         <h5 className={styles.about__detailsTitle}>What I do</h5>
@@ -101,7 +99,7 @@ export default function About() {
                 isInDetails={isInDetails}
               />
             </div>
-            <h4>Expertise</h4>
+            <motion.h4 variants={slideRight}>Expertise</motion.h4>
           </div>
           <motion.ul
             variants={containerVariants}
@@ -123,6 +121,9 @@ export default function About() {
               );
             })}
           </motion.ul>
+          <div className={styles.about__moreInfo}>
+            <MoreInfo />
+          </div>
         </motion.div>
       </motion.div>
     </div>
