@@ -121,9 +121,9 @@ export default function About() {
               );
             })}
           </motion.ul>
-          <div className={styles.about__moreInfo}>
+          <motion.div variants={opacity} className={styles.about__moreInfo}>
             <MoreInfo />
-          </div>
+          </motion.div>
         </motion.div>
       </motion.div>
     </div>
