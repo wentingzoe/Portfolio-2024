@@ -28,18 +28,18 @@ const StarLine: React.FC<StarLineProps> = ({
       timeline
         .fromTo(
           starRef.current,
-          { opacity: 0, scale: 0.8 },
+          { opacity: 0, scale: 0 },
           {
             opacity: 1,
             scale: 1,
-            duration: 1,
+            duration: 2,
             ease: "power1.out",
           }
         )
 
         .fromTo(
           lineRef.current,
-          { attr: { x2: 0 }, opacity: 0.5 },
+          { attr: { x2: 0 }, opacity: 0 },
           {
             attr: { x2: lineWidth },
             opacity: 1,
