@@ -11,9 +11,9 @@ interface ProjectCardProps {
   url: string;
   color: string;
   i: number;
-  // progress: number;
-  // range: [number, number];
-  // targetScale: number;
+  progress: number;
+  range: [number, number];
+  targetScale: number;
 }
 
 export default function ProjectCard({
@@ -23,19 +23,19 @@ export default function ProjectCard({
   url,
   color,
   i,
-  // progress,
-  // range,
-  // targetScale,
+  progress,
+  range,
+  targetScale,
 }: ProjectCardProps) {
-  // const container = useRef(null);
-  // const { scrollYProgress } = useScroll({
-  //   target: container,
-  //   offset: ["start end", "start start"],
-  // });
+  const container = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: container,
+    offset: ["start end", "start start"],
+  });
 
-  // const imageScale = useTransform(scrollYProgress, [0, 1], [2, 1]);
-  // const motionProgress = useMotionValue(progress);
-  // const scale = useTransform(motionProgress, range, [1, targetScale]);
+  const imageScale = useTransform(scrollYProgress, [0, 1], [2, 1]);
+  const motionProgress = useMotionValue(progress);
+  const scale = useTransform(motionProgress, range, [1, targetScale]);
 
   return (
     <div ref={container} className={styles.cardContainer}>
@@ -47,7 +47,7 @@ export default function ProjectCard({
         }}
         className={styles.card}
       >
-        {/* <h2>{title}</h2>
+        <h2>{title}</h2>
         <div className={styles.body}>
           <div className={styles.description}>
             <p>{description}</p>
@@ -74,7 +74,7 @@ export default function ProjectCard({
             <motion.div className={styles.inner} style={{ scale: imageScale }}>
               <Image fill src={`/images/${src}`} alt="image" />
             </motion.div>
-          </div> */}
+          </div>
         </div>
       </motion.div>
     </div>
