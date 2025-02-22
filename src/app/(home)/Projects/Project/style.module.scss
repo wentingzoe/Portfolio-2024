@@ -1,0 +1,30 @@
+.project {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 5rem;
+  padding: var(--gap-padding) 0;
+  transition: all 0.2s linear;
+
+  &__title {
+    margin: 0;
+    transition: all 0.2s linear;
+  }
+
+  &__role {
+    transition: all 0.2s linear;
+  }
+
+  &:hover {
+    opacity: 0.4;
+
+    &__title {
+      transform: translateX(-10px);
+    }
+
+    &__role {
+      transform: translateX(10px);
+    }
+  }
+}

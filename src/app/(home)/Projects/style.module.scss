@@ -1,0 +1,38 @@
+.projects {
+  position: relative;
+  align-items: center;
+
+  margin-bottom: 50vh;
+
+  &__container {
+    width: 100%;
+    padding: var(--container-padding);
+  }
+  &__header {
+    opacity: 0.5;
+    text-transform: uppercase;
+    padding-left: var(--gap-padding);
+  }
+
+  &__line {
+    border-top: 1px solid var(--color-fourth);
+
+    &:last-child {
+      border-bottom: 1px solid var(--color-fourth);
+    }
+  }
+  &__circle-container {
+    position: relative;
+    margin-top: 10vh;
+  }
+  &__circle {
+    position: absolute;
+    height: 650%;
+    width: 120%;
+    left: -10%;
+    z-index: 100;
+    border-radius: 0 0 50% 50%;
+    background-color: var(--color-primary);
+    box-shadow: 0px 60px 50px rgba(0, 0, 0, 0.562);
+  }
+}
