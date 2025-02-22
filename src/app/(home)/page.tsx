@@ -9,7 +9,7 @@ import { useBreakpoint } from "@/context/BreakpointContext";
 import Hero from "./Hero";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import About from "./About";
-import Project from "./Project";
+import Projects from "./Projects";
 
 const Home = () => {
   const sectionsRef = useRef<HTMLDivElement>(null);
@@ -79,7 +79,7 @@ const Home = () => {
             <About />
           </section>
           <section className={`${styles.section} ${styles.section3}`}>
-            <Project />
+            <Projects />
           </section>
           <section className={`${styles.section} ${styles.section4}`}>
             Section 4
