@@ -56,31 +56,36 @@ export const projects = [
 
 export const project_list = [
   {
-    title: "C2 Montreal",
+    name: "C2 Montreal",
     src: "projects/c2montreal.png",
     color: "#000000",
     role: "Design & Development",
+    
+    details: "C2 Montreal is a business conference that explores the relationship between commerce and creativity. The website was designed to reflect the conference's innovative and creative spirit.",
     url: "",
   },
   {
-    title: "Office Studio",
+    name: "Office Studio",
     src: "projects/officestudio.png",
     color: "#8C8C8C",
     role: "Design & Development",
+    details: "C2 Montreal is a business conference that explores the relationship between commerce and creativity. The website was designed to reflect the conference's innovative and creative spirit.",
     url: "",
   },
   {
-    title: "Locomotive",
+    name: "Locomotive",
     src: "projects/locomotive.png",
     color: "#EFE8D3",
     role: "Design & Development",
+    details: "C2 Montreal is a business conference that explores the relationship between commerce and creativity. The website was designed to reflect the conference's innovative and creative spirit.",
     url: "",
   },
   {
-    title: "Silencio",
+    name: "Silencio",
     src: "projects/silencio.png",
     color: "#706D63",
     role: "Design & Development",
+    details: "C2 Montreal is a business conference that explores the relationship between commerce and creativity. The website was designed to reflect the conference's innovative and creative spirit.",
     url: "",
   },
 ];
