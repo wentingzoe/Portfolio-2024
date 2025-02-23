@@ -1,4 +1,4 @@
-import styles from "./style.module.scss";
+import styles from "./projects.module.scss";
 import { useState, useEffect, useRef } from "react";
 import Project from "./Project";
 import Modal from "./Modal";
@@ -7,6 +7,7 @@ import { useScroll, useTransform, motion } from "framer-motion";
 
 export default function Index() {
   const [modal, setModal] = useState({ active: false, index: 0 });
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const container = useRef(null);
   const { scrollYProgress } = useScroll({
     target: container,
@@ -14,17 +15,25 @@ export default function Index() {
   });
   const height = useTransform(scrollYProgress, [0, 0.9], [100, 0]);
   return (
-    <section ref={container} className={styles.projects}>
+    <div ref={container} className={styles.projects}>
+      <h5 className={styles.projects__title}> Selected Work</h5>
       <div className={styles.projects__container}>
-        <p className={styles.projects__header}> Recent Work</p>
+        <div className={styles.projects__listTitles}>
+          <p>Project Name</p>
+          <p className={styles.projects__role}>Role</p>
+        </div>
         {project_list.map((project, index) => {
           return (
             <ul className={styles.projects__line} key={index}>
               <Project
                 index={index}
-                title={project.title}
+                name={project.name}
                 role={project.role}
+                details={project.details}
+                src={project.src}
                 setModal={setModal}
+                activeIndex={activeIndex}
+                setActiveIndex={setActiveIndex}
               />
             </ul>
           );
@@ -37,6 +46,6 @@ export default function Index() {
       >
         <div className={styles.projects__circle}></div>
       </motion.div>
-    </section>
+    </div>
   );
 }
