@@ -31,6 +31,7 @@ export default function Index() {
                 role={project.role}
                 details={project.details}
                 src={project.src}
+                tags={project.tags}
                 setModal={setModal}
                 activeIndex={activeIndex}
                 setActiveIndex={setActiveIndex}
