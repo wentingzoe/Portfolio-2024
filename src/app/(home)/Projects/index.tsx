@@ -1,5 +1,5 @@
 import styles from "./projects.module.scss";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import Project from "./Project";
 import Modal from "./Modal";
 import { project_list } from "@/utils/text";
@@ -16,7 +16,7 @@ export default function Index() {
   const height = useTransform(scrollYProgress, [0, 0.9], [100, 0]);
   return (
     <div ref={container} className={styles.projects}>
-      <h5 className={styles.projects__title}> Selected Work</h5>
+      <h5 className={styles.projects__title}> Selected Works</h5>
       <div className={styles.projects__container}>
         <div className={styles.projects__listTitles}>
           <p>Project Name</p>
