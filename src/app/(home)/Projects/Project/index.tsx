@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
 import { motion } from "framer-motion";
 import styles from "./project.module.scss";
 
@@ -13,23 +12,49 @@ export default function Index({
   setModal,
   activeIndex,
   setActiveIndex,
-}: any) {
+}: {
+  index: number;
+  name: string;
+  role: string;
+  details: string;
+  src: string;
+  setModal: (modal: { active: boolean; index: number }) => void;
+  activeIndex: number | null;
+  setActiveIndex: (index: number | null) => void;
+}) {
   const isOpen = activeIndex === index;
 
   return (
     <motion.li
-      className={styles.project}
+      className={`${styles.project} ${isOpen ? styles.project__open : ""}`}
       onClick={() => {
         setActiveIndex(isOpen ? null : index);
         setModal({ active: false, index });
       }}
-      onMouseEnter={() => setModal({ active: true, index })}
+      onMouseEnter={() => {
+        if (!isOpen) setModal({ active: true, index });
+      }}
       onMouseLeave={() => setModal({ active: false, index })}
     >
-      <div className={styles.project__title}>
-        <h3 className={styles.project__name}>{name}</h3>
-        <p className={styles.project__role}>{role}</p>
-      </div>
+      <motion.div
+        className={styles.project__title}
+        whileHover={!isOpen ? { x: 5 } : {}}
+      >
+        <motion.h3
+          className={styles.project__name}
+          animate={!isOpen ? { x: 10 } : { x: 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+        >
+          {name}
+        </motion.h3>
+        <motion.p
+          className={styles.project__role}
+          animate={!isOpen ? { x: -10 } : { x: 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+        >
+          {role}
+        </motion.p>
+      </motion.div>
       <motion.div
         className={styles.project__details}
         initial={{ height: 0, opacity: 0 }}
@@ -38,12 +63,13 @@ export default function Index({
           opacity: isOpen ? 1 : 0,
         }}
         transition={{
-          duration: isOpen ? 0.8 : 0.6,
+          duration: isOpen ? 0.3 : 0.5,
           ease: "easeInOut",
           delay: isOpen ? 0.3 : 0.5,
         }}
       >
         <p className={styles.project__description}>{details}</p>
+
         <Image
           className={styles.project__image}
           src={`/images/${src}`}

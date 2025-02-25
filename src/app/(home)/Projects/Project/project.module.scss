@@ -4,23 +4,30 @@
   padding: 1rem;
   transition: background-color 0.3s ease, color 0.3s ease;
 
-  // &:hover {
-  //   background-color: var(--color-light);
-  //   color: var(--color-primary);
-  //   transition: background-color 0.3s ease-in-out;
-  // }
+  &:not(.project__open):hover {
+    background-color: var(--color-light);
+    color: var(--color-primary);
+    transition: background-color 0.3s ease-in-out;
+  }
 
+  &__open {
+    background-color: var(--color-primary) !important;
+    color: var(--color-light) !important;
+  }
   &__title {
     @include flexbox($justify: space-between, $align: center);
+    transition: transform 0.3s ease-in-out;
   }
 
   &__name {
     width: 60%;
+    transition: transform 0.3s ease-in-out;
   }
   &__role {
     width: 20%;
     display: flex;
     justify-content: center;
+    transition: transform 0.3s ease-in-out;
   }
   &__details {
     @include flexbox($justify: space-between, $align: flex-start);
@@ -29,9 +36,11 @@
   }
   &__description {
     max-width: 50ch;
+    padding-top: 2rem;
   }
 
   &__image {
     height: auto;
+    padding-top: 2rem;
   }
 }
