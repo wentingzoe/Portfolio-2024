@@ -10,8 +10,8 @@ export default function Modal({
   projects,
   modal,
 }: {
-  projects: any;
-  modal: any;
+  projects: { src: string; color: string; name: string }[];
+  modal: { active: boolean; index: number };
 }) {
   const { active, index } = modal;
   const container = useRef(null);
@@ -68,7 +68,7 @@ export default function Modal({
           className={styles.modal__slider}
         >
           {projects.map((project: any, index: any) => {
-            const { src, color, title } = project;
+            const { src, color, name } = project;
             return (
               <div
                 key={`modal_${index}`}
@@ -78,7 +78,7 @@ export default function Modal({
                 <Image
                   className={styles.modal__image}
                   src={`/images/${src}`}
-                  alt={title}
+                  alt={name}
                   width={300}
                   height={0}
                 />
