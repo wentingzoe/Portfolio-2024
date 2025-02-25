@@ -34,11 +34,35 @@
     opacity: 0;
     height: 0;
   }
+  &__detailsBox {
+    @include flexbox($dir: column, $justify: center, $align: space-between);
+  }
   &__description {
     max-width: 50ch;
     padding-top: 2rem;
   }
 
+  &__tags {
+    @include flexbox(
+      $dir: column,
+      $justify: space-between,
+      $align: space-between
+    );
+    padding-top: 2rem;
+  }
+  &__tag:before {
+    @include text-deco;
+  }
+
+  &__tag {
+    @include flexbox($justify: flex-start, $align: center);
+    padding-top: 0.2rem;
+  }
+
+  &__button {
+    @include btn;
+    margin: 1rem 0;
+  }
   &__image {
     height: auto;
     padding-top: 2rem;

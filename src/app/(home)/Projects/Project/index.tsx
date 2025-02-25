@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { delay, motion } from "framer-motion";
 import styles from "./project.module.scss";
 
 export default function Index({
@@ -9,6 +9,7 @@ export default function Index({
   role,
   details,
   src,
+  tags,
   setModal,
   activeIndex,
   setActiveIndex,
@@ -18,6 +19,7 @@ export default function Index({
   role: string;
   details: string;
   src: string;
+  tags: string[];
   setModal: (modal: { active: boolean; index: number }) => void;
   activeIndex: number | null;
   setActiveIndex: (index: number | null) => void;
@@ -63,13 +65,22 @@ export default function Index({
           opacity: isOpen ? 1 : 0,
         }}
         transition={{
-          duration: isOpen ? 0.3 : 0.5,
+          duration: isOpen ? 0.5 : 0.3,
           ease: "easeInOut",
-          delay: isOpen ? 0.3 : 0.5,
+          delay: isOpen ? 0.3 : 0,
         }}
       >
-        <p className={styles.project__description}>{details}</p>
-
+        <div className={styles.project__detailsBox}>
+          <p className={styles.project__description}>{details}</p>
+          <div className={styles.project__tags}>
+            {tags.map((tag, index) => (
+              <p key={index} className={styles.project__tag}>
+                {tag}
+              </p>
+            ))}
+          </div>
+          <button className={styles.project__button}>View Project</button>
+        </div>
         <Image
           className={styles.project__image}
           src={`/images/${src}`}
