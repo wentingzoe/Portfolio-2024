@@ -60,8 +60,8 @@ export const project_list = [
     src: "projects/c2montreal.png",
     color: "#000000",
     role: "Design & Development",
-    
     details: "C2 Montreal is a business conference that explores the relationship between commerce and creativity. The website was designed to reflect the conference's innovative and creative spirit.",
+    tags:["Design", "Development", "Animation"],
     url: "",
   },
   {
@@ -70,6 +70,7 @@ export const project_list = [
     color: "#8C8C8C",
     role: "Design & Development",
     details: "C2 Montreal is a business conference that explores the relationship between commerce and creativity. The website was designed to reflect the conference's innovative and creative spirit.",
+    tags:["Design", "Development", "Animation"],
     url: "",
   },
   {
@@ -78,6 +79,7 @@ export const project_list = [
     color: "#EFE8D3",
     role: "Design & Development",
     details: "C2 Montreal is a business conference that explores the relationship between commerce and creativity. The website was designed to reflect the conference's innovative and creative spirit.",
+    tags:["Design", "Development", "Animation"],
     url: "",
   },
   {
@@ -86,6 +88,7 @@ export const project_list = [
     color: "#706D63",
     role: "Design & Development",
     details: "C2 Montreal is a business conference that explores the relationship between commerce and creativity. The website was designed to reflect the conference's innovative and creative spirit.",
+    tags:["Design", "Development", "Animation"],
     url: "",
   },
 ];
