@@ -134,3 +134,30 @@ $breakpoint-desktop: 1440px; //l
   top: var(--side-top);
   left: var(--side-left);
 }
+
+@mixin text-deco {
+  content: "";
+
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  margin-right: 0.6rem;
+
+  background-color: var(--color-light);
+}
+
+@mixin btn {
+  padding: 0.5rem 1rem;
+  width: clamp-xs-l(100px, 150px);
+  border: 0.5px solid var(--color-light);
+  border-radius: 50px;
+  background-color: transparent;
+  color: var(--color-light);
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  &:hover {
+    background-color: var(--color-light);
+    color: var(--color-primary);
+  }
+}
