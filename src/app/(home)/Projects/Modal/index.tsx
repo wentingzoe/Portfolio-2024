@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
-import styles from "./style.module.scss";
+import styles from "./modal.module.scss";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import gsap from "gsap";
