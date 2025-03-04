@@ -52,7 +52,7 @@ export default function DotSquare({
     };
 
     floatRandomly();
-  }, []);
+  }, [heightBox, heightSvg, widthBox, widthSvg]);
 
   return (
     <div
