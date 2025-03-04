@@ -10,6 +10,7 @@ import Hero from "./Hero";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import About from "./About";
 import Projects from "./Projects";
+import Experience from "./Experience";
 
 const Home = () => {
   const sectionsRef = useRef<HTMLDivElement>(null);
@@ -79,6 +80,7 @@ const Home = () => {
             <About />
           </section>
           <section className={`${styles.section} ${styles.section3}`}>
+            <Experience />
             <Projects />
           </section>
           <section className={`${styles.section} ${styles.section4}`}>
