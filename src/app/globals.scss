@@ -218,9 +218,13 @@ p {
   line-height: 1.2;
 }
 
-p.small {
+p.medium {
   @include responsive-font-size(8px, 16px);
-    font-family: "PP-light", sans-serif;
+  line-height: 1.1;
+
+}
+p.small {
+  @include responsive-font-size(6px, 14px);
   line-height: 1.1;
 
 }
