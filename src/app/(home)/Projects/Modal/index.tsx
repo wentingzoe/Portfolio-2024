@@ -67,24 +67,29 @@ export default function Modal({
           style={{ top: index * -100 + "%" }}
           className={styles.modal__slider}
         >
-          {projects.map((project: any, index: any) => {
-            const { src, color, name } = project;
-            return (
-              <div
-                key={`modal_${index}`}
-                style={{ backgroundColor: color }}
-                className={styles.modal__box}
-              >
-                <Image
-                  className={styles.modal__image}
-                  src={`/images/${src}`}
-                  alt={name}
-                  width={300}
-                  height={0}
-                />
-              </div>
-            );
-          })}
+          {projects.map(
+            (
+              project: { src: string; color: string; name: string },
+              index: number
+            ) => {
+              const { src, color, name } = project;
+              return (
+                <div
+                  key={`modal_${index}`}
+                  style={{ backgroundColor: color }}
+                  className={styles.modal__box}
+                >
+                  <Image
+                    className={styles.modal__image}
+                    src={`/images/${src}`}
+                    alt={name}
+                    width={300}
+                    height={0}
+                  />
+                </div>
+              );
+            }
+          )}
         </div>
       </motion.div>
       <motion.div
