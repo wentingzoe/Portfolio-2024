@@ -1,0 +1,47 @@
+.modal {
+  width: clamp(350px, 21vw, 500px);
+  height: clamp(300px, 32.41vh, 450px);
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  pointer-events: none;
+  position: fixed;
+  z-index: 2;
+
+  &__slider {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    transition: top 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  &__box {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__image {
+    height: auto;
+  }
+
+  &__cursor,
+  &__cursorLabel {
+    width: clamp(70px, 4.2vw, 100px);
+    height: clamp(70px, 4.2vw, 100px);
+    border-radius: 50%;
+    background-color: var(--color-secondary);
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  &__cursorLabel {
+    background-color: transparent;
+  }
+}
