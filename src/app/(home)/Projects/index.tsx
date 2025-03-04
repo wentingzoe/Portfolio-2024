@@ -19,8 +19,9 @@ export default function Index() {
       <h5 className={styles.projects__title}> Selected Works</h5>
       <div className={styles.projects__container}>
         <div className={styles.projects__listTitles}>
-          <p>Project Name</p>
-          <p className={styles.projects__role}>Role</p>
+          <h6>Project Name</h6>
+          <h6>Role</h6>
+          <h6>Year</h6>
         </div>
         {project_list.map((project, index) => {
           return (
