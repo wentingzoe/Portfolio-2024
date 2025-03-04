@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 import styles from "./infiniteText.module.scss";
 import gsap from "gsap";
 
@@ -8,8 +8,21 @@ export default function InfiniteText() {
   const secondText = useRef(null);
   const infiniteText = useRef(null);
 
-  let xPercent = 0;
+  const xPercent = useRef(0);
   const direction = useRef(-1);
+
+  const animate = useCallback(() => {
+    if (xPercent.current < -100) {
+      xPercent.current = 0;
+    } else if (xPercent.current > 0) {
+      xPercent.current = -100;
+    }
+    gsap.set(firstText.current, { xPercent: xPercent.current });
+    gsap.set(secondText.current, { xPercent: xPercent.current });
+    xPercent.current += 0.1 * direction.current;
+
+    requestAnimationFrame(animate);
+  }, []);
 
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
@@ -22,21 +35,7 @@ export default function InfiniteText() {
     return () => {
       window.removeEventListener("wheel", handleWheel);
     };
-  }, []);
-
-  const animate = () => {
-    if (xPercent < -100) {
-      xPercent = 0;
-    } else if (xPercent > 0) {
-      xPercent = -100;
-    }
-    gsap.set(firstText.current, { xPercent: xPercent });
-    gsap.set(secondText.current, { xPercent: xPercent });
-    xPercent += 0.1 * direction.current;
-
-    requestAnimationFrame(animate);
-  };
-
+  }, [animate]);
   return (
     <div ref={infiniteText} className={styles.infiniteText}>
       <div className={styles.infiniteText__slider}>
