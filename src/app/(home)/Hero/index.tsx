@@ -23,8 +23,8 @@ export default function Hero() {
       <FloatingBox />
       <div className={styles.hero__content}>
         <div className={styles.hero__name}>
-          <h2 className={styles.hero__firstName}>Wenting</h2>
-          <h2 className={styles.hero__lastName}>Yong</h2>
+          <h3 className={styles.hero__firstName}>Wenting</h3>
+          <h3 className={styles.hero__lastName}>Yong</h3>
         </div>
         <div className={styles.hero__title}>
           <Creative />

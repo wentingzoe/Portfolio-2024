@@ -166,7 +166,7 @@ h1 {
 }
 
 h2 {
-  @include responsive-font-size(18px, 48px);
+  @include responsive-font-size(18px, 108px);
   font-family: "PP-bold", sans-serif;
   font-weight: 600;
   font-style: normal;
@@ -174,7 +174,7 @@ h2 {
 }
 
 h3 {
-   @include responsive-font-size(16px, 36px);
+   @include responsive-font-size(16px, 48px);
   font-family: "PP-bold", sans-serif;
   font-weight: 450;
   font-style: normal;
@@ -182,9 +182,9 @@ h3 {
 }
 
 h4 {
-  @include responsive-font-size(14px, 30px);
-  font-family:"PP-light" , sans-serif;
-  font-weight: 300;
+  @include responsive-font-size(14px, 36px);
+  font-family:"PP-bold" , sans-serif;
+  font-weight: 450;
   font-style: normal;
   line-height: 1.1;
 }
@@ -194,38 +194,41 @@ h5 {
   font-family: "PP-regular", sans-serif;
   font-weight: 400;
   font-style: normal;
-  line-height: 1.065;
-  letter-spacing: 0.1em;
+  line-height: 1.2;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
 
 }
 
 h6 {
-  @include responsive-font-size(10px, 18px);
+  @include responsive-font-size(10px, 16px);
   font-family: "PP-regular", sans-serif;
   font-weight: 450;
   font-style: normal;
-  line-height: 1.065;
+  line-height: 1.2;
+  letter-spacing: 0.1em;
 }
 
 
 p {
-  @include responsive-font-size(10px, 18px);
-  font-family: "PP-light", sans-serif;
+  @include responsive-font-size(10px, 20px);
+  font-family: "PP-light", "PP-regular",sans-serif;
   font-weight: 450;
   font-style: normal;
-  line-height: 1.1;
-}
-
-p.small {
-  @include responsive-font-size(8px, 14px);
   line-height: 1.2;
-  letter-spacing: 0.015em;
 }
 
-p.big {
-  font-size: 1.2em;
+p.medium {
+  @include responsive-font-size(8px, 16px);
+  line-height: 1.1;
+
 }
+p.small {
+  @include responsive-font-size(6px, 14px);
+  line-height: 1.1;
+
+}
+
 
 strong {
   font-weight: 800;
