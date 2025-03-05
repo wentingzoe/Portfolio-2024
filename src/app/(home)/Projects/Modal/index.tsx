@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { modalScale } from "@/utils/animation";
+import { useMousePosition } from "@/context/MousePositionContext";
 
 export default function Modal({
   projects,
@@ -17,8 +18,11 @@ export default function Modal({
   const container = useRef(null);
   const cursor = useRef(null);
   const cursorLabel = useRef(null);
+  const mousePosition = useMousePosition();
 
   useEffect(() => {
+    if (!mousePosition) return;
+    const { x, y } = mousePosition;
     const moveContainerX = gsap.quickTo(container.current, "left", {
       duration: 0.8,
       ease: "power3",
@@ -44,16 +48,16 @@ export default function Modal({
       ease: "power3",
     });
 
-    window.addEventListener("mousemove", (e) => {
-      const { clientX, clientY } = e;
-      moveContainerX(clientX);
-      moveContainerY(clientY);
-      moveCursorX(clientX);
-      moveCursorY(clientY);
-      moveCursorLabelX(clientX);
-      moveCursorLabelY(clientY);
-    });
-  }, []);
+    const clientX = x;
+    const clientY = y;
+
+    moveContainerX(clientX);
+    moveContainerY(clientY);
+    moveCursorX(clientX);
+    moveCursorY(clientY);
+    moveCursorLabelX(clientX);
+    moveCursorLabelY(clientY);
+  }, [mousePosition]);
   return (
     <>
       <motion.div
