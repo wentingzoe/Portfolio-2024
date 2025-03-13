@@ -1,7 +1,7 @@
 .projects {
   position: relative;
   align-items: center;
-  margin-bottom: 50vh;
+  height: 100%;
   width: 100%;
   background-color: var(--color-primary);
 
@@ -14,10 +14,20 @@
     margin: var(--gap-margin) 0;
   }
   &__listTitles {
-    @include flexbox($justify: space-between, $align: flex-start);
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr;
     padding: 1rem;
     opacity: 0.8;
     text-transform: uppercase;
+
+    h6 {
+      &:nth-last-child(2) {
+        justify-self: center;
+      }
+      &:last-child {
+        justify-self: end;
+      }
+    }
   }
   &__role {
     width: 20%;
@@ -31,19 +41,5 @@
     &:last-child {
       border-bottom: var(--border);
     }
-  }
-  &__circle-container {
-    position: relative;
-    margin-top: 10vh;
-  }
-  &__circle {
-    position: absolute;
-    height: 650%;
-    width: 120%;
-    // left: -10%;
-    z-index: 100;
-    border-radius: 0 0 50% 50%;
-    background-color: var(--color-primary);
-    box-shadow: var(--shadow);
   }
 }

@@ -260,6 +260,14 @@ section {
   font-family: "PP-bold", sans-serif;
 }
 
+button {
+ @include responsive-font-size(8px, 16px);
+ @include btn;
+  font-family: "PP-light", "PP-regular",sans-serif;
+  font-weight: 450;
+  font-style: normal;
+  margin: 1rem 0;
+}
 
 /* ---- Animation ---- */
 @keyframes fade-in {

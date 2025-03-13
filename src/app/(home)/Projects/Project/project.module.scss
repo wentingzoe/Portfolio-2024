@@ -14,20 +14,21 @@
     background-color: var(--color-primary) !important;
     color: var(--color-light) !important;
   }
-  &__title {
-    @include flexbox($justify: space-between, $align: center);
-    transition: transform 0.3s ease-in-out;
+  &__list {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr;
   }
 
   &__name {
-    width: 60%;
-    transition: transform 0.3s ease-in-out;
+    align-self: center;
   }
   &__role {
-    width: 20%;
-    display: flex;
-    justify-content: center;
-    transition: transform 0.3s ease-in-out;
+    justify-self: center;
+    align-self: center;
+  }
+  &__year {
+    justify-self: end;
+    align-self: center;
   }
   &__details {
     @include flexbox($justify: space-between, $align: flex-start);
@@ -59,10 +60,6 @@
     padding-top: 0.2rem;
   }
 
-  &__button {
-    @include btn;
-    margin: 1rem 0;
-  }
   &__image {
     height: auto;
     padding-top: 2rem;
