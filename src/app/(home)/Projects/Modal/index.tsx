@@ -15,14 +15,23 @@ export default function Modal({
   modal: { active: boolean; index: number };
 }) {
   const { active, index } = modal;
-  const container = useRef(null);
-  const cursor = useRef(null);
-  const cursorLabel = useRef(null);
+  const container = useRef<HTMLDivElement>(null);
+  const cursor = useRef<HTMLDivElement>(null);
+  const cursorLabel = useRef<HTMLDivElement>(null);
   const mousePosition = useMousePosition();
 
   useEffect(() => {
-    if (!mousePosition) return;
+    if (
+      !mousePosition ||
+      !container.current ||
+      !cursor.current ||
+      !cursorLabel.current
+    )
+      return;
     const { x, y } = mousePosition;
+    const clientX = x;
+    const clientY = y;
+
     const moveContainerX = gsap.quickTo(container.current, "left", {
       duration: 0.8,
       ease: "power3",
@@ -48,9 +57,6 @@ export default function Modal({
       ease: "power3",
     });
 
-    const clientX = x;
-    const clientY = y;
-
     moveContainerX(clientX);
     moveContainerY(clientY);
     moveCursorX(clientX);
@@ -60,58 +66,60 @@ export default function Modal({
   }, [mousePosition]);
   return (
     <>
-      <motion.div
-        ref={container}
-        variants={modalScale}
-        initial="initial"
-        animate={active ? "enter" : "closed"}
-        className={styles.modal}
-      >
-        <div
-          style={{ top: index * -100 + "%" }}
-          className={styles.modal__slider}
+      <div className={styles.container}>
+        <motion.div
+          ref={container}
+          variants={modalScale}
+          initial="initial"
+          animate={active ? "enter" : "closed"}
+          className={styles.modal}
         >
-          {projects.map(
-            (
-              project: { src: string; color: string; name: string },
-              index: number
-            ) => {
-              const { src, color, name } = project;
-              return (
-                <div
-                  key={`modal_${index}`}
-                  style={{ backgroundColor: color }}
-                  className={styles.modal__box}
-                >
-                  <Image
-                    className={styles.modal__image}
-                    src={`/images/${src}`}
-                    alt={name}
-                    width={300}
-                    height={0}
-                  />
-                </div>
-              );
-            }
-          )}
-        </div>
-      </motion.div>
-      <motion.div
-        ref={cursor}
-        variants={modalScale}
-        initial="initial"
-        animate={active ? "enter" : "closed"}
-        className={styles.modal__cursor}
-      ></motion.div>
-      <motion.div
-        ref={cursorLabel}
-        variants={modalScale}
-        initial="initial"
-        animate={active ? "enter" : "closed"}
-        className={styles.modal__cursorLabel}
-      >
-        <p>View</p>
-      </motion.div>
+          <div
+            style={{ top: index * -100 + "%" }}
+            className={styles.modal__slider}
+          >
+            {projects.map(
+              (
+                project: { src: string; color: string; name: string },
+                index: number
+              ) => {
+                const { src, color, name } = project;
+                return (
+                  <div
+                    key={`modal_${index}`}
+                    style={{ backgroundColor: color }}
+                    className={styles.modal__box}
+                  >
+                    <Image
+                      className={styles.modal__image}
+                      src={`/images/${src}`}
+                      alt={name}
+                      width={300}
+                      height={0}
+                    />
+                  </div>
+                );
+              }
+            )}
+          </div>
+        </motion.div>
+        <motion.div
+          ref={cursor}
+          variants={modalScale}
+          initial="initial"
+          animate={active ? "enter" : "closed"}
+          className={styles.modal__cursor}
+        ></motion.div>
+        <motion.div
+          ref={cursorLabel}
+          variants={modalScale}
+          initial="initial"
+          animate={active ? "enter" : "closed"}
+          className={styles.modal__cursorLabel}
+        >
+          <p>View</p>
+        </motion.div>
+      </div>
     </>
   );
 }
