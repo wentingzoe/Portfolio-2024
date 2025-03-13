@@ -10,6 +10,7 @@ export default function Index({
   details,
   src,
   tags,
+  year,
   setModal,
   activeIndex,
   setActiveIndex,
@@ -20,6 +21,7 @@ export default function Index({
   details: string;
   src: string;
   tags: string[];
+  year: number;
   setModal: (modal: { active: boolean; index: number }) => void;
   activeIndex: number | null;
   setActiveIndex: (index: number | null) => void;
@@ -39,22 +41,29 @@ export default function Index({
       onMouseLeave={() => setModal({ active: false, index })}
     >
       <motion.div
-        className={styles.project__title}
+        className={styles.project__list}
         whileHover={!isOpen ? { x: 5 } : {}}
       >
-        <motion.h3
+        <motion.h4
           className={styles.project__name}
           animate={!isOpen ? { x: 10 } : { x: 0 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
         >
           {name}
-        </motion.h3>
+        </motion.h4>
         <motion.p
-          className={styles.project__role}
-          animate={!isOpen ? { x: -10 } : { x: 0 }}
+          className={`${styles.project__role} medium`}
+          animate={!isOpen ? { x: 0 } : { x: 0 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
         >
           {role}
+        </motion.p>
+        <motion.p
+          className={`${styles.project__year} medium`}
+          animate={!isOpen ? { x: -10 } : { x: 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+        >
+          {year}
         </motion.p>
       </motion.div>
       <motion.div
@@ -71,23 +80,30 @@ export default function Index({
         }}
       >
         <div className={styles.project__detailsBox}>
-          <p className={styles.project__description}>{details}</p>
+          <p className={`${styles.project__description} medium`}>{details}</p>
           <div className={styles.project__tags}>
             {tags.map((tag, index) => (
-              <p key={index} className={styles.project__tag}>
+              <p key={index} className={`${styles.project__tag} medium`}>
                 {tag}
               </p>
             ))}
           </div>
           <button className={styles.project__button}>View Project</button>
         </div>
-        <Image
-          className={styles.project__image}
-          src={`/images/${src}`}
-          alt={name}
-          width={300}
-          height={0}
-        />
+        <motion.div
+          className={styles.project__imageWrapper}
+          initial={{ opacity: 0, height: -50 }}
+          animate={{ opacity: isOpen ? 1 : 0, y: isOpen ? 0 : -50 }}
+          transition={{ duration: 0.5, delay: isOpen ? 0.5 : 0 }}
+        >
+          <Image
+            className={styles.project__image}
+            src={`/images/${src}`}
+            alt={name}
+            width={300}
+            height={0}
+          />
+        </motion.div>
       </motion.div>
     </motion.li>
   );
