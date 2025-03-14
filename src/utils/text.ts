@@ -1,3 +1,9 @@
+export const hero_titles = [
+  {text:"Developer", 
+  color:"var(--color-light)"},
+  {text:"Designer",
+  color:"var(--color-light)"}
+];
 export const aboutDescription = {
   text1: "Hey,\nI’m Wenting (Zoe)!",
   text2: [
