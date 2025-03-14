@@ -3,11 +3,12 @@ import React from "react";
 import styles from "./hero.module.scss";
 import Image from "next/image";
 import Creative from "./Creative";
-import Titles from "./Titles";
+import TextSwitch from "@/components/TextSwitch";
 import FloatingBox from "./FloatingBox";
 import { useCurrentTime } from "@/hooks/useCurrentTime";
 import { useBreakpoint } from "@/context/BreakpointContext";
 import Star from "@/components/Star";
+import { hero_titles } from "@/utils/text";
 
 export default function Hero() {
   const currentTime = useCurrentTime("en-US", { timeZone: "America/Toronto" });
@@ -28,11 +29,11 @@ export default function Hero() {
         </div>
         <div className={styles.hero__title}>
           <Creative />
-          <Titles />
-          <p className={styles.hero__subtitle}>
-            Specialized in Web Design, UX / UI, SEO, and Front End Development.
-          </p>
+          <TextSwitch items={hero_titles} size="h1" />
         </div>
+        <p className={styles.hero__subtitle}>
+          Specialized in Web Design, UX / UI, SEO, and Front End Development.
+        </p>
       </div>
       <div className={styles.hero__location}>
         <div className={styles.hero__icon}>
