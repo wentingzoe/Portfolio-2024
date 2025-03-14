@@ -1,0 +1,14 @@
+.textSwitch {
+  @include flexbox($dir: column, $justify: center, $align: flex-start);
+  position: relative;
+  overflow: hidden;
+
+  &__item {
+    display: flex;
+    white-space: pre;
+  }
+
+  &__letter {
+    display: inline-block;
+  }
+}
