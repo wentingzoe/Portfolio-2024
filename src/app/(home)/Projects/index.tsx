@@ -7,10 +7,10 @@ import { project_list } from "@/utils/text";
 export default function Index() {
   const [modal, setModal] = useState({ active: false, index: 0 });
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const container = useRef(null);
+  const projectsRef = useRef(null);
 
   return (
-    <div ref={container} className={styles.projects}>
+    <div ref={projectsRef} className={styles.projects}>
       <h5 className={styles.projects__title}> Selected Works</h5>
       <div className={styles.projects__container}>
         <div className={styles.projects__listTitles}>
@@ -37,7 +37,7 @@ export default function Index() {
           );
         })}
       </div>
-      <Modal modal={modal} projects={project_list} />
+      <Modal modal={modal} projects={project_list} projectsRef={projectsRef} />
     </div>
   );
 }
