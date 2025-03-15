@@ -1,0 +1,57 @@
+.aboutMe {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  overflow: hidden;
+
+  &__who {
+    border: red 1px solid;
+    padding: var(--padding-top) var(--padding-side-small);
+    color: var(--color-primary);
+  }
+  &__what {
+    border: yellowgreen 1px solid;
+  }
+
+  &__title {
+    margin-bottom: var(--margin-l);
+  }
+
+  &__content {
+    border: red 1px solid;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    align-items: end;
+  }
+
+  &__hello {
+    @include flexbox($dir: row, $justify: center, $align: baseline);
+    grid-column: 1 / 4;
+    grid-row: 1 / 2;
+    align-self: end;
+    border: red 1px solid;
+  }
+
+  &__im {
+    aspect-ratio: 1 / 1;
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    align-self: end;
+  }
+
+  &__name {
+    aspect-ratio: 4/ 1;
+    grid-column: 2 / 6;
+    grid-row: 2 / 3;
+    border: red 1px solid;
+    width: 100%;
+    position: relative;
+  }
+}
