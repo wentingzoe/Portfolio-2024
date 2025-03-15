@@ -3,12 +3,20 @@
   height: 100%;
   display: grid;
   grid-template-columns: 2fr 3fr;
-  overflow: hidden;
+  // overflow: hidden;
+
+  @include tablet {
+    height: auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    justify-content: center;
+  }
 
   &__who {
-    border: red 1px solid;
     padding: var(--padding-top) var(--padding-side-small);
     color: var(--color-primary);
+
+    border: red 1px solid;
   }
   &__what {
     border: yellowgreen 1px solid;
@@ -17,41 +25,62 @@
   &__title {
     margin-bottom: var(--margin-l);
   }
+  &__hello {
+    @include flexbox($dir: row, $justify: flex-start, $align: baseline);
+  }
 
   &__content {
     border: red 1px solid;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(5, 1fr);
-    align-items: end;
+    aspect-ratio: 1 / 1;
   }
 
-  &__hello {
-    @include flexbox($dir: row, $justify: center, $align: baseline);
-    grid-column: 1 / 4;
-    grid-row: 1 / 2;
-    align-self: end;
-    border: red 1px solid;
+  &__followEye {
+    width: clamp-xs-l(40px, 83px);
+    height: clamp-xs-l(40px, 83px);
   }
 
   &__im {
     aspect-ratio: 1 / 1;
     grid-column: 1 / 2;
-    grid-row: 2 / 3;
-
+    grid-row: 1 / 2;
     width: 100%;
     height: 100%;
     position: relative;
-
-    align-self: end;
   }
-
+  &__image {
+    object-fit: fill;
+    object-position: bottom;
+  }
   &__name {
-    aspect-ratio: 4/ 1;
     grid-column: 2 / 6;
-    grid-row: 2 / 3;
-    border: red 1px solid;
+    grid-row: 1 / 2;
     width: 100%;
     position: relative;
+  }
+
+  &__decor {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  &__description {
+    border-top: var(--color-primary) 1px solid;
+    border-left: var(--color-primary) 1px solid;
+    aspect-ratio: 1/ 1;
+    grid-column: 2 / 6;
+    grid-row: 2 / 6;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    padding: var(--padding-side-small);
+
+    p {
+      padding-bottom: var(--padding-side-small);
+    }
   }
 }
