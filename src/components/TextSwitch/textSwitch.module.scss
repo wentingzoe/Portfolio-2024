@@ -2,10 +2,13 @@
   @include flexbox($dir: column, $justify: center, $align: flex-start);
   position: relative;
   overflow: hidden;
+  z-index: 2;
 
   &__item {
     display: flex;
     white-space: pre;
+    padding: 0;
+    margin: 0;
   }
 
   &__letter {

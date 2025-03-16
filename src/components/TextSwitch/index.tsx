@@ -39,7 +39,7 @@ const TextSwitch: React.FC<TextSwitchProps> = ({ items, size = "h1" }) => {
     },
     exit: {
       y: "-100%",
-      opacity: 0.8,
+      opacity: 0.5,
       transition: { ease: "easeIn", duration: 0.5 },
     },
   };
@@ -48,6 +48,7 @@ const TextSwitch: React.FC<TextSwitchProps> = ({ items, size = "h1" }) => {
     hidden: { y: "100%", opacity: 0 },
     visible: (i: number) => ({
       y: "0%",
+      x: "-1px",
       opacity: 1,
       transition: { delay: i * 0.1, duration: 0.5 },
     }),
@@ -82,7 +83,7 @@ const TextSwitch: React.FC<TextSwitchProps> = ({ items, size = "h1" }) => {
               animate="visible"
               custom={i}
             >
-              <TitleTag className={styles.textSwitch__text}>{char}</TitleTag>
+              <TitleTag>{char}</TitleTag>
             </motion.span>
           ))}
         </motion.div>
