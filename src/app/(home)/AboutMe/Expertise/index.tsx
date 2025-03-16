@@ -44,10 +44,16 @@ export default function Expertise() {
         <div
           className={styles.expertise__item}
           key={`expertise_${index}`}
-          ref={(el) => (cardsRef.current[index] = el)}
+          ref={(el) => {
+            cardsRef.current[index] = el;
+          }}
         >
           {/* Front Side */}
-          <div className={styles.expertise__front}>
+          <div
+            className={`${styles.expertise__front} ${
+              index === 0 ? styles.leftLine : ""
+            }`}
+          >
             <h2 className={styles.expertise__title}>{expertise.title}</h2>
             <h1 className={styles.expertise__number}>{expertise.number}</h1>
           </div>
