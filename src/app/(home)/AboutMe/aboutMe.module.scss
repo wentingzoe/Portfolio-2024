@@ -13,16 +13,14 @@
   }
 
   &__who {
-    padding: var(--padding-top) var(--padding-side-small);
+    padding-left: var(--padding-side-small);
     color: var(--color-primary);
 
     border: red 1px solid;
   }
-  &__what {
-    border: yellowgreen 1px solid;
-  }
 
   &__title {
+    padding-top: var(--padding-top);
     margin-bottom: var(--margin-l);
   }
   &__hello {
@@ -82,5 +80,72 @@
     p {
       padding-bottom: var(--padding-side-small);
     }
+  }
+
+  /* ----------------  what I do  ---------------- */
+
+  &__what {
+    border: yellowgreen 1px solid;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
+    height: 100vh;
+
+    div {
+      border: blue 1px solid;
+      width: 100%;
+    }
+  }
+
+  &__expertise {
+    grid-column: 2/3;
+    justify-self: start;
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+    border-left: var(--color-primary) 1px solid;
+    background-color: var(--color-primary);
+    overflow: hidden;
+  }
+  &__expertiseTitle {
+    position: absolute;
+    transform: rotate(-90deg);
+    top: 55%;
+    right: -50%;
+
+    border: rgb(59, 80, 17) 1px solid;
+  }
+  &__number {
+    @include responsive-font-size(150px, 420px);
+    position: absolute;
+    top: 0;
+    right: -20%;
+    border: yellowgreen 1px solid;
+  }
+
+  &__hover {
+    background-color: transparent;
+    color: var(--color-primary);
+    height: 100%;
+    width: 100%;
+    position: relative;
+    align-items: flex-end;
+    border: var(--color-primary) 1px solid;
+  }
+
+  &__expertiseContent {
+    @include flexbox($dir: column, $justify: flex-end, $align: flex-end);
+    padding: 1rem;
+
+    h6 {
+      margin-bottom: 0.5rem;
+    }
+  }
+  &__expertiseDescription {
+    margin-bottom: 1rem;
+  }
+
+  &__expertiseTools {
+    margin-bottom: 1rem;
   }
 }
