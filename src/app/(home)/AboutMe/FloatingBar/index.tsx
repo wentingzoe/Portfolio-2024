@@ -60,12 +60,8 @@ const FloatingBar: React.FC = () => {
 
       const svgWidth = svg.clientWidth;
       const svgHeight = svg.clientHeight;
-
-      // Bar: static, 80% width, right side via x=20%
       const barWidth = svgWidth;
       const barHeight = svgHeight;
-      /* const barX = svgWidth * 0.2; // Positioned right */
-
       const boxSize = barWidth * 0.4;
       const barX = svgWidth * 0.2;
 
