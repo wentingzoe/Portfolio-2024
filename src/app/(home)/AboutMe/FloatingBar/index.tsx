@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import gsap from "gsap";
-import styles from "./floatingbar.module.scss";
+import styles from "./floatingBar.module.scss";
 import { useBreakpoint } from "@/context/BreakpointContext";
 
 const FloatingBar: React.FC = () => {
