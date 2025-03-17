@@ -6,6 +6,8 @@ import { useMousePosition } from "@/context/MousePositionContext";
 import Image from "next/image";
 import TextSwitch from "@/components/TextSwitch";
 import { about_name } from "@/utils/text";
+import Expertise from "./Expertise";
+import FloatingBar from "./FloatingBar";
 
 export default function AboutMe() {
   const mousePosition = useMousePosition();
@@ -51,46 +53,14 @@ export default function AboutMe() {
         </div>
       </div>
       <div className={styles.aboutMe__what}>
-        <div className={styles.aboutMe_bar}>
-          <h5 className={styles.aboutMe__title}>What I do</h5>
+        <div className={styles.aboutMe__bar}>
+          {/* <h5 className={styles.aboutMe__title}>What I do</h5> */}
+          <FloatingBar />
         </div>
         <div className={styles.aboutMe__expertise}>
-          <h2 className={styles.aboutMe__expertiseTitle}>Developer</h2>
-          <h1 className={styles.aboutMe__number}>1</h1>
+          <Expertise />
         </div>
-        {/* <div
-          className={`${styles.aboutMe__expertise} ${styles.aboutMe__hover}`}
-        >
-          <h1 className={styles.aboutMe__number}>1</h1>
-          <div className={styles.aboutMe__expertiseContent}>
-            <div className={styles.aboutMe__expertiseDescription}>
-              <h6>Scalable & Modern Web Development</h6>
-              <p className="small">
-                Building fast, mobile-first, and fully responsive websites that
-                adapt seamlessly to any screen size.
-              </p>
-            </div>
-            <div className={styles.aboutMe__expertiseTools}>
-              <h6>Tools</h6>
-              <ul>
-                <li>React</li>
-                <li>Next.js</li>
-                <li>TypeScript</li>
-                <li>JavaScript</li>
-                <li>HTML5 & CSS3</li>
-                <li>Tailwind CSS</li>
-                <li>Node.js</li>
-                <li>Express.js</li>
-                <li>PostgreSQL</li>
-                <li>Docker</li>
-                <li>GitHub Copilot</li>
-              </ul>
-            </div>
-          </div>
-        </div> */}
       </div>
-      <div className={styles.aboutMe__expertise2}></div>
-      <div className={styles.aboutMe__expertise3}></div>
     </div>
   );
 }
