@@ -2,17 +2,15 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import styles from "./textSwitch.module.scss";
 
-interface TextItem {
-  text: string;
-  color: string;
-}
-
 interface TextSwitchProps {
-  items: TextItem[];
+  items: Array<{ text: string; color?: string }>;
   size?: keyof JSX.IntrinsicElements;
 }
 
-const TextSwitch: React.FC<TextSwitchProps> = ({ items, size = "h1" }) => {
+const TextSwitch: React.FC<TextSwitchProps> = ({
+  items = [],
+  size = "div",
+}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [minWidth, setMinWidth] = useState(0);
   const textRef = useRef<HTMLDivElement>(null);
