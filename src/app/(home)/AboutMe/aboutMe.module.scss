@@ -15,12 +15,14 @@
   &__who {
     padding-left: var(--padding-side-small);
     color: var(--color-primary);
-
-    border: red 1px solid;
+    position: relative;
+    display: flex;
+    flex-direction: column;
   }
 
-  &__title {
-    padding-top: var(--padding-top);
+  &__title,
+  &__title2 {
+    padding-top: var(--padding-top-small);
     margin-bottom: var(--margin-l);
   }
   &__hello {
@@ -28,7 +30,6 @@
   }
 
   &__content {
-    border: red 1px solid;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(5, 1fr);
@@ -81,6 +82,24 @@
       padding-bottom: var(--padding-side-small);
     }
   }
+  &__cta {
+    @include flexbox($justify: space-evenly, $align: center);
+
+    position: absolute;
+    width: 50%;
+    bottom: 2rem;
+    right: 0;
+    overflow: hidden;
+  }
+
+  &__starLine {
+    @include large-star;
+  }
+
+  &__ctaText {
+    max-width: 15ch;
+    font-style: bold;
+  }
 
   /* ----------------  what I do  ---------------- */
 
@@ -90,15 +109,25 @@
     grid-template-rows: 1fr;
     height: 100vh;
   }
-
   &__bar {
     grid-column: 1 / 2;
     width: 100%;
     height: 100%;
     position: relative;
+    align-self: end;
+  }
+  &__title2 {
+    color: var(--color-light);
+    mix-blend-mode: difference;
+    z-index: 1;
+    position: relative;
+    padding-left: var(--padding-side);
   }
 
   &__expertise {
-    grid-column: 2/5;
+    grid-column: 2 / 5;
+    width: 100%;
+    height: 100%;
+    position: relative;
   }
 }

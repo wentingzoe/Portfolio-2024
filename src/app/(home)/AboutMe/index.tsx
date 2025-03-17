@@ -8,11 +8,13 @@ import TextSwitch from "@/components/TextSwitch";
 import { about_name } from "@/utils/text";
 import Expertise from "./Expertise";
 import FloatingBar from "./FloatingBar";
+import StarLine from "@/components/StarLine";
 
 export default function AboutMe() {
   const mousePosition = useMousePosition();
   return (
     <div className={styles.aboutMe}>
+      {/* Who I am */}
       <div className={styles.aboutMe__who}>
         <h5 className={styles.aboutMe__title}>Who I am</h5>
         <div className={styles.aboutMe__hello}>
@@ -51,10 +53,24 @@ export default function AboutMe() {
             <DotSquare color="var(--color-light)" />
           </div>
         </div>
+        <div className={styles.aboutMe__cta}>
+          <div className={styles.aboutMe__starLine}>
+            <StarLine
+              color="var(--color-primary)"
+              lineWidth={200}
+              isInDetails={true}
+            />
+          </div>
+          <p className={`${styles.aboutMe__ctaText} regular`}>
+            Let’s turn ideas into digital reality
+          </p>
+        </div>
       </div>
+
+      {/* What I Do */}
       <div className={styles.aboutMe__what}>
         <div className={styles.aboutMe__bar}>
-          {/* <h5 className={styles.aboutMe__title}>What I do</h5> */}
+          <h5 className={styles.aboutMe__title2}>What I do</h5>
           <FloatingBar />
         </div>
         <div className={styles.aboutMe__expertise}>
