@@ -47,10 +47,11 @@
   
   /* ---New --*/
   --padding-top: clamp(3rem, 5vh, 5rem);
+  --padding-top-small: clamp(2rem, 4vh, 4rem);
   --padding-side: clamp(1rem,5vw, 5rem);
    --padding-side-small: clamp(1rem,3vw, 3rem);
   
-  --margin-l: 5%;
+  --margin-l: 6%;
   --margin-m: 3%;
   --margin-s: 1%;
     /* ---------------- Decor variables ---------------- */
@@ -222,7 +223,7 @@ h6 {
 
 p {
   @include responsive-font-size(10px, 20px);
-  font-family: "PP-light", "PP-regular",sans-serif;
+  font-family: "PP-light", sans-serif;
   font-weight: 450;
   font-style: normal;
   line-height: 1.2;
@@ -237,6 +238,12 @@ p.small {
   @include responsive-font-size(6px, 14px);
   line-height: 1.1;
 
+}
+
+p.regular {
+  font-family: "PP-regular",sans-serif;
+
+  
 }
 
 
