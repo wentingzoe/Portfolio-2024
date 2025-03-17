@@ -8,9 +8,10 @@ import { MousePositionProvider } from "@/context/MousePositionContext";
 import { useBreakpoint } from "@/context/BreakpointContext";
 import Hero from "./Hero";
 import AnimatedBackground from "@/components/AnimatedBackground";
-import About from "./About";
+// import About from "./About";
 import Projects from "./Projects";
 import Experience from "./Experience";
+import AboutMe from "./AboutMe";
 
 const Home = () => {
   const sectionsRef = useRef<HTMLDivElement>(null);
@@ -77,7 +78,7 @@ const Home = () => {
             <Hero />
           </section>
           <section className={`${styles.section} ${styles.section2}`}>
-            <About />
+            <AboutMe />
           </section>
           <section className={`${styles.section} ${styles.section3}`}>
             <Experience />

@@ -161,3 +161,7 @@ $breakpoint-desktop: 1440px; //l
     color: var(--color-primary);
   }
 }
+
+@mixin section-padding {
+  padding: clamp-xs-l(25px, 50px);
+}

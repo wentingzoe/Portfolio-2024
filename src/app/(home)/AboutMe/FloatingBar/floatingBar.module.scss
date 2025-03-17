@@ -1,0 +1,14 @@
+.floatingBar {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+
+  //overflow: hidden;
+  top: 0;
+  right: 0;
+  &__svg {
+    width: 100%;
+    height: 100%;
+  }
+}

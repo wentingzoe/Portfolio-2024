@@ -47,7 +47,7 @@
   }
 
   &__title {
-    @include flexbox(column);
+    @include flexbox($dir: column, $justify: flex-start, $align: flex-start);
     margin-top: 5%;
     z-index: 3;
 

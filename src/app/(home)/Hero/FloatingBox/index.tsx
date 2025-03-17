@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useMemo, useState } from "react";
 import gsap from "gsap";
 import styles from "./floatingbox.module.scss";
 import { useBreakpoint } from "@/context/BreakpointContext";
@@ -13,24 +13,35 @@ const FloatingBox: React.FC = () => {
   const svgRef = useRef<SVGSVGElement>(null);
   const groupRef = useRef<SVGGElement>(null);
 
-  useEffect(() => {
-    const fixedRect = fixedRectRef.current;
-    const floatingRect = floatingRectRef.current;
-    const smallRect = smallRectRef.current;
-    const svg = svgRef.current;
-    const group = groupRef.current;
+  // Store animation tweens in refs to persist between renders
+  const floatingRectTweenRef = useRef<gsap.core.Tween | null>(null);
+  const smallRectTweenRef = useRef<gsap.core.Tween | null>(null);
 
-    if (!fixedRect || !floatingRect || !smallRect || !svg || !group) return;
+  // Memoize dimension calculations to avoid recalculating unnecessarily
+  const [dimensions, setDimensions] = useState({
+    fixedRectWidth: 0,
+    fixedRectHeight: 0,
+    rectSize: 0,
+    smallRectSize: 0,
+  });
 
-    let floatingRectTween: gsap.core.Tween;
-    let smallRectTween: gsap.core.Tween;
+  // Define the animation functions
+  const animateFloatingRect = useMemo(
+    () => () => {
+      const { fixedRectWidth, fixedRectHeight, rectSize } = dimensions;
+      const floatingRect = floatingRectRef.current;
+      if (!floatingRect) return;
 
-    const animateFloatingRect = () => {
+      // Kill existing animation if any
+      if (floatingRectTweenRef.current) {
+        floatingRectTweenRef.current.kill();
+      }
+
       // Define movement area for floatingRect
-      let minX = 0;
-      let maxX = 0;
-      let minY = 0;
-      let maxY = 0;
+      let minX = 0,
+        maxX = 0,
+        minY = 0,
+        maxY = 0;
 
       if (breakpoint === "desktop") {
         minX = fixedRectWidth - rectSize;
@@ -48,26 +59,39 @@ const FloatingBox: React.FC = () => {
         minY = fixedRectHeight - rectSize * 0.8;
         maxY = fixedRectHeight + rectSize * 0.1;
       }
+
       // Generate random positions within the area
       const randomX = gsap.utils.random(minX, maxX);
       const randomY = gsap.utils.random(minY, maxY);
 
       // Animate to random position
-      floatingRectTween = gsap.to(floatingRect, {
+      floatingRectTweenRef.current = gsap.to(floatingRect, {
         attr: { x: randomX, y: randomY },
         duration: gsap.utils.random(1, 3),
         ease: "sine.inOut",
-        onComplete: animateFloatingRect, // Recursively animate
+        onComplete: animateFloatingRect,
       });
-    };
+    },
+    [breakpoint, dimensions]
+  );
 
-    const animateSmallRect = () => {
+  const animateSmallRect = useMemo(
+    () => () => {
+      const { fixedRectWidth, fixedRectHeight, smallRectSize } = dimensions;
+      const smallRect = smallRectRef.current;
+      if (!smallRect) return;
+
+      // Kill existing animation if any
+      if (smallRectTweenRef.current) {
+        smallRectTweenRef.current.kill();
+      }
+
       // Define movement area for smallRect
+      let minX = 0,
+        maxX = 0,
+        minY = 0,
+        maxY = 0;
 
-      let minX = 0;
-      let maxX = 0;
-      let minY = 0;
-      let maxY = 0;
       if (breakpoint === "desktop") {
         minX = fixedRectWidth - smallRectSize * 5;
         maxX = fixedRectWidth + smallRectSize * 0.5;
@@ -90,31 +114,40 @@ const FloatingBox: React.FC = () => {
       const randomY = gsap.utils.random(minY, maxY);
 
       // Animate to random position
-      smallRectTween = gsap.to(smallRect, {
+      smallRectTweenRef.current = gsap.to(smallRect, {
         attr: { x: randomX, y: randomY },
         duration: gsap.utils.random(2, 4),
         ease: "sine.inOut",
         onComplete: animateSmallRect,
       });
-    };
+    },
+    [breakpoint, dimensions]
+  );
 
-    let fixedRectWidth = 0;
-    let fixedRectHeight = 0;
-    let rectSize = 0;
-    let smallRectSize = 0;
+  // Handle resize with debounce to improve performance
+  useEffect(() => {
+    const fixedRect = fixedRectRef.current;
+    const floatingRect = floatingRectRef.current;
+    const smallRect = smallRectRef.current;
+    const svg = svgRef.current;
+
+    if (!fixedRect || !floatingRect || !smallRect || !svg) return;
 
     const updateDimensions = () => {
       // Kill existing animations
-      if (floatingRectTween) floatingRectTween.kill();
-      if (smallRectTween) smallRectTween.kill();
+      if (floatingRectTweenRef.current) floatingRectTweenRef.current.kill();
+      if (smallRectTweenRef.current) smallRectTweenRef.current.kill();
 
       const svgWidth = svg.clientWidth;
       const svgHeight = svg.clientHeight;
 
-      rectSize = Math.min(svgWidth, svgHeight) * 0.15;
-      smallRectSize = rectSize * 0.4;
+      const rectSize = Math.min(svgWidth, svgHeight) * 0.15;
+      const smallRectSize = rectSize * 0.4;
 
       // Calculate fixed rectangle dimensions based on breakpoint
+      let fixedRectWidth = 0;
+      let fixedRectHeight = 0;
+
       if (breakpoint === "desktop") {
         fixedRectWidth = svgWidth * 0.53;
         fixedRectHeight = svgHeight;
@@ -125,6 +158,14 @@ const FloatingBox: React.FC = () => {
         fixedRectWidth = svgHeight;
         fixedRectHeight = svgHeight * 0.5;
       }
+
+      // Update dimensions state
+      setDimensions({
+        fixedRectWidth,
+        fixedRectHeight,
+        rectSize,
+        smallRectSize,
+      });
 
       // Set fixed rectangle attributes
       gsap.set(fixedRect, {
@@ -141,6 +182,7 @@ const FloatingBox: React.FC = () => {
       let floatingRectInitY = 0;
       let smallRectInitX = 0;
       let smallRectInitY = 0;
+
       if (breakpoint === "desktop") {
         floatingRectInitX = gsap.utils.random(
           fixedRectWidth - rectSize * 3,
@@ -215,92 +257,109 @@ const FloatingBox: React.FC = () => {
           y: smallRectInitY,
         },
       });
-
-      // Start the random floating animations
-      animateFloatingRect();
-      animateSmallRect();
     };
 
     // Initial update
     updateDimensions();
 
-    // Update on resize
+    // Debounce resize handler
+    let resizeTimer: ReturnType<typeof setTimeout>;
     const handleResize = () => {
-      updateDimensions();
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        updateDimensions();
+      }, 250); // 250ms debounce
     };
 
     window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      if (floatingRectTween) floatingRectTween.kill();
-      if (smallRectTween) smallRectTween.kill();
+      clearTimeout(resizeTimer);
+      if (floatingRectTweenRef.current) floatingRectTweenRef.current.kill();
+      if (smallRectTweenRef.current) smallRectTweenRef.current.kill();
     };
   }, [breakpoint]);
+
+  // Start animations when dimensions are updated
+  useEffect(() => {
+    if (dimensions.rectSize > 0) {
+      animateFloatingRect();
+      animateSmallRect();
+    }
+  }, [dimensions, animateFloatingRect, animateSmallRect]);
+
+  const SVGFilter: React.FC & { displayName?: string } = React.memo(() => (
+    <defs>
+      <filter id="subtract-overlap" x="0" y="0" width="100%" height="100%">
+        <feImage xlinkHref="#fixedRect" result="fixed" />
+        <feImage xlinkHref="#floatingRect" result="floating" />
+        <feImage xlinkHref="#smallRect" result="small" />
+
+        <feMerge result="floatingCombined">
+          <feMergeNode in="floating" />
+          <feMergeNode in="small" />
+        </feMerge>
+
+        <feComposite
+          in="fixed"
+          in2="floatingCombined"
+          operator="in"
+          result="overlap"
+        />
+
+        <feComposite
+          in="fixed"
+          in2="overlap"
+          operator="out"
+          result="fixedFinal"
+        />
+        <feComposite
+          in="floatingCombined"
+          in2="overlap"
+          operator="out"
+          result="floatingFinal"
+        />
+
+        <feMerge>
+          <feMergeNode in="fixedFinal" />
+          <feMergeNode in="floatingFinal" />
+        </feMerge>
+      </filter>
+    </defs>
+  ));
+  SVGFilter.displayName = "SVGFilter";
 
   return (
     <div className={styles.floatingBox}>
       <svg className={styles.floatingBox__content} ref={svgRef}>
-        <defs>
-          <filter id="subtract-overlap" x="0" y="0" width="100%" height="100%">
-            {/* Input images */}
-            <feImage xlinkHref="#fixedRect" result="fixed" />
-            <feImage xlinkHref="#floatingRect" result="floating" />
-            <feImage xlinkHref="#smallRect" result="small" />
-
-            {/* Combine floatingRect and smallRect */}
-            <feMerge result="floatingCombined">
-              <feMergeNode in="floating" />
-              <feMergeNode in="small" />
-            </feMerge>
-
-            {/* Create the overlap area */}
-            <feComposite
-              in="fixed"
-              in2="floatingCombined"
-              operator="in"
-              result="overlap"
-            />
-
-            {/* Subtract the overlap from fixedRect and floatingCombined */}
-            <feComposite
-              in="fixed"
-              in2="overlap"
-              operator="out"
-              result="fixedFinal"
-            />
-            <feComposite
-              in="floatingCombined"
-              in2="overlap"
-              operator="out"
-              result="floatingFinal"
-            />
-
-            {/* Merge the final shapes */}
-            <feMerge>
-              <feMergeNode in="fixedFinal" />
-              <feMergeNode in="floatingFinal" />
-            </feMerge>
-          </filter>
-        </defs>
-        {/* Apply the filter to the group and set ref */}
+        <SVGFilter />
         <g filter="url(#subtract-overlap)" ref={groupRef}>
-          {/* Fixed rectangle */}
-          <rect id="fixedRect" ref={fixedRectRef} x="0" y="0" fill="black" />
-          {/* Floating rectangle */}
+          <rect
+            id="fixedRect"
+            ref={fixedRectRef}
+            x="0"
+            y="0"
+            fill="var(--color-primary)"
+          />
           <rect
             id="floatingRect"
             ref={floatingRectRef}
             x="0"
             y="0"
-            fill="black"
+            fill="var(--color-primary)"
           />
-          {/* Small rectangle */}
-          <rect id="smallRect" ref={smallRectRef} x="0" y="0" fill="black" />
+          <rect
+            id="smallRect"
+            ref={smallRectRef}
+            x="0"
+            y="0"
+            fill="var(--color-primary)"
+          />
         </g>
       </svg>
     </div>
   );
 };
 
-export default FloatingBox;
+export default React.memo(FloatingBox);

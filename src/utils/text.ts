@@ -1,3 +1,18 @@
+
+
+export const hero_titles = [
+  {text:"Developer", 
+  color:"var(--color-light)"},
+  {text:"Designer",
+  color:"var(--color-light)"}
+];
+
+export const about_name =[
+  {text:"Wenting", 
+  color:"var(--color-primary)"},
+  {text:"Yong",
+  color:"var(--color-light)"}
+]
 export const aboutDescription = {
   text1: "Hey,\nI’m Wenting (Zoe)!",
   text2: [
@@ -16,6 +31,44 @@ export const aboutDescription = {
 	text3:" I can assist you in designing a digital product or enhancing an existing one to make it more visually appealing, interactive, and user-friendly.",
 };
 
+export const about_expertise = [
+   {
+    number: "1",
+    title: "Development",
+    descriptionTitle: "Scalable & Modern Web Development",
+    description:
+      "Building fast, mobile-first, and fully responsive websites that adapt seamlessly to any screen size.",
+    tools: [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "JavaScript",
+      "HTML5 & CSS3",
+      "Tailwind CSS",
+      "Node.js",
+      "Express.js",
+      "PostgreSQL",
+      "Docker",
+      "GitHub Copilot",
+    ],
+  },
+  {
+    number: "2",
+    title: "Interaction",
+    descriptionTitle: "Interactive UI & Animation",
+    description:
+      "Creating engaging and smooth user experiences with micro-interactions and meaningful animations.",
+    tools: ["GSAP", "Framer Motion", "Three.js",  "Lottie", "SVG Animation" , "WebGL","Figma", "Adobe"],
+  },
+  {
+    number: "3",
+    title: "Strategy",
+    descriptionTitle: "Design Strategy & Collaboration",
+    description:
+      "Bridging the gap between design and development, ensuring seamless collaboration for optimized user journeys.",
+    tools: ["Webflow", "Shopify", "Google Analytics", "Meta Ads", "AWS", "SEO", "UI/UX Design"],
+  },
+]
 
 
 export const project_list = [
