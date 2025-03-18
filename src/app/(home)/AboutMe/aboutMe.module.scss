@@ -5,19 +5,26 @@
   grid-template-columns: 2fr 3fr;
   // overflow: hidden;
 
-  @include tablet {
+  @include mobile {
     height: auto;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr;
     justify-content: center;
   }
 
   &__who {
+    @include flexbox($dir: column, $justify: flex-start, $align: flex-start);
     padding-left: var(--padding-side-small);
     color: var(--color-primary);
     position: relative;
-    display: flex;
-    flex-direction: column;
+
+    @include tablet {
+      border: yellowgreen 1px solid;
+    }
+    @include mobile {
+      padding: 0 var(--padding-side);
+      border: blueviolet 1px solid;
+    }
   }
 
   &__title,
@@ -25,61 +32,72 @@
     padding-top: var(--padding-top-small);
     margin-bottom: var(--margin-l);
   }
-  &__hello {
-    @include flexbox($dir: row, $justify: flex-start, $align: baseline);
-  }
 
   &__content {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    aspect-ratio: 1 / 1;
+    @include flexbox($dir: column, $justify: center, $align: center);
+    width: 100%;
+    border: yellowgreen 1px solid;
   }
-
+  &__hello {
+    @include flexbox($dir: row, $justify: flex-start, $align: baseline);
+    width: clamp-xs-l(270px, 550px);
+  }
   &__followEye {
     width: clamp-xs-l(40px, 83px);
     height: clamp-xs-l(40px, 83px);
   }
 
+  &__row {
+    @include flexbox($dir: row, $justify: flex-start, $align: flex-start);
+    width: clamp-xs-l(270px, 550px);
+    div {
+      // border: red 1px solid;
+    }
+
+    @include tablet {
+      border: yellowgreen 1px solid;
+    }
+  }
+
   &__im {
-    aspect-ratio: 1 / 1;
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-    width: 100%;
-    height: 100%;
+    width: clamp-xs-l(65px, 120px);
+    height: clamp-xs-l(65px, 120px);
     position: relative;
+
+    @include tablet {
+      border: yellowgreen 1px solid;
+    }
   }
   &__image {
     object-fit: fill;
     object-position: bottom;
   }
   &__name {
-    grid-column: 2 / 6;
-    grid-row: 1 / 2;
-    width: 100%;
     position: relative;
+    align-self: end;
+
+    @include tablet {
+      border: yellowgreen 1px solid;
+    }
   }
 
   &__decor {
-    grid-column: 1 / 2;
-    grid-row: 2 / 3;
     display: flex;
+    width: clamp-xs-l(65px, 120px);
     align-items: flex-start;
   }
 
   &__description {
     border-top: var(--color-primary) 1px solid;
     border-left: var(--color-primary) 1px solid;
-    aspect-ratio: 1/ 1;
-    grid-column: 2 / 6;
-    grid-row: 2 / 6;
-    width: 100%;
-    height: 100%;
+    width: clamp-xs-l(210px, 425px);
+    height: clamp-xs-l(210px, 425px);
     position: relative;
     padding: var(--padding-side-small);
 
     p {
       padding-bottom: var(--padding-side-small);
+      max-width: 40ch;
     }
   }
   &__cta {
