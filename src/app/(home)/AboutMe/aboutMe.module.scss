@@ -2,41 +2,86 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 2fr 3fr;
+  grid-template-columns: 3fr 1fr 4fr;
+  grid-template-rows: 1fr;
+  position: relative;
   // overflow: hidden;
 
-  @include mobile {
+  @include tablet {
     height: auto;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 1fr 2fr;
+  }
+
+  @include mobile {
     justify-content: center;
+  }
+  &__ahead {
+    @include flexbox($justify: space-between, $align: start);
+    grid-column: 1/3;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: var(--padding-top-xs);
+    z-index: 2;
+
+    color: var(--color-primary);
+
+    h5 {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+    }
+
+    :last-child {
+      color: var(--color-light);
+      padding-right: var(--padding-side-sx);
+    }
+
+    @include tablet {
+      grid-column: auto;
+      grid-row: 1/2;
+      height: 100%;
+      width: auto;
+      flex-direction: column;
+      top: 0;
+      left: var(--padding-side-small);
+      writing-mode: horizontal-tb;
+
+      h5 {
+        writing-mode: horizontal-tb;
+      }
+
+      :last-child {
+        color: var(--color-primary);
+        padding-right: 0;
+        padding-bottom: var(--padding-top-xs);
+      }
+    }
   }
 
   &__who {
-    @include flexbox($dir: column, $justify: flex-start, $align: flex-start);
+    @include flexbox($dir: column, $justify: center, $align: center);
     padding-left: var(--padding-side-small);
     color: var(--color-primary);
     position: relative;
+    width: 100%;
+    height: 100%;
+    grid-column: 1/2;
+    grid-row: 1/2;
 
-    @include tablet {
-      border: yellowgreen 1px solid;
-    }
     @include mobile {
       padding: 0 var(--padding-side);
-      border: blueviolet 1px solid;
     }
-  }
-
-  &__title,
-  &__title2 {
-    padding-top: var(--padding-top-small);
-    margin-bottom: var(--margin-l);
   }
 
   &__content {
-    @include flexbox($dir: column, $justify: center, $align: center);
-    width: 100%;
-    border: yellowgreen 1px solid;
+    @include flexbox($dir: column, $justify: center, $align: flex-start);
+    padding: var(--padding-side) 0;
+    position: relative;
+
+    @include tablet {
+      padding-top: var(--padding-top);
+    }
   }
   &__hello {
     @include flexbox($dir: row, $justify: flex-start, $align: baseline);
@@ -49,41 +94,28 @@
 
   &__row {
     @include flexbox($dir: row, $justify: flex-start, $align: flex-start);
-    width: clamp-xs-l(270px, 550px);
-    div {
-      // border: red 1px solid;
-    }
-
-    @include tablet {
-      border: yellowgreen 1px solid;
-    }
+    // width: clamp-xs-l(270px, 550px);
   }
 
   &__im {
+    position: relative;
     width: clamp-xs-l(65px, 120px);
     height: clamp-xs-l(65px, 120px);
-    position: relative;
-
-    @include tablet {
-      border: yellowgreen 1px solid;
-    }
   }
   &__image {
-    object-fit: fill;
+    width: 100%;
+    height: 100%;
     object-position: bottom;
   }
   &__name {
     position: relative;
     align-self: end;
-
-    @include tablet {
-      border: yellowgreen 1px solid;
-    }
   }
 
   &__decor {
     display: flex;
     width: clamp-xs-l(65px, 120px);
+    height: clamp-xs-l(65px, 120px);
     align-items: flex-start;
   }
 
@@ -101,17 +133,22 @@
     }
   }
   &__cta {
-    @include flexbox($justify: space-evenly, $align: center);
+    @include flexbox($justify: center, $align: center);
 
     position: absolute;
     width: 50%;
-    bottom: 2rem;
+    bottom: 10%;
     right: 0;
     overflow: hidden;
+
+    @include tablet {
+      bottom: 5%;
+      right: -5%;
+    }
   }
 
   &__starLine {
-    @include large-star;
+    @include start-line;
   }
 
   &__ctaText {
@@ -119,33 +156,33 @@
     font-style: bold;
   }
 
-  /* ----------------  what I do  ---------------- */
-
-  &__what {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 1fr;
-    height: 100vh;
-  }
+  /* ---------------- bar  ---------------- */
   &__bar {
-    grid-column: 1 / 2;
+    grid-column: 2/3;
     width: 100%;
     height: 100%;
     position: relative;
     align-self: end;
-  }
-  &__title2 {
-    color: var(--color-light);
-    mix-blend-mode: difference;
-    z-index: 1;
-    position: relative;
-    padding-left: var(--padding-side);
+    overflow: hidden;
+
+    @include tablet {
+      grid-column: 2/3;
+      grid-row: 1/2;
+    }
+    @include mobile {
+    }
   }
 
-  &__expertise {
-    grid-column: 2 / 5;
-    width: 100%;
+  /* ----------------  what I do  ---------------- */
+
+  &__what {
+    grid-column: 3/4;
     height: 100%;
-    position: relative;
+    width: 100%;
+
+    @include tablet {
+      grid-column: 1/3;
+      grid-row: 2/3;
+    }
   }
 }
