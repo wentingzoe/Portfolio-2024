@@ -10,7 +10,7 @@
   @include tablet {
     height: auto;
     grid-template-columns: 3fr 1fr;
-    grid-template-rows: 1fr 2fr;
+    // grid-template-rows: 1fr 2fr;
   }
 
   @include mobile {
