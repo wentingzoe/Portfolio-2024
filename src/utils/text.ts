@@ -9,7 +9,7 @@ export const hero_titles = [
 
 export const about_name =[
   {text:"Wenting", 
-  color:"var(--color-primary)"},
+  color:"var(--color-light)"},
   {text:"Yong",
   color:"var(--color-light)"}
 ]

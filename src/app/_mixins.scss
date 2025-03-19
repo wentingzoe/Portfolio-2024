@@ -52,7 +52,7 @@ $breakpoint-desktop: 1440px; //l
   );
 }
 
-// Extra Small to Large (xs to l)
+// Extra small mobile to desktop (xs to l)
 @function clamp-xs-l($min, $max) {
   @return responsive-clamp(
     $min,
@@ -62,9 +62,14 @@ $breakpoint-desktop: 1440px; //l
   );
 }
 
-// Small to Large (s to l)
-@function clamp-s-l($min, $max) {
-  @return responsive-clamp($min, $max, $breakpoint-mobile, $breakpoint-desktop);
+// Extra small mobile to tablet (xs to m)
+@function clamp-xs-m($min, $max) {
+  @return responsive-clamp(
+    $min,
+    $max,
+    $breakpoint-mobile-small,
+    $breakpoint-tablet
+  );
 }
 
 // Extra Small to Small (xs to s)
@@ -75,6 +80,11 @@ $breakpoint-desktop: 1440px; //l
     $breakpoint-mobile-small,
     $breakpoint-mobile
   );
+}
+
+// Small to Large (s to l)
+@function clamp-s-l($min, $max) {
+  @return responsive-clamp($min, $max, $breakpoint-mobile, $breakpoint-desktop);
 }
 
 // Medium to Large (m to l)
@@ -127,6 +137,12 @@ $breakpoint-desktop: 1440px; //l
   position: relative;
   width: clamp-xs-l(24px, 64px);
   height: clamp-xs-l(24px, 64px);
+}
+
+@mixin start-line {
+  position: relative;
+  width: clamp-xs-l(35px, 70px);
+  height: clamp-xs-l(35px, 70px);
 }
 
 @mixin small-title {
