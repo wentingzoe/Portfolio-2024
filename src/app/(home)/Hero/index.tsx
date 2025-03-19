@@ -4,15 +4,17 @@ import styles from "./hero.module.scss";
 import Image from "next/image";
 import Creative from "./Creative";
 import TextSwitch from "@/components/TextSwitch";
-import FloatingBox from "./FloatingBox";
 import { useCurrentTime } from "@/hooks/useCurrentTime";
 import { useBreakpoint } from "@/context/BreakpointContext";
 import Star from "@/components/Star";
 import { hero_titles } from "@/utils/text";
+import FloatingRect from "@/components/FloatingRect";
+import { heroFloatingRectConfig } from "@/utils/floatingRectConfigs";
 
 export default function Hero() {
   const currentTime = useCurrentTime("en-US", { timeZone: "America/Toronto" });
   const breakpoint = useBreakpoint();
+  const decorConfig = heroFloatingRectConfig[breakpoint];
 
   const starColor =
     breakpoint === "desktop"
@@ -21,7 +23,10 @@ export default function Hero() {
 
   return (
     <div className={styles.hero}>
-      <FloatingBox />
+      <FloatingRect
+        fixedRectSize={decorConfig.fixedRectSize}
+        rects={decorConfig.rects}
+      />
       <div className={styles.hero__content}>
         <div className={styles.hero__name}>
           <h3 className={styles.hero__firstName}>Wenting</h3>
