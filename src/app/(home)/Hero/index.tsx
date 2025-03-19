@@ -4,7 +4,6 @@ import styles from "./hero.module.scss";
 import Image from "next/image";
 import Creative from "./Creative";
 import TextSwitch from "@/components/TextSwitch";
-import FloatingBox from "./FloatingBox";
 import { useCurrentTime } from "@/hooks/useCurrentTime";
 import { useBreakpoint } from "@/context/BreakpointContext";
 import Star from "@/components/Star";
@@ -24,7 +23,6 @@ export default function Hero() {
 
   return (
     <div className={styles.hero}>
-      {/* <FloatingBox /> */}
       <FloatingRect
         fixedRectSize={decorConfig.fixedRectSize}
         rects={decorConfig.rects}
