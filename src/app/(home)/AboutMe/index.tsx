@@ -14,9 +14,12 @@ export default function AboutMe() {
   const mousePosition = useMousePosition();
   return (
     <div className={styles.aboutMe}>
+      <div className={styles.aboutMe__ahead}>
+        <h5>Who I am</h5>
+        <h5>What I do</h5>
+      </div>
       {/* Who I am */}
       <div className={styles.aboutMe__who}>
-        <h5 className={styles.aboutMe__title}>Who I am</h5>
         <div className={styles.aboutMe__content}>
           <div className={styles.aboutMe__hello}>
             <h2>H</h2>
@@ -56,31 +59,27 @@ export default function AboutMe() {
               </p>
             </div>
           </div>
-
-          <div className={styles.aboutMe__cta}>
-            <div className={styles.aboutMe__starLine}>
-              <StarLine
-                color="var(--color-primary)"
-                lineWidth={200}
-                isInDetails={true}
-              />
-            </div>
-            <p className={`${styles.aboutMe__ctaText} regular`}>
-              Let’s turn ideas into digital reality
-            </p>
+        </div>
+        <div className={styles.aboutMe__cta}>
+          <div className={styles.aboutMe__starLine}>
+            <StarLine
+              color="var(--color-primary)"
+              lineWidth={200}
+              isInDetails={true}
+            />
           </div>
+          <p className={`${styles.aboutMe__ctaText} regular`}>
+            Let’s turn ideas into digital reality
+          </p>
         </div>
       </div>
-
+      {/* bar */}
+      <div className={styles.aboutMe__bar}>
+        <FloatingBar />
+      </div>
       {/* What I Do */}
       <div className={styles.aboutMe__what}>
-        <div className={styles.aboutMe__bar}>
-          <h5 className={styles.aboutMe__title2}>What I do</h5>
-          <FloatingBar />
-        </div>
-        <div className={styles.aboutMe__expertise}>
-          <Expertise />
-        </div>
+        <Expertise />
       </div>
     </div>
   );
