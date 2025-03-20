@@ -12,6 +12,7 @@ import AnimatedBackground from "@/components/AnimatedBackground";
 import Projects from "./Projects";
 import Experience from "./Experience";
 import AboutMe from "./AboutMe";
+import Contact from "./Contact";
 
 const Home = () => {
   const sectionsRef = useRef<HTMLDivElement>(null);
@@ -85,7 +86,7 @@ const Home = () => {
             <Projects />
           </section>
           <section className={`${styles.section} ${styles.section4}`}>
-            Section 4
+            <Contact />
           </section>
         </div>
       </MousePositionProvider>
