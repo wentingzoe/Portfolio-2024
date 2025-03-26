@@ -26,54 +26,74 @@ type FloatingRectProps = {
     yPercent: number;
   };
   rects: RectConfig[];
+  componentId: string;
 };
 
 const FloatingRect: React.FC<FloatingRectProps> = ({
   fixedRectSize,
   rects,
+  componentId,
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const fixedRectRef = useRef<SVGRectElement>(null);
   const rectRefs = useRef<Map<string, SVGRectElement>>(new Map());
   const tweenRefs = useRef<Map<string, gsap.core.Tween | null>>(new Map());
 
-  const animateRect = useCallback((id: string, config: RectConfig) => {
-    const svg = svgRef.current;
-    if (!svg) return;
-    const rect = rectRefs.current.get(id);
-    if (!rect) return;
+  // Create stable ids using the component id as prefix
+  const getPrefixedId = useCallback(
+    (id: string) => `${componentId}-${id}`,
+    [componentId]
+  );
+  const filterId = getPrefixedId("subtract-overlap");
+  const fixedRectId = getPrefixedId("fixedRect");
 
-    const svgWidth = svg.clientWidth;
-    const svgHeight = svg.clientHeight;
-    const area = config.area;
+  // Create prefixed rect IDs for the filter
+  const rectIdsForFilter = rects.map((rect) => ({
+    id: rect.id,
+    prefixedId: getPrefixedId(rect.id),
+  }));
 
-    // Ensure min is less than max
-    const minX =
-      (Math.min(area.minXPercent, area.maxXPercent) / 100) * svgWidth;
-    const maxX =
-      (Math.max(area.minXPercent, area.maxXPercent) / 100) * svgWidth;
-    const minY =
-      (Math.min(area.minYPercent, area.maxYPercent) / 100) * svgHeight;
-    const maxY =
-      (Math.max(area.minYPercent, area.maxYPercent) / 100) * svgHeight;
+  const animateRect = useCallback(
+    (rectId: string, config: RectConfig) => {
+      const svg = svgRef.current;
+      if (!svg) return;
 
-    const targetX = gsap.utils.random(minX, maxX);
-    const targetY = gsap.utils.random(minY, maxY);
+      const prefixedId = getPrefixedId(rectId);
+      const rect = rectRefs.current.get(prefixedId);
+      if (!rect) return;
 
-    tweenRefs.current.get(id)?.kill();
+      const svgWidth = svg.clientWidth;
+      const svgHeight = svg.clientHeight;
+      const area = config.area;
 
-    const tween = gsap.to(rect, {
-      attr: { x: targetX, y: targetY },
-      duration: gsap.utils.random(2.5, 3.5),
-      ease: "sine.inOut",
-      roundProps: "attr.x,attr.y",
-      onComplete: () => animateRect(id, config),
-    });
+      // Ensure min is less than max
+      const minX =
+        (Math.min(area.minXPercent, area.maxXPercent) / 100) * svgWidth;
+      const maxX =
+        (Math.max(area.minXPercent, area.maxXPercent) / 100) * svgWidth;
+      const minY =
+        (Math.min(area.minYPercent, area.maxYPercent) / 100) * svgHeight;
+      const maxY =
+        (Math.max(area.minYPercent, area.maxYPercent) / 100) * svgHeight;
 
-    tweenRefs.current.set(id, tween);
-  }, []);
+      const targetX = gsap.utils.random(minX, maxX);
+      const targetY = gsap.utils.random(minY, maxY);
 
-  // Create a separate function to update all rects
+      tweenRefs.current.get(prefixedId)?.kill();
+
+      const tween = gsap.to(rect, {
+        attr: { x: targetX, y: targetY },
+        duration: gsap.utils.random(2.5, 3.5),
+        ease: "sine.inOut",
+        onComplete: () => animateRect(rectId, config),
+      });
+
+      tweenRefs.current.set(prefixedId, tween);
+    },
+    [getPrefixedId]
+  );
+
+  // Update all rects
   const updateAllRects = useCallback(() => {
     const svg = svgRef.current;
     if (!svg) return;
@@ -97,7 +117,8 @@ const FloatingRect: React.FC<FloatingRectProps> = ({
 
     // Floating Rects
     rects.forEach((rectConfig) => {
-      const ref = rectRefs.current.get(rectConfig.id);
+      const prefixedId = getPrefixedId(rectConfig.id);
+      const ref = rectRefs.current.get(prefixedId);
       if (!ref) return;
 
       const size =
@@ -128,44 +149,67 @@ const FloatingRect: React.FC<FloatingRectProps> = ({
 
       animateRect(rectConfig.id, rectConfig);
     });
-  }, [fixedRectSize, rects, animateRect]);
+  }, [fixedRectSize, rects, getPrefixedId, animateRect]);
 
   useEffect(() => {
-    // Initialize on first render
-    updateAllRects();
+    // Clean up previous state
+    const cleanup = () => {
+      tweenRefs.current.forEach((tween) => tween?.kill());
+      tweenRefs.current.clear();
+    };
 
-    // Set up resize handler
+    cleanup();
+
+    // Initialize with a delay to ensure DOM is ready
+    const initTimer = setTimeout(() => {
+      updateAllRects();
+    }, 300); // Longer delay for SSR environments
+
+    // Handle window resize
     const handleResize = () => {
-      // Use the same function for consistency
       updateAllRects();
     };
 
     window.addEventListener("resize", handleResize);
 
     return () => {
+      clearTimeout(initTimer);
       window.removeEventListener("resize", handleResize);
-      tweenRefs.current.forEach((tween) => tween?.kill());
+      cleanup();
     };
-  }, [fixedRectSize, rects, updateAllRects]);
+  }, [updateAllRects]);
 
   return (
     <div className={styles.floatingRect}>
       <svg className={styles.floatingRect__content} ref={svgRef}>
-        <SVGFilter rectIds={rects.map((r) => r.id)} />
-        <g filter="url(#subtract-overlap)">
-          <rect id="fixedRect" ref={fixedRectRef} fill="var(--color-primary)" />
-          {rects.map((rect) => (
-            <rect
-              key={rect.id}
-              id={rect.id}
-              ref={(el) => {
-                if (el) {
-                  rectRefs.current.set(rect.id, el);
-                }
-              }}
-              fill={rect.color || "var(--color-primary)"}
-            />
-          ))}
+        <SVGFilter
+          filterId={filterId}
+          fixedRectId={fixedRectId}
+          rectIds={rectIdsForFilter}
+        />
+
+        {/* Key point: Apply filter directly to the group containing all rectangles,
+            exactly like the original code */}
+        <g filter={`url(#${filterId})`}>
+          <rect
+            id={fixedRectId}
+            ref={fixedRectRef}
+            fill="var(--color-primary)"
+          />
+
+          {rects.map((rect) => {
+            const prefixedId = getPrefixedId(rect.id);
+            return (
+              <rect
+                key={prefixedId}
+                id={prefixedId}
+                ref={(el) => {
+                  if (el) rectRefs.current.set(prefixedId, el);
+                }}
+                fill={rect.color || "var(--color-primary)"}
+              />
+            );
+          })}
         </g>
       </svg>
     </div>

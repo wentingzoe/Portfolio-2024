@@ -26,10 +26,5 @@
     /* Ensure SVG doesn't resize unexpectedly */
     transform: translateZ(0);
     contain: strict;
-
-    /* Use vector-effect to maintain stroke widths during scaling */
-    rect {
-      vector-effect: non-scaling-stroke;
-    }
   }
 }

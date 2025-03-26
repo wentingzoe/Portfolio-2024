@@ -94,20 +94,20 @@ mobile: {
 
 export const contactFloatingRectConfig: Record<"desktop" | "tablet" | "mobile", DecorConfig> = {
   desktop: {
-  fixedRectSize: { widthPercent: 80, heightPercent: 100, xPercent: 0, yPercent: 0 },
+  fixedRectSize: { widthPercent: 56, heightPercent: 100, xPercent: 0, yPercent: 0 },
   rects: [
     {
-      id: "floatingRect",
+      id: "contact-floatingRect",
       sizePercent: 10,
       area: {
-        minXPercent: 10, // Fixed: original had minX > maxX
-        maxXPercent: 12,
-        minYPercent: 72,
-        maxYPercent: 81,
+        minXPercent: 50, // Fixed: original had minX > maxX
+        maxXPercent: 60,
+        minYPercent: 10,
+        maxYPercent: 25,
       },
     },
     {
-      id: "smallRect",
+      id: "contact-smallRect",
       sizePercent: 5,
       area: {
         minXPercent: 75,
@@ -119,26 +119,26 @@ export const contactFloatingRectConfig: Record<"desktop" | "tablet" | "mobile", 
   ],
 },
   tablet: {
-    fixedRectSize: { widthPercent: 56, heightPercent: 100, xPercent: 0, yPercent: 0 },
+    fixedRectSize: { widthPercent: 100, heightPercent: 60, xPercent: 0, yPercent: 0 },
     rects: [
       {
-        id: "floatingRect",
+        id: "contact-floatingRect",
         sizePercent: 12,
         area: {
-        minXPercent: 47,
-        maxXPercent: 60,
-        minYPercent: 15,
-        maxYPercent: 30, 
+        minXPercent: 10,
+        maxXPercent: 40,
+        minYPercent: 48,
+        maxYPercent: 55, 
       },
       },
       {
-        id: "smallRect",
+        id: "contact-smallRect",
         sizePercent: 6,
         area: {
-        minXPercent: 23,
-        maxXPercent: 57,
-        minYPercent: 80,
-        maxYPercent: 94,
+        minXPercent: 50,
+        maxXPercent: 60,
+        minYPercent: 0,
+        maxYPercent: 40,
       },
       },
     ],
@@ -149,7 +149,7 @@ mobile: {
   fixedRectSize: { widthPercent: 100, heightPercent: 50, xPercent: 0, yPercent: 0 },
   rects: [
     {
-      id: "floatingRect",
+      id: "contact-floatingRect",
       sizePercent: 8,
       area: {
         minXPercent: 10,
@@ -159,7 +159,7 @@ mobile: {
       },
     },
     {
-      id: "smallRect",
+      id: "contact-smallRect",
       sizePercent: 4,
       area: {
         minXPercent: 46,
