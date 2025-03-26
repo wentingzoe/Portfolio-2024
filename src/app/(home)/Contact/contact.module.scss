@@ -2,6 +2,14 @@
   width: 100%;
   height: 100%;
   position: relative;
+  border: red 1px solid;
+  @include tablet {
+    border: yellowgreen 1px solid;
+  }
+
+  @include mobile {
+    border: blueviolet 1px solid;
+  }
 
   &__cta {
     @include flexbox(column, space-between);
@@ -10,10 +18,18 @@
     width: 50%;
     height: 100%;
     z-index: 1;
+    @include tablet {
+      border: yellowgreen 1px solid;
+      width: 100%;
+    }
+
+    @include mobile {
+      border: blueviolet 1px solid;
+    }
   }
 
   &__content {
-    @include flexbox(column, flex-start, flex-start, wrap);
+    @include flexbox(column, flex-start, flex-start);
     padding-top: var(--padding-side);
     padding-left: var(--padding-side);
     position: relative;
@@ -39,7 +55,16 @@
 
     h4 {
       background-color: var(--color-primary);
-      z-index: 2;
+      z-index: 5;
+    }
+
+    @include tablet {
+      border: yellowgreen 1px solid;
+      width: 50%;
+    }
+
+    @include mobile {
+      border: blueviolet 1px solid;
     }
   }
 
@@ -55,11 +80,24 @@
 
   &__portrait {
     position: absolute;
-    width: clamp-s-l(360px, 900px);
-    height: clamp-s-l(405px, 1016px);
-    top: -15%;
-    left: clamp-s-l(-42px, 589px);
+    width: clamp-xs-l(360px, 900px);
+    height: clamp-xs-l(405px, 1016px);
+    top: -8%;
+    right: 0;
     z-index: 1;
+    border: red 1px solid;
+    @include tablet {
+      border: yellowgreen 1px solid;
+      top: auto;
+      bottom: 0;
+      right: 0;
+    }
+
+    @include mobile {
+      border: blueviolet 1px solid;
+      left: 0;
+      right: 0;
+    }
   }
 
   &__footer {

@@ -17,6 +17,7 @@ export default function Contact() {
   return (
     <div className={styles.contact}>
       <FloatingRect
+        componentId="contact"
         fixedRectSize={decorConfig.fixedRectSize}
         rects={decorConfig.rects}
       />

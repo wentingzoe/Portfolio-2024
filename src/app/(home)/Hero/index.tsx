@@ -24,6 +24,7 @@ export default function Hero() {
   return (
     <div className={styles.hero}>
       <FloatingRect
+        componentId="hero"
         fixedRectSize={decorConfig.fixedRectSize}
         rects={decorConfig.rects}
       />
