@@ -95,32 +95,7 @@ mobile: {
 
 export const contactFloatingRectConfig: Record<"desktop" | "tablet" | "mobile", DecorConfig> = {
   desktop: {
-    fixedRectSize: { widthPercent: 56, heightPercent: 100, xPercent: 0, yPercent: 0 },
-    rects: [
-      {
-        id: "floatingRect",
-        sizePercent: 12,
-        area: {
-        minXPercent: 47,
-        maxXPercent: 60,
-        minYPercent: 15,
-        maxYPercent: 30, 
-      },
-      },
-      {
-        id: "smallRect",
-        sizePercent: 6,
-        area: {
-        minXPercent: 23,
-        maxXPercent: 57,
-        minYPercent: 80,
-        maxYPercent: 94,
-      },
-      },
-    ],
-  },
-  tablet: {
-  fixedRectSize: { widthPercent: 80, heightPercent: 80, xPercent: 0, yPercent: 0 },
+  fixedRectSize: { widthPercent: 80, heightPercent: 100, xPercent: 0, yPercent: 0 },
   rects: [
     {
       id: "floatingRect",
@@ -144,6 +119,33 @@ export const contactFloatingRectConfig: Record<"desktop" | "tablet" | "mobile", 
     },
   ],
 },
+  tablet: {
+    fixedRectSize: { widthPercent: 56, heightPercent: 100, xPercent: 0, yPercent: 0 },
+    rects: [
+      {
+        id: "floatingRect",
+        sizePercent: 12,
+        area: {
+        minXPercent: 47,
+        maxXPercent: 60,
+        minYPercent: 15,
+        maxYPercent: 30, 
+      },
+      },
+      {
+        id: "smallRect",
+        sizePercent: 6,
+        area: {
+        minXPercent: 23,
+        maxXPercent: 57,
+        minYPercent: 80,
+        maxYPercent: 94,
+      },
+      },
+    ],
+    
+  },
+  
 mobile: {
   fixedRectSize: { widthPercent: 100, heightPercent: 50, xPercent: 0, yPercent: 0 },
   rects: [
