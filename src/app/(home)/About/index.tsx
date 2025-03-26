@@ -6,7 +6,7 @@ import DotSquare from "@/components/DotSquare";
 import StarLine from "@/components/StarLine";
 import TypingText from "@/components/TypingText";
 import InfiniteText from "@/app/(home)/About/InfiniteText";
-import MoreInfo from "@/app/(home)/About/MoreInfo";
+import MoreInfo from "@/components/MoreInfo";
 import { useMousePosition } from "@/context/MousePositionContext";
 import {
   perspectiveRight,
