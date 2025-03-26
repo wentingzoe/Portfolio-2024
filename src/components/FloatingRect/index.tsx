@@ -93,8 +93,27 @@ const FloatingRect: React.FC<FloatingRectProps> = ({
     [getPrefixedId]
   );
 
-  // Update all rects
-  const updateAllRects = useCallback(() => {
+  // Set fixed rectangle dimensions once
+  const setFixedRect = useCallback(() => {
+    const svg = svgRef.current;
+    if (!svg || !fixedRectRef.current) return;
+
+    const svgWidth = svg.clientWidth;
+    const svgHeight = svg.clientHeight;
+
+    // Set fixed rect - ONLY ONCE
+    gsap.set(fixedRectRef.current, {
+      attr: {
+        width: (fixedRectSize.widthPercent / 100) * svgWidth,
+        height: (fixedRectSize.heightPercent / 100) * svgHeight,
+        x: (fixedRectSize.xPercent / 100) * svgWidth,
+        y: (fixedRectSize.yPercent / 100) * svgHeight,
+      },
+    });
+  }, [fixedRectSize]);
+
+  // Update only floating rects
+  const updateFloatingRects = useCallback(() => {
     const svg = svgRef.current;
     if (!svg) return;
     const svgWidth = svg.clientWidth;
@@ -102,18 +121,6 @@ const FloatingRect: React.FC<FloatingRectProps> = ({
 
     // Kill previous tweens
     tweenRefs.current.forEach((tween) => tween?.kill());
-
-    // Set Fixed Rect
-    if (fixedRectRef.current) {
-      gsap.set(fixedRectRef.current, {
-        attr: {
-          width: (fixedRectSize.widthPercent / 100) * svgWidth,
-          height: (fixedRectSize.heightPercent / 100) * svgHeight,
-          x: (fixedRectSize.xPercent / 100) * svgWidth,
-          y: (fixedRectSize.yPercent / 100) * svgHeight,
-        },
-      });
-    }
 
     // Floating Rects
     rects.forEach((rectConfig) => {
@@ -149,7 +156,7 @@ const FloatingRect: React.FC<FloatingRectProps> = ({
 
       animateRect(rectConfig.id, rectConfig);
     });
-  }, [fixedRectSize, rects, getPrefixedId, animateRect]);
+  }, [rects, getPrefixedId, animateRect]);
 
   useEffect(() => {
     // Clean up previous state
@@ -160,14 +167,17 @@ const FloatingRect: React.FC<FloatingRectProps> = ({
 
     cleanup();
 
+    // First, set the fixed rectangle (only once)
+    setFixedRect();
+
     // Initialize with a delay to ensure DOM is ready
     const initTimer = setTimeout(() => {
-      updateAllRects();
-    }, 300); // Longer delay for SSR environments
+      updateFloatingRects();
+    }, 300);
 
-    // Handle window resize
+    // Handle window resize - ONLY update floating rects, not fixed rect
     const handleResize = () => {
-      updateAllRects();
+      updateFloatingRects();
     };
 
     window.addEventListener("resize", handleResize);
@@ -177,7 +187,7 @@ const FloatingRect: React.FC<FloatingRectProps> = ({
       window.removeEventListener("resize", handleResize);
       cleanup();
     };
-  }, [updateAllRects]);
+  }, [setFixedRect, updateFloatingRects]);
 
   return (
     <div className={styles.floatingRect}>
@@ -188,15 +198,15 @@ const FloatingRect: React.FC<FloatingRectProps> = ({
           rectIds={rectIdsForFilter}
         />
 
-        {/* Key point: Apply filter directly to the group containing all rectangles,
-            exactly like the original code */}
         <g filter={`url(#${filterId})`}>
+          {/* Fixed rectangle - This should never move */}
           <rect
             id={fixedRectId}
             ref={fixedRectRef}
             fill="var(--color-primary)"
           />
 
+          {/* Floating rectangles - These should animate */}
           {rects.map((rect) => {
             const prefixedId = getPrefixedId(rect.id);
             return (

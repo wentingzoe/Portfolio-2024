@@ -172,3 +172,57 @@ mobile: {
 },
 
 };
+
+export const aboutFloatingRectConfig: Record<"desktop" | "tablet" | "mobile", DecorConfig> = {
+  desktop: {
+  fixedRectSize: { widthPercent: 100, heightPercent: 100, xPercent:15, yPercent: 0 },
+  rects: [
+    {
+      id: "about-floatingRect",
+      sizePercent: 40,
+      area: {
+        minXPercent: 0, 
+        maxXPercent: 20,
+        minYPercent: 10,
+        maxYPercent: 25,
+      },
+    },
+   
+  ],
+},
+  tablet: {
+    fixedRectSize: { widthPercent: 100, heightPercent: 60, xPercent: 0, yPercent: 0 },
+    rects: [
+      {
+        id: "about-floatingRect",
+        sizePercent: 12,
+        area: {
+        minXPercent: 10,
+        maxXPercent: 40,
+        minYPercent: 48,
+        maxYPercent: 55, 
+      },
+      },
+      
+    ],
+    
+  },
+  
+mobile: {
+  fixedRectSize: { widthPercent: 100, heightPercent: 50, xPercent: 0, yPercent: 0 },
+  rects: [
+    {
+      id: "about-floatingRect",
+      sizePercent: 8,
+      area: {
+        minXPercent: 10,
+        maxXPercent: 12,
+        minYPercent: 43.6,
+        maxYPercent: 50.8,
+      },
+    },
+   
+  ],
+},
+
+};
