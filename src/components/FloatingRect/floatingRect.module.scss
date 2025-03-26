@@ -5,9 +5,31 @@
   overflow: hidden;
   z-index: 0;
 
+  /* Ensure the container is stable */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  /* Prevent layout shifts */
+  contain: layout size paint;
+
   &__content {
     width: 100%;
     height: 100%;
     will-change: transform;
+
+    /* Ensure SVG maintains its positioning */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    /* Ensure SVG doesn't resize unexpectedly */
+    transform: translateZ(0);
+    contain: strict;
+
+    /* Use vector-effect to maintain stroke widths during scaling */
+    rect {
+      vector-effect: non-scaling-stroke;
+    }
   }
 }

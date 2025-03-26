@@ -47,10 +47,15 @@ const FloatingRect: React.FC<FloatingRectProps> = ({
     const svgHeight = svg.clientHeight;
     const area = config.area;
 
-    const minX = (area.minXPercent / 100) * svgWidth;
-    const maxX = (area.maxXPercent / 100) * svgWidth;
-    const minY = (area.minYPercent / 100) * svgHeight;
-    const maxY = (area.maxYPercent / 100) * svgHeight;
+    // Ensure min is less than max
+    const minX =
+      (Math.min(area.minXPercent, area.maxXPercent) / 100) * svgWidth;
+    const maxX =
+      (Math.max(area.minXPercent, area.maxXPercent) / 100) * svgWidth;
+    const minY =
+      (Math.min(area.minYPercent, area.maxYPercent) / 100) * svgHeight;
+    const maxY =
+      (Math.max(area.minYPercent, area.maxYPercent) / 100) * svgHeight;
 
     const targetX = gsap.utils.random(minX, maxX);
     const targetY = gsap.utils.random(minY, maxY);
@@ -68,7 +73,8 @@ const FloatingRect: React.FC<FloatingRectProps> = ({
     tweenRefs.current.set(id, tween);
   }, []);
 
-  useEffect(() => {
+  // Create a separate function to update all rects
+  const updateAllRects = useCallback(() => {
     const svg = svgRef.current;
     if (!svg) return;
     const svgWidth = svg.clientWidth;
@@ -78,14 +84,16 @@ const FloatingRect: React.FC<FloatingRectProps> = ({
     tweenRefs.current.forEach((tween) => tween?.kill());
 
     // Set Fixed Rect
-    gsap.set(fixedRectRef.current, {
-      attr: {
-        width: (fixedRectSize.widthPercent / 100) * svgWidth,
-        height: (fixedRectSize.heightPercent / 100) * svgHeight,
-        x: (fixedRectSize.xPercent / 100) * svgWidth,
-        y: (fixedRectSize.yPercent / 100) * svgHeight,
-      },
-    });
+    if (fixedRectRef.current) {
+      gsap.set(fixedRectRef.current, {
+        attr: {
+          width: (fixedRectSize.widthPercent / 100) * svgWidth,
+          height: (fixedRectSize.heightPercent / 100) * svgHeight,
+          x: (fixedRectSize.xPercent / 100) * svgWidth,
+          y: (fixedRectSize.yPercent / 100) * svgHeight,
+        },
+      });
+    }
 
     // Floating Rects
     rects.forEach((rectConfig) => {
@@ -96,14 +104,18 @@ const FloatingRect: React.FC<FloatingRectProps> = ({
         (rectConfig.sizePercent / 100) * Math.min(svgWidth, svgHeight);
       const area = rectConfig.area;
 
-      const initX = gsap.utils.random(
-        (area.minXPercent / 100) * svgWidth,
-        (area.maxXPercent / 100) * svgWidth
-      );
-      const initY = gsap.utils.random(
-        (area.minYPercent / 100) * svgHeight,
-        (area.maxYPercent / 100) * svgHeight
-      );
+      // Handle cases where min/max might be reversed
+      const minX =
+        (Math.min(area.minXPercent, area.maxXPercent) / 100) * svgWidth;
+      const maxX =
+        (Math.max(area.minXPercent, area.maxXPercent) / 100) * svgWidth;
+      const minY =
+        (Math.min(area.minYPercent, area.maxYPercent) / 100) * svgHeight;
+      const maxY =
+        (Math.max(area.minYPercent, area.maxYPercent) / 100) * svgHeight;
+
+      const initX = gsap.utils.random(minX, maxX);
+      const initY = gsap.utils.random(minY, maxY);
 
       gsap.set(ref, {
         attr: {
@@ -116,22 +128,25 @@ const FloatingRect: React.FC<FloatingRectProps> = ({
 
       animateRect(rectConfig.id, rectConfig);
     });
+  }, [fixedRectSize, rects, animateRect]);
 
+  useEffect(() => {
+    // Initialize on first render
+    updateAllRects();
+
+    // Set up resize handler
     const handleResize = () => {
-      tweenRefs.current.forEach((tween) => tween?.kill());
-      setTimeout(() => {
-        rects.forEach((rectConfig) => {
-          animateRect(rectConfig.id, rectConfig);
-        });
-      }, 300);
+      // Use the same function for consistency
+      updateAllRects();
     };
+
     window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
       tweenRefs.current.forEach((tween) => tween?.kill());
     };
-  }, [fixedRectSize, rects, animateRect]);
+  }, [fixedRectSize, rects, updateAllRects]);
 
   return (
     <div className={styles.floatingRect}>
