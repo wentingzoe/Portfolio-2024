@@ -9,7 +9,7 @@ import { useBreakpoint } from "@/context/BreakpointContext";
 import Star from "@/components/Star";
 import { hero_titles } from "@/utils/text";
 import FloatingRect from "@/components/FloatingRect";
-import { heroFloatingRectConfig } from "@/utils/floatingRectConfigs";
+import { heroFloatingRectConfig } from "@/components/FloatingRect/floatingRectConfigs";
 
 export default function Hero() {
   const currentTime = useCurrentTime("en-US", { timeZone: "America/Toronto" });

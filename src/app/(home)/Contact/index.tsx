@@ -6,7 +6,7 @@ import FollowEye from "@/components/FollowEye";
 import Star from "@/components/Star";
 import { useBreakpoint } from "@/context/BreakpointContext";
 import { useMousePosition } from "@/context/MousePositionContext";
-import { contactFloatingRectConfig } from "@/utils/floatingRectConfigs";
+import { contactFloatingRectConfig } from "@/components/FloatingRect/floatingRectConfigs";
 import { socialLinks } from "@/utils/nav-items";
 import StarLine from "@/components/StarLine";
 
