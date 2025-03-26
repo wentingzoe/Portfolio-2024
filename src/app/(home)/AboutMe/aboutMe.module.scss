@@ -1,16 +1,14 @@
 .aboutMe {
-  width: 100%;
+  width: 100vw;
   height: 100%;
   display: grid;
-  grid-template-columns: 3fr 1fr 4fr;
+  grid-template-columns: 2fr 1fr 4fr;
   grid-template-rows: 1fr;
   position: relative;
-  // overflow: hidden;
 
   @include tablet {
     height: auto;
     grid-template-columns: 3fr 1fr;
-    // grid-template-rows: 1fr 2fr;
   }
 
   @include mobile {
@@ -22,19 +20,14 @@
     width: 100%;
     position: absolute;
     left: 0;
-    top: var(--padding-top-xs);
+    top: var(--padding-top);
     z-index: 2;
 
     color: var(--color-primary);
 
-    h5 {
-      writing-mode: vertical-rl;
-      text-orientation: mixed;
-    }
-
     :last-child {
       color: var(--color-light);
-      padding-right: var(--padding-side-sx);
+      padding-right: 1rem;
     }
 
     @include tablet {
@@ -162,8 +155,17 @@
     height: 100%;
     position: relative;
     align-self: end;
-    overflow: hidden;
 
+    // overflow: hidden;
+
+    border: red 1px solid;
+    @include tablet {
+      border: yellowgreen 1px solid;
+    }
+
+    @include mobile {
+      border: blueviolet 1px solid;
+    }
     @include tablet {
       grid-column: 2/3;
       grid-row: 1/2;
