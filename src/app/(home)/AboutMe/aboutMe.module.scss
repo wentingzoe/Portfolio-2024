@@ -88,8 +88,7 @@
     width: clamp-xs-l(270px, 550px);
   }
   &__followEye {
-    width: clamp-xs-l(40px, 83px);
-    height: clamp-xs-l(40px, 83px);
+    @include followEye-h2;
   }
 
   &__row {
