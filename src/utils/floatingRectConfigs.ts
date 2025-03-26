@@ -1,4 +1,3 @@
-
 type Area = { minXPercent: number; maxXPercent: number; minYPercent: number; maxYPercent: number };
 type RectConfig = {
   id: string;
@@ -24,8 +23,8 @@ export const heroFloatingRectConfig: Record<"desktop" | "tablet" | "mobile", Dec
         area: {
         minXPercent: 41,
         maxXPercent: 56.6,
-        minYPercent: 15,
-        maxYPercent: 13, 
+        minYPercent: 13, // Fixed: original had minY > maxY
+        maxYPercent: 15, 
       },
       },
       {
@@ -47,8 +46,8 @@ export const heroFloatingRectConfig: Record<"desktop" | "tablet" | "mobile", Dec
       id: "floatingRect",
       sizePercent: 10,
       area: {
-        minXPercent: 12,
-        maxXPercent: 10,
+        minXPercent: 10, // Fixed: original had minX > maxX
+        maxXPercent: 12,
         minYPercent: 72,
         maxYPercent: 81,
       },
@@ -101,8 +100,8 @@ export const contactFloatingRectConfig: Record<"desktop" | "tablet" | "mobile", 
       id: "floatingRect",
       sizePercent: 10,
       area: {
-        minXPercent: 12,
-        maxXPercent: 10,
+        minXPercent: 10, // Fixed: original had minX > maxX
+        maxXPercent: 12,
         minYPercent: 72,
         maxYPercent: 81,
       },
