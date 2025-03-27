@@ -16,8 +16,8 @@ export const initExpertiseFlip = ({ cards, trigger, breakpoint }: ExpertiseFlipO
   const timeline = gsap.timeline({
     scrollTrigger: {
       trigger,
-      start: "center center",
-      end: "+=1000",
+      start: "right left", 
+      end: "+=800",
       scrub: 1,
       markers: true,
     },
@@ -29,17 +29,8 @@ export const initExpertiseFlip = ({ cards, trigger, breakpoint }: ExpertiseFlipO
     if (!front || !back) return;
 
     gsap.set(card, { perspective: 1000 });
+
     gsap.set(front, {
-      transformStyle: "preserve-3d",
-      backfaceVisibility: "hidden",
-      rotationY: 180,
-      position: "absolute",
-      top: 0,
-      left: 0,
-      width: "100%",
-      height: "100%",
-    });
-    gsap.set(back, {
       transformStyle: "preserve-3d",
       backfaceVisibility: "hidden",
       rotationY: 0,
@@ -50,15 +41,21 @@ export const initExpertiseFlip = ({ cards, trigger, breakpoint }: ExpertiseFlipO
       height: "100%",
     });
 
+    gsap.set(back, {
+      transformStyle: "preserve-3d",
+      backfaceVisibility: "hidden",
+      rotationY: -180,
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+    });
+
     const delay = 0.3 * index;
 
-    timeline.fromTo(
-      front,
-      { opacity: 0, y: 40 },
-      { opacity: 1, y: 0, duration: 0.5 },
-      delay
-    );
-    timeline.to(front, { rotationY: 0, duration: 0.8 }, delay + 0.6);
-    timeline.to(back, { rotationY: 180, duration: 0.8 }, "<");
+    timeline.to(front, { rotationY: 180, duration: 0.8 }, delay);
+    timeline.to(back, { rotationY: 0, duration: 0.8 }, `<`);
   });
 };
+
