@@ -159,7 +159,6 @@ const FloatingRect: React.FC<FloatingRectProps> = ({
   }, [rects, getPrefixedId, animateRect]);
 
   useEffect(() => {
-    // Clean up previous state
     const cleanup = () => {
       tweenRefs.current.forEach((tween) => tween?.kill());
       tweenRefs.current.clear();
@@ -167,15 +166,12 @@ const FloatingRect: React.FC<FloatingRectProps> = ({
 
     cleanup();
 
-    // First, set the fixed rectangle (only once)
     setFixedRect();
 
-    // Initialize with a delay to ensure DOM is ready
     const initTimer = setTimeout(() => {
       updateFloatingRects();
     }, 300);
 
-    // Handle window resize - ONLY update floating rects, not fixed rect
     const handleResize = () => {
       updateFloatingRects();
     };
