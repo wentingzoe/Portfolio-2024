@@ -13,9 +13,17 @@ import Projects from "./Projects";
 import Experience from "./Experience";
 import AboutMe from "./AboutMe";
 import Contact from "./Contact";
+import { initExpertiseFlip } from "@/utils/expertiseFlip";
 
 const Home = () => {
   const sectionsRef = useRef<HTMLDivElement>(null);
+  const expertiseRef = useRef<{
+    cards: HTMLDivElement[];
+    section: HTMLDivElement | null;
+  } | null>({
+    cards: [],
+    section: null,
+  });
   const breakpoint = useBreakpoint();
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -70,6 +78,31 @@ const Home = () => {
     };
   }, [breakpoint]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const cards = expertiseRef.current?.cards;
+      const sections = sectionsRef.current?.children;
+      const aboutMeSection = sections?.[1];
+
+      if (
+        !cards ||
+        cards.length === 0 ||
+        !aboutMeSection ||
+        breakpoint !== "desktop"
+      )
+        return;
+
+      clearInterval(interval);
+      initExpertiseFlip({
+        cards,
+        trigger: aboutMeSection as HTMLElement,
+        breakpoint,
+      });
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, [breakpoint]);
+
   return (
     <main>
       <AnimatedBackground />
@@ -79,7 +112,7 @@ const Home = () => {
             <Hero />
           </section>
           <section className={`${styles.section} ${styles.section2}`}>
-            <AboutMe />
+            <AboutMe expertiseRef={expertiseRef} />
           </section>
           <section className={`${styles.section} ${styles.section3}`}>
             <Experience />
