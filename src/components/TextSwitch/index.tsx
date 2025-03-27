@@ -33,22 +33,26 @@ const TextSwitch: React.FC<TextSwitchProps> = ({
     animate: {
       y: "0%",
       opacity: 1,
-      transition: { ease: "easeOut", duration: 1.5 },
+      transition: { ease: "easeOut", duration: 0.7 },
     },
     exit: {
-      y: "-100%",
-      opacity: 0.5,
-      transition: { ease: "easeIn", duration: 0.5 },
+      y: "-50%",
+      opacity: 0,
+      transition: { ease: "easeIn", duration: 0.4 },
     },
   };
 
+  // Character reveal animation, but with normal spacing
   const letterVariants = {
     hidden: { y: "100%", opacity: 0 },
     visible: (i: number) => ({
       y: "0%",
-      x: "-1px",
       opacity: 1,
-      transition: { delay: i * 0.1, duration: 0.5 },
+      transition: {
+        delay: i * 0.03,
+        duration: 0.4,
+        ease: "easeOut",
+      },
     }),
   };
 
@@ -72,18 +76,20 @@ const TextSwitch: React.FC<TextSwitchProps> = ({
           animate="animate"
           exit="exit"
         >
-          {items[currentIndex].text.split("").map((char, i) => (
-            <motion.span
-              key={i}
-              className={styles.textSwitch__letter}
-              variants={letterVariants}
-              initial="hidden"
-              animate="visible"
-              custom={i}
-            >
-              <TitleTag>{char}</TitleTag>
-            </motion.span>
-          ))}
+          <TitleTag className={styles.textSwitch__wrapper}>
+            {items[currentIndex].text.split("").map((char, i) => (
+              <motion.span
+                key={i}
+                className={styles.textSwitch__letter}
+                variants={letterVariants}
+                initial="hidden"
+                animate="visible"
+                custom={i}
+              >
+                {char}
+              </motion.span>
+            ))}
+          </TitleTag>
         </motion.div>
       </AnimatePresence>
     </div>
