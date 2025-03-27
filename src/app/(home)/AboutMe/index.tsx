@@ -7,11 +7,15 @@ import Image from "next/image";
 import TextSwitch from "@/components/TextSwitch";
 import { about_name } from "@/utils/text";
 import Expertise from "./Expertise";
-import FloatingBar from "./FloatingBar";
 import StarLine from "@/components/StarLine";
+import { useBreakpoint } from "@/context/BreakpointContext";
+import FloatingRect from "@/components/FloatingRect";
+import { aboutFloatingRectConfig } from "@/components/FloatingRect/floatingRectConfigs";
 
 export default function AboutMe() {
   const mousePosition = useMousePosition();
+  const breakpoint = useBreakpoint();
+  const decorConfig = aboutFloatingRectConfig[breakpoint];
   return (
     <div className={styles.aboutMe}>
       <div className={styles.aboutMe__ahead}>
@@ -75,8 +79,13 @@ export default function AboutMe() {
       </div>
       {/* bar */}
       <div className={styles.aboutMe__bar}>
-        <FloatingBar />
+        <FloatingRect
+          componentId="about"
+          fixedRectSize={decorConfig.fixedRectSize}
+          rects={decorConfig.rects}
+        />
       </div>
+
       {/* What I Do */}
       <div className={styles.aboutMe__what}>
         <Expertise />
