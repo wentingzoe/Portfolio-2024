@@ -85,6 +85,7 @@ export default function AboutMe() {
           rects={decorConfig.rects}
         />
       </div>
+
       {/* What I Do */}
       <div className={styles.aboutMe__what}>
         <Expertise />
