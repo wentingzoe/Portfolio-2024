@@ -20,11 +20,9 @@ const Home = () => {
   const expertiseRef = useRef<{
     cards: HTMLDivElement[];
     section: HTMLDivElement | null;
-  } | null>({
-    cards: [],
-    section: null,
-  });
+  } | null>(null);
   const breakpoint = useBreakpoint();
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       gsap.registerPlugin(ScrollTrigger);
@@ -47,6 +45,7 @@ const Home = () => {
           //markers: true,
           end: () => `+=${sectionsRef.current?.scrollWidth}`,
           invalidateOnRefresh: true,
+          anticipatePin: 1,
         },
       });
 
