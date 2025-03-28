@@ -123,16 +123,15 @@
     position: relative;
     background-color: var(--color-light);
     color: var(--color-primary);
-
     border-left: 1px solid var(--color-primary);
-    transform: rotateY(180deg);
+    // transform: rotateY(180deg);
 
     @include tablet {
       justify-content: flex-end;
       align-items: flex-start;
       border-left: none;
       border-top: 1px solid var(--color-primary);
-      transform: rotateX(-180deg);
+      // transform: rotateX(-180deg);
     }
   }
   &__title2 {
