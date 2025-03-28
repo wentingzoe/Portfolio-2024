@@ -11,10 +11,10 @@ type ExpertiseFlipOptions = {
   breakpoint: string;
 };
 
-export const initExpertiseFlip = ({ cards, trigger, breakpoint }: ExpertiseFlipOptions) => {
+export const cardFlip = ({ cards, trigger, breakpoint }: ExpertiseFlipOptions) => {
   if (!cards.length || !trigger) return;
 
-  // Clean up any existing ScrollTriggers for this section
+ 
   ScrollTrigger.getAll().forEach(st => {
     if (st.vars.trigger === trigger) {
       st.kill();
@@ -54,13 +54,13 @@ export const initExpertiseFlip = ({ cards, trigger, breakpoint }: ExpertiseFlipO
     // Add the flip animation
     tl.to(front, { 
       [rotationProp]: 180, 
-      duration: 0.8,
+      duration: 0.5,
       ease: "power2.inOut" 
     });
     
     tl.to(back, { 
       [rotationProp]: 0, 
-      duration: 0.8,
+      duration: 0.5,
       ease: "power2.inOut" 
     }, "<");
     
@@ -73,9 +73,6 @@ export const initExpertiseFlip = ({ cards, trigger, breakpoint }: ExpertiseFlipO
       flipCards: (progress: number) => {
         if (progress < 0) progress = 0;
         if (progress > 1) progress = 1;
-        
-        // Determine which cards should flip based on progress
-        // Divide the progress range into steps for each card
         const cardCount = cardTimelines.length;
         const progressPerCard = 1 / cardCount;
         
@@ -84,10 +81,8 @@ export const initExpertiseFlip = ({ cards, trigger, breakpoint }: ExpertiseFlipO
           const cardEndThreshold = (index + 1) * progressPerCard;
           
           if (progress <= cardStartThreshold) {
-            // Before this card's range - ensure it's at 0
             tl.progress(0);
           } else if (progress >= cardEndThreshold) {
-            // After this card's range - ensure it's at 1
             tl.progress(1);
           } else {
         
@@ -111,9 +106,10 @@ export const initExpertiseFlip = ({ cards, trigger, breakpoint }: ExpertiseFlipO
       
       return ScrollTrigger.create({
         trigger: card,
-        start: "center center", 
-        end: "bottom top+=30%",
+        start: "top center", 
+        end: "bottom center",
         scrub: 0.5,
+				markers: true,
         onUpdate: (self) => {
           tl.progress(self.progress);
         }

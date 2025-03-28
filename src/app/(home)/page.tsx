@@ -12,7 +12,7 @@ import Projects from "./Projects";
 import Experience from "./Experience";
 import AboutMe from "./AboutMe";
 import Contact from "./Contact";
-import { initExpertiseFlip } from "@/utils/expertiseFlip";
+import { cardFlip } from "@/utils/expertiseFlip";
 
 const Home = () => {
   const sectionsRef = useRef<HTMLDivElement>(null);
@@ -59,7 +59,6 @@ const Home = () => {
             const progress = self.progress;
 
             // Determine the AboutMe section scroll range
-            // For a 4-section layout, each section takes about 25% of the total scroll
             // Fine-tune these values based on your actual layout
             const aboutMeStart = 0.25; // AboutMe section becomes fully visible
             const aboutMeEnd = 0.5; // AboutMe section starts to scroll away
@@ -87,16 +86,14 @@ const Home = () => {
         willChange: "transform",
       });
 
-      // First horizontal movement: Hero to AboutMe (right edge aligned with right of screen)
+      // Hero to AboutMe
       mainTimeline.to(sections, {
         xPercent: -100,
         ease: "none",
         duration: 1,
       });
 
-      // AboutMe stays on screen while cards flip (this segment handled by the onUpdate function)
-
-      // Third horizontal movement: AboutMe to Experience/Projects
+      // AboutMe to Experience/Projects
       mainTimeline.to(sections, {
         xPercent: -200,
         ease: "none",
@@ -122,7 +119,7 @@ const Home = () => {
         const cards = expertiseRef.current?.cards;
 
         if (cards && cards.length > 0 && aboutMeSection) {
-          cardFlipControls = initExpertiseFlip({
+          cardFlipControls = cardFlip({
             cards,
             trigger: aboutMeSection as HTMLElement,
             breakpoint,
@@ -147,7 +144,7 @@ const Home = () => {
         const aboutMeSection = sections?.[1];
 
         if (cards && cards.length > 0 && aboutMeSection) {
-          initExpertiseFlip({
+          cardFlip({
             cards,
             trigger: aboutMeSection as HTMLElement,
             breakpoint,
