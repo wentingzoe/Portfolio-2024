@@ -31,38 +31,72 @@ export const cardFlip = ({ cards, trigger, breakpoint }: ExpertiseFlipOptions) =
     // Set up 3D properties
     gsap.set(card, { perspective: 1500 });
     
-    const rotationProp = breakpoint === "desktop" ? "rotationY" : "rotationX";
+        const isDesktop = breakpoint === "desktop";
     
-    // Reset to initial state
-    gsap.set(front, {
-      transformStyle: "preserve-3d",
-      backfaceVisibility: "hidden",
-      [rotationProp]: 0,
-      willChange: "transform",
-    });
+    // Reset default CSS transformations to prevent conflicts
+    // For desktop (rotateY)
+    if (isDesktop) {
+      gsap.set(front, {
+        transformStyle: "preserve-3d",
+        backfaceVisibility: "hidden",
+        rotationY: 0,
+        willChange: "transform",
+      });
+      
+      gsap.set(back, {
+        transformStyle: "preserve-3d",
+        backfaceVisibility: "hidden",
+        rotationY: -180,
+        willChange: "transform",
+      });
+    } 
+    // For mobile/tablet (rotateX)
+    else {
+      gsap.set(front, {
+        transformStyle: "preserve-3d",
+        backfaceVisibility: "hidden",
+        rotationX: 0,
+        rotationY: 0,
+        willChange: "transform",
+      });
+      
+      gsap.set(back, {
+        transformStyle: "preserve-3d",
+        backfaceVisibility: "hidden",
+        rotationX: -180,
+        rotationY: 0,
+        willChange: "transform",
+      });
+    }
+ const tl = gsap.timeline({ paused: true });
     
-    gsap.set(back, {
-      transformStyle: "preserve-3d",
-      backfaceVisibility: "hidden",
-      [rotationProp]: -180,
-      willChange: "transform",
-    });
+    // Add the flip animation based on breakpoint
+    if (isDesktop) {
+      tl.to(front, { 
+        rotationY: 180, 
+        duration: 0.5,
+        ease: "power2.inOut" 
+      });
+      
+      tl.to(back, { 
+        rotationY: 0, 
+        duration: 0.5,
+        ease: "power2.inOut" 
+      }, "<");
+    } else {
+      tl.to(front, { 
+        rotationX: 180, 
+        duration: 0.5,
+        ease: "power2.inOut" 
+      });
+      
+      tl.to(back, { 
+        rotationX: 0, 
+        duration: 0.5,
+        ease: "power2.inOut" 
+      }, "<");
+    }
     
-    // Create timeline for this card
-    const tl = gsap.timeline({ paused: true });
-    
-    // Add the flip animation
-    tl.to(front, { 
-      [rotationProp]: 180, 
-      duration: 0.5,
-      ease: "power2.inOut" 
-    });
-    
-    tl.to(back, { 
-      [rotationProp]: 0, 
-      duration: 0.5,
-      ease: "power2.inOut" 
-    }, "<");
     
     return tl;
   }).filter(Boolean) as gsap.core.Timeline[];
