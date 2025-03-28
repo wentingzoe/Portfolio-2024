@@ -5,6 +5,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: row;
+  will-change: transform;
 
   @media (max-width: #{$breakpoint-tablet}) {
     width: 100vw;
@@ -22,6 +23,11 @@
   display: flex;
   font-size: 2rem;
   color: white;
+
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000;
 
   @include tablet {
     position: relative;

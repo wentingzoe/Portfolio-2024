@@ -8,7 +8,6 @@ import { MousePositionProvider } from "@/context/MousePositionContext";
 import { useBreakpoint } from "@/context/BreakpointContext";
 import Hero from "./Hero";
 import AnimatedBackground from "@/components/AnimatedBackground";
-// import About from "./About";
 import Projects from "./Projects";
 import Experience from "./Experience";
 import AboutMe from "./AboutMe";
@@ -33,73 +32,133 @@ const Home = () => {
     const sections = sectionsRef.current?.children;
     if (!sections) return;
 
+    // Clean up any existing ScrollTriggers
     ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
 
     if (breakpoint === "desktop") {
-      const timeline = gsap.timeline({
+      // Initialize card flip controls
+      let cardFlipControls: any = null;
+      const aboutMeSection = sections[1]; // Get the AboutMe section
+
+      // Set up main horizontal scrolling timeline
+      const mainTimeline = gsap.timeline({
         scrollTrigger: {
           trigger: sectionsRef.current,
           pin: true,
           scrub: 1,
           start: "top top",
-          //markers: true,
-          end: () => `+=${sectionsRef.current?.scrollWidth}`,
+          end: () =>
+            `+=${
+              (sectionsRef.current?.scrollWidth ?? 0) +
+              (sections[2].scrollHeight - window.innerHeight)
+            }`,
           invalidateOnRefresh: true,
           anticipatePin: 1,
+          onUpdate: (self) => {
+            // Calculate main progress (overall page scroll)
+            const progress = self.progress;
+
+            // Determine the AboutMe section scroll range
+            // For a 4-section layout, each section takes about 25% of the total scroll
+            // Fine-tune these values based on your actual layout
+            const aboutMeStart = 0.25; // AboutMe section becomes fully visible
+            const aboutMeEnd = 0.5; // AboutMe section starts to scroll away
+
+            // If we're in the AboutMe section range and card flip controls are available
+            if (
+              progress >= aboutMeStart &&
+              progress <= aboutMeEnd &&
+              cardFlipControls
+            ) {
+              // Calculate a local progress value for just the AboutMe section
+              // Map aboutMeStart-aboutMeEnd to 0-1 range for the card flips
+              const localProgress =
+                (progress - aboutMeStart) / (aboutMeEnd - aboutMeStart);
+
+              // Flip the cards based on this local progress
+              cardFlipControls.flipCards(localProgress);
+            }
+          },
         },
       });
 
-      timeline.to(sections, {
+      // Optimize performance
+      gsap.set(sectionsRef.current, {
+        willChange: "transform",
+      });
+
+      // First horizontal movement: Hero to AboutMe (right edge aligned with right of screen)
+      mainTimeline.to(sections, {
+        xPercent: -100,
+        ease: "none",
+        duration: 1,
+      });
+
+      // AboutMe stays on screen while cards flip (this segment handled by the onUpdate function)
+
+      // Third horizontal movement: AboutMe to Experience/Projects
+      mainTimeline.to(sections, {
         xPercent: -200,
         ease: "none",
+        duration: 1,
       });
 
-      timeline.to(sections[2], {
+      // Vertical scroll within the Experience/Projects section
+      mainTimeline.to(sections[2], {
         y: () => `-${sections[2].scrollHeight - window.innerHeight}px`,
         ease: "none",
+        duration: 1,
       });
 
-      timeline.to(sections, {
+      // Final horizontal movement to Contact
+      mainTimeline.to(sections, {
         xPercent: -300,
         ease: "none",
+        duration: 1,
       });
+
+      // Initialize expertise flip with a delay to ensure DOM is ready
+      setTimeout(() => {
+        const cards = expertiseRef.current?.cards;
+
+        if (cards && cards.length > 0 && aboutMeSection) {
+          cardFlipControls = initExpertiseFlip({
+            cards,
+            trigger: aboutMeSection as HTMLElement,
+            breakpoint,
+          });
+        }
+      }, 100);
+
+      return () => {
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      };
     } else {
-      // Reset transformations for mobile/tablet
+      // Mobile/tablet handling
       gsap.set(sections, {
         xPercent: 0,
         y: 0,
         clearProps: "all",
       });
+
+      // Initialize expertise flips for mobile/tablet
+      setTimeout(() => {
+        const cards = expertiseRef.current?.cards;
+        const aboutMeSection = sections?.[1];
+
+        if (cards && cards.length > 0 && aboutMeSection) {
+          initExpertiseFlip({
+            cards,
+            trigger: aboutMeSection as HTMLElement,
+            breakpoint,
+          });
+        }
+      }, 100);
     }
 
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
-  }, [breakpoint]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const cards = expertiseRef.current?.cards;
-      const sections = sectionsRef.current?.children;
-      const aboutMeSection = sections?.[1];
-
-      if (
-        !cards ||
-        cards.length === 0 ||
-        !aboutMeSection ||
-        breakpoint !== "desktop"
-      )
-        return;
-
-      clearInterval(interval);
-      initExpertiseFlip({
-        cards,
-        trigger: aboutMeSection as HTMLElement,
-        breakpoint,
-      });
-    }, 100);
-
-    return () => clearInterval(interval);
   }, [breakpoint]);
 
   return (
