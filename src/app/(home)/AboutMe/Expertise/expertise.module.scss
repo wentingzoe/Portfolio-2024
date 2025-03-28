@@ -43,6 +43,8 @@
     transform-style: preserve-3d;
     backface-visibility: hidden;
     overflow: hidden;
+    will-change: transform;
+    transform: translateZ(0);
   }
 
   &__front {
