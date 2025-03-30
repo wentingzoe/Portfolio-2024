@@ -33,7 +33,7 @@ export const cardFlip = ({ cards, trigger, breakpoint }: ExpertiseFlipOptions) =
     
         const isDesktop = breakpoint === "desktop";
     
-    // Reset default CSS transformations to prevent conflicts
+  
     // For desktop (rotateY)
     if (isDesktop) {
       gsap.set(front, {
@@ -102,7 +102,7 @@ export const cardFlip = ({ cards, trigger, breakpoint }: ExpertiseFlipOptions) =
   }).filter(Boolean) as gsap.core.Timeline[];
 
   if (breakpoint === "desktop") {
-    // No additional ScrollTrigger is needed here
+  
     return {
       flipCards: (progress: number) => {
         if (progress < 0) progress = 0;
@@ -132,6 +132,8 @@ export const cardFlip = ({ cards, trigger, breakpoint }: ExpertiseFlipOptions) =
         cardTimelines.forEach(tl => tl.progress(1));
       }
     };
+
+    
   } else {
     // For tablet/mobile:
     const triggers = cards.map((card, index) => {
