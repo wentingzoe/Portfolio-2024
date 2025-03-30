@@ -21,7 +21,7 @@
   }
 
   &__ahead {
-    @include flexbox($justify: space-between, $align: start);
+    @include flexbox($justify: space-between, $align: flex-start);
     grid-column: 1/3;
     width: 100%;
     position: absolute;
