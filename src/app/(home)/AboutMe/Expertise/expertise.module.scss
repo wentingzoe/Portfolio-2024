@@ -129,7 +129,7 @@
     @include tablet {
       justify-content: flex-end;
       align-items: flex-start;
-      border-left: none;
+      border-right: none;
       border-bottom: 1px solid var(--color-primary);
     }
   }
