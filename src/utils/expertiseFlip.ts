@@ -22,7 +22,7 @@ export const cardFlip = ({ cards, trigger, breakpoint }: ExpertiseFlipOptions) =
   });
 
   // Create separate flip timelines for each card
-  const cardTimelines = cards.map((card, index) => {
+  const cardTimelines = cards.map((card) => {
     const front = card.querySelector(`.${styles.expertise__front}`) as HTMLElement;
     const back = card.querySelector(`.${styles.expertise__back}`) as HTMLElement;
     
