@@ -188,7 +188,7 @@ const Home = () => {
 
           // Type guard to ensure we have mobile controls
           if (result && "kill" in result) {
-            mobileFlipControl = result;
+            mobileFlipControl = result as MobileCardFlipControls;
           }
         }
       }, 100);
