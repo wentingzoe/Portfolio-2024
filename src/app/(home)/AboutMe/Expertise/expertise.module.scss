@@ -4,16 +4,23 @@
   grid-template-rows: 1fr;
   width: 100%;
   height: 100vh;
-  overflow: hidden;
   perspective: 1500px;
   position: relative;
 
   @include tablet {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(3, 1fr);
-
+    width: 100%;
     height: auto;
     box-sizing: border-box;
+  }
+
+  :last-child &__front {
+    border-right: 1px solid var(--color-light);
+
+    @include tablet {
+      border-right: none;
+    }
   }
 
   &__item {
@@ -21,14 +28,17 @@
     width: 100%;
     height: 100%;
     cursor: pointer;
-    overflow: hidden;
     transform-style: preserve-3d;
+    transform: translateZ(0);
+    will-change: transform;
+    transform-origin: center;
 
     @include tablet {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       height: clamp-xs-m(150px, 300px);
+      transform-origin: center center;
     }
   }
 
@@ -43,6 +53,12 @@
     transform-style: preserve-3d;
     backface-visibility: hidden;
     overflow: hidden;
+    will-change: transform;
+    transition: transform 0.5s;
+
+    @include tablet {
+      transform-origin: center center;
+    }
   }
 
   &__front {
@@ -59,14 +75,6 @@
       backface-visibility: hidden;
       transform-style: preserve-3d;
       will-change: transform;
-    }
-
-    &.rightLine {
-      border-right: 1px solid var(--color-light);
-
-      @include tablet {
-        border-right: none;
-      }
     }
   }
 
@@ -115,14 +123,15 @@
     position: relative;
     background-color: var(--color-light);
     color: var(--color-primary);
-
-    border-left: 1px solid var(--color-primary);
+    border-right: 1px solid var(--color-primary);
+    // transform: rotateY(180deg);
 
     @include tablet {
       justify-content: flex-end;
       align-items: flex-start;
       border-left: none;
       border-top: 1px solid var(--color-primary);
+      // transform: rotateX(-180deg);
     }
   }
   &__title2 {
@@ -147,6 +156,7 @@
       @include flexbox(row, space-between, flex-start);
       padding: 0 var(--padding-side);
       height: 50%;
+      transform: translateZ(1px);
 
       p {
         max-width: 20ch;
@@ -190,5 +200,16 @@
     @include mobile {
       max-height: 3ch;
     }
+  }
+
+  &__front,
+  &__back,
+  &__item {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
   }
 }

@@ -6,16 +6,22 @@ import { useMousePosition } from "@/context/MousePositionContext";
 import Image from "next/image";
 import TextSwitch from "@/components/TextSwitch";
 import { about_name } from "@/utils/text";
-import Expertise from "./Expertise";
+// import Expertise from "./Expertise";
+import Expertise, { ExpertiseHandle } from "./Expertise";
 import StarLine from "@/components/StarLine";
 import { useBreakpoint } from "@/context/BreakpointContext";
 import FloatingRect from "@/components/FloatingRect";
 import { aboutFloatingRectConfig } from "@/components/FloatingRect/floatingRectConfigs";
 
-export default function AboutMe() {
+type AboutMeProps = {
+  expertiseRef: React.Ref<ExpertiseHandle>;
+};
+
+export default function AboutMe({ expertiseRef }: AboutMeProps) {
   const mousePosition = useMousePosition();
   const breakpoint = useBreakpoint();
   const decorConfig = aboutFloatingRectConfig[breakpoint];
+
   return (
     <div className={styles.aboutMe}>
       <div className={styles.aboutMe__ahead}>
@@ -88,7 +94,7 @@ export default function AboutMe() {
 
       {/* What I Do */}
       <div className={styles.aboutMe__what}>
-        <Expertise />
+        <Expertise ref={expertiseRef} />
       </div>
     </div>
   );
