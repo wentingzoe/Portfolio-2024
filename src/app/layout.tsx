@@ -7,7 +7,8 @@ import { BreakpointProvider } from "@/context/BreakpointContext";
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Wenting Yong's Portfolio",
-  description: "Wenting Yong's a front-end developer & D based in Canada.",
+  description:
+    "Wenting Yong's a full stack developer & web designer based in Canada.",
 };
 
 export default function RootLayout({
@@ -18,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-      <body className={inter.className}>
+      <body className={inter.className} suppressHydrationWarning>
         <BreakpointProvider>
           <Header />
           {children}
