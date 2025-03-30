@@ -14,6 +14,24 @@ import AboutMe from "./AboutMe";
 import Contact from "./Contact";
 import { cardFlip } from "@/utils/expertiseFlip";
 
+// Define the return types for desktop and mobile implementations
+interface DesktopCardFlipControls {
+  flipCards: (progress: number) => void;
+  resetCards: () => void;
+  completeCards: () => void;
+  cleanup?: () => void;
+}
+
+interface MobileCardFlipControls {
+  kill: () => void;
+}
+
+// Union type that covers both possible return types
+type CardFlipReturnType =
+  | DesktopCardFlipControls
+  | MobileCardFlipControls
+  | void;
+
 const Home = () => {
   const sectionsRef = useRef<HTMLDivElement>(null);
   const expertiseRef = useRef<{
@@ -37,7 +55,7 @@ const Home = () => {
 
     if (breakpoint === "desktop") {
       // Initialize variables for tracking card flip state
-      let cardFlipControls: any = null;
+      let cardFlipControls: DesktopCardFlipControls | null = null;
       let allCardsFlipped = false;
 
       // Main horizontal scrolling timeline
@@ -131,15 +149,24 @@ const Home = () => {
         const aboutMeSection = sections?.[1];
 
         if (cards && cards.length > 0 && aboutMeSection) {
-          cardFlipControls = cardFlip({
+          const result = cardFlip({
             cards,
             trigger: aboutMeSection as HTMLElement,
             breakpoint,
           });
+
+          // Type guard to ensure we have desktop controls
+          if (result && "flipCards" in result) {
+            cardFlipControls = result;
+          }
         }
       }, 100);
 
       return () => {
+        // Clean up
+        if (cardFlipControls?.cleanup) {
+          cardFlipControls.cleanup();
+        }
         ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
       };
     } else {
@@ -151,22 +178,29 @@ const Home = () => {
       });
 
       // Initialize expertise flips for mobile/tablet
-      let expertiseFlipControl: any = null;
+      let mobileFlipControl: MobileCardFlipControls | null = null;
       setTimeout(() => {
         const cards = expertiseRef.current?.cards;
         const aboutMeSection = sections?.[1];
 
         if (cards && cards.length > 0 && aboutMeSection) {
-          expertiseFlipControl = cardFlip({
+          const result = cardFlip({
             cards,
             trigger: aboutMeSection as HTMLElement,
             breakpoint,
           });
+
+          // Type guard to ensure we have mobile controls
+          if (result && "kill" in result) {
+            mobileFlipControl = result as MobileCardFlipControls;
+          }
         }
       }, 100);
 
       return () => {
-        if (expertiseFlipControl?.kill) expertiseFlipControl.kill();
+        if (mobileFlipControl) {
+          mobileFlipControl.kill();
+        }
         ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
       };
     }
