@@ -60,4 +60,6 @@ const Expertise = forwardRef<ExpertiseHandle>((_, ref) => {
   );
 });
 
+Expertise.displayName = "Expertise";
+
 export default Expertise;
