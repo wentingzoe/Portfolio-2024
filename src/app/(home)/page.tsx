@@ -26,11 +26,7 @@ interface MobileCardFlipControls {
   kill: () => void;
 }
 
-// Union type that covers both possible return types
-type CardFlipReturnType =
-  | DesktopCardFlipControls
-  | MobileCardFlipControls
-  | void;
+// Removed the unused CardFlipReturnType
 
 const Home = () => {
   const sectionsRef = useRef<HTMLDivElement>(null);
@@ -192,7 +188,7 @@ const Home = () => {
 
           // Type guard to ensure we have mobile controls
           if (result && "kill" in result) {
-            mobileFlipControl = result as MobileCardFlipControls;
+            mobileFlipControl = result;
           }
         }
       }, 100);
