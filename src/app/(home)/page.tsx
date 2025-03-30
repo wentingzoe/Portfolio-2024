@@ -36,11 +36,11 @@ const Home = () => {
     ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
 
     if (breakpoint === "desktop") {
-      // Initialize card flip controls
+      // Initialize variables for tracking card flip state
       let cardFlipControls: any = null;
-      const aboutMeSection = sections[1]; // Get the AboutMe section
+      let allCardsFlipped = false;
 
-      // Set up main horizontal scrolling timeline
+      // Main horizontal scrolling timeline
       const mainTimeline = gsap.timeline({
         scrollTrigger: {
           trigger: sectionsRef.current,
@@ -55,27 +55,38 @@ const Home = () => {
           invalidateOnRefresh: true,
           anticipatePin: 1,
           onUpdate: (self) => {
-            // Calculate main progress (overall page scroll)
+            // Calculate progress in overall scroll
             const progress = self.progress;
 
-            // Determine the AboutMe section scroll range
-            // Fine-tune these values based on your actual layout
-            const aboutMeStart = 0.25; // AboutMe section becomes fully visible
-            const aboutMeEnd = 0.5; // AboutMe section starts to scroll away
+            // AboutMe section begins at 25% and ends at 50% of total scroll
+            const aboutMeStart = 0.15;
+            const aboutMeEnd = 0.4;
 
-            // If we're in the AboutMe section range and card flip controls are available
+            // If we're in the AboutMe section range
             if (
               progress >= aboutMeStart &&
               progress <= aboutMeEnd &&
               cardFlipControls
             ) {
-              // Calculate a local progress value for just the AboutMe section
-              // Map aboutMeStart-aboutMeEnd to 0-1 range for the card flips
+              // Calculate local progress for card flips (0-1 range)
               const localProgress =
                 (progress - aboutMeStart) / (aboutMeEnd - aboutMeStart);
 
-              // Flip the cards based on this local progress
+              // Flip cards based on this progress
               cardFlipControls.flipCards(localProgress);
+
+              // Check if all cards have been flipped
+              if (localProgress >= 0.99) {
+                allCardsFlipped = true;
+              }
+            }
+
+            // Prevent scrolling past AboutMe until all cards are flipped
+            if (progress > aboutMeEnd && !allCardsFlipped) {
+              // Force scroll position to stay at AboutMe
+              self.scroll(
+                self.start + (aboutMeEnd - 0.01) * (self.end - self.start)
+              );
             }
           },
         },
@@ -86,14 +97,14 @@ const Home = () => {
         willChange: "transform",
       });
 
-      // Hero to AboutMe
+      // First horizontal movement: Hero to AboutMe
       mainTimeline.to(sections, {
         xPercent: -100,
         ease: "none",
         duration: 1,
       });
 
-      // AboutMe to Experience/Projects
+      // Second horizontal movement: AboutMe to Experience/Projects
       mainTimeline.to(sections, {
         xPercent: -200,
         ease: "none",
@@ -117,6 +128,7 @@ const Home = () => {
       // Initialize expertise flip with a delay to ensure DOM is ready
       setTimeout(() => {
         const cards = expertiseRef.current?.cards;
+        const aboutMeSection = sections?.[1];
 
         if (cards && cards.length > 0 && aboutMeSection) {
           cardFlipControls = cardFlip({
@@ -139,23 +151,25 @@ const Home = () => {
       });
 
       // Initialize expertise flips for mobile/tablet
+      let expertiseFlipControl: any = null;
       setTimeout(() => {
         const cards = expertiseRef.current?.cards;
         const aboutMeSection = sections?.[1];
 
         if (cards && cards.length > 0 && aboutMeSection) {
-          cardFlip({
+          expertiseFlipControl = cardFlip({
             cards,
             trigger: aboutMeSection as HTMLElement,
             breakpoint,
           });
         }
       }, 100);
-    }
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
+      return () => {
+        if (expertiseFlipControl?.kill) expertiseFlipControl.kill();
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      };
+    }
   }, [breakpoint]);
 
   return (
