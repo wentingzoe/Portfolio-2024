@@ -49,7 +49,6 @@ const Home = () => {
     if (breakpoint === "desktop") {
       // Initialize variables for tracking card flip state
       let cardFlipControls: DesktopCardFlipControls | null = null;
-      let allCardsFlipped = false;
 
       // Main horizontal scrolling timeline
       const mainTimeline = gsap.timeline({
@@ -80,16 +79,6 @@ const Home = () => {
 
               // Flip cards based on this progress
               cardFlipControls.flipCards(localProgress);
-
-              if (localProgress >= 0.99) {
-                allCardsFlipped = true;
-              }
-            }
-
-            if (progress > aboutMeEnd && !allCardsFlipped) {
-              self.scroll(
-                self.start + (aboutMeEnd - 0.01) * (self.end - self.start)
-              );
             }
           },
         },
