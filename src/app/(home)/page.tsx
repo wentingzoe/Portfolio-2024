@@ -14,7 +14,6 @@ import AboutMe from "./AboutMe";
 import Contact from "./Contact";
 import { cardFlip } from "@/utils/expertiseFlip";
 
-// Define the return types for desktop and mobile implementations
 interface DesktopCardFlipControls {
   flipCards: (progress: number) => void;
   resetCards: () => void;
@@ -25,8 +24,6 @@ interface DesktopCardFlipControls {
 interface MobileCardFlipControls {
   kill: () => void;
 }
-
-// Removed the unused CardFlipReturnType
 
 const Home = () => {
   const sectionsRef = useRef<HTMLDivElement>(null);
@@ -52,7 +49,6 @@ const Home = () => {
     if (breakpoint === "desktop") {
       // Initialize variables for tracking card flip state
       let cardFlipControls: DesktopCardFlipControls | null = null;
-      let allCardsFlipped = false;
 
       // Main horizontal scrolling timeline
       const mainTimeline = gsap.timeline({
@@ -69,44 +65,25 @@ const Home = () => {
           invalidateOnRefresh: true,
           anticipatePin: 1,
           onUpdate: (self) => {
-            // Calculate progress in overall scroll
             const progress = self.progress;
-
-            // AboutMe section begins at 25% and ends at 50% of total scroll
             const aboutMeStart = 0.15;
             const aboutMeEnd = 0.4;
 
-            // If we're in the AboutMe section range
             if (
               progress >= aboutMeStart &&
               progress <= aboutMeEnd &&
               cardFlipControls
             ) {
-              // Calculate local progress for card flips (0-1 range)
               const localProgress =
                 (progress - aboutMeStart) / (aboutMeEnd - aboutMeStart);
 
               // Flip cards based on this progress
               cardFlipControls.flipCards(localProgress);
-
-              // Check if all cards have been flipped
-              if (localProgress >= 0.99) {
-                allCardsFlipped = true;
-              }
-            }
-
-            // Prevent scrolling past AboutMe until all cards are flipped
-            if (progress > aboutMeEnd && !allCardsFlipped) {
-              // Force scroll position to stay at AboutMe
-              self.scroll(
-                self.start + (aboutMeEnd - 0.01) * (self.end - self.start)
-              );
             }
           },
         },
       });
 
-      // Optimize performance
       gsap.set(sectionsRef.current, {
         willChange: "transform",
       });
@@ -159,7 +136,6 @@ const Home = () => {
       }, 100);
 
       return () => {
-        // Clean up
         if (cardFlipControls?.cleanup) {
           cardFlipControls.cleanup();
         }
@@ -173,7 +149,6 @@ const Home = () => {
         clearProps: "all",
       });
 
-      // Initialize expertise flips for mobile/tablet
       let mobileFlipControl: MobileCardFlipControls | null = null;
       setTimeout(() => {
         const cards = expertiseRef.current?.cards;
@@ -186,7 +161,6 @@ const Home = () => {
             breakpoint,
           });
 
-          // Type guard to ensure we have mobile controls
           if (result && "kill" in result) {
             mobileFlipControl = result as MobileCardFlipControls;
           }

@@ -1,7 +1,7 @@
 .project {
   @include flexbox($dir: column, $justify: space-between);
   width: 100%;
-  padding: 1rem;
+  padding: 1em;
   transition: background-color 0.3s ease, color 0.3s ease;
 
   &:not(.project__open):hover {
@@ -20,6 +20,7 @@
   }
 
   &__name {
+    justify-self: start;
     align-self: center;
   }
   &__role {
@@ -34,13 +35,22 @@
     @include flexbox($justify: space-between, $align: flex-start);
     opacity: 0;
     height: 0;
+
+    @include mobile {
+      @include flexbox(column-reverse, space-around, center);
+    }
   }
   &__detailsBox {
     @include flexbox($dir: column, $justify: center, $align: space-between);
+    width: 100%;
   }
   &__description {
     max-width: 50ch;
-    padding-top: 2rem;
+    padding-top: var(--padding-top-xs);
+
+    @include tablet {
+      max-width: 40ch;
+    }
   }
 
   &__tags {
@@ -49,7 +59,7 @@
       $justify: space-between,
       $align: space-between
     );
-    padding-top: 2rem;
+    padding-top: var(--padding-top-xs);
   }
   &__tag:before {
     @include text-deco;
@@ -60,8 +70,13 @@
     padding-top: 0.2rem;
   }
 
+  &__imageWrapper {
+    @include flexbox($justify: flex-end, $align: center);
+    width: 100%;
+    position: relative;
+  }
   &__image {
     height: auto;
-    padding-top: 2rem;
+    padding-top: var(--padding-top-xs);
   }
 }

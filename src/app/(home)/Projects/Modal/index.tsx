@@ -36,8 +36,9 @@ export default function Modal({
     const projectsRect = projectsRef.current.getBoundingClientRect();
 
     const sectionTopOffset = projectsRect.top + window.scrollY;
+    const sectionLeftOffset = projectsRect.left + window.scrollX;
 
-    const clientX = x;
+    const clientX = x - sectionLeftOffset + window.scrollX;
     const clientY = y + window.scrollY - sectionTopOffset;
 
     const moveContainerX = gsap.quickTo(container.current, "left", {

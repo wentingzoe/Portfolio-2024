@@ -1,6 +1,6 @@
 .modal {
-  width: clamp(350px, 21vw, 500px);
-  height: clamp(300px, 32.41vh, 450px);
+  width: clamp-xs-l(170px, 420px);
+  height: clamp-xs-l(113px, 276px);
   overflow: hidden;
   pointer-events: none;
   position: absolute;
@@ -22,13 +22,14 @@
   }
 
   &__image {
+    width: 80%;
     height: auto;
   }
 
   &__cursor,
   &__cursorLabel {
-    width: clamp(70px, 4.2vw, 100px);
-    height: clamp(70px, 4.2vw, 100px);
+    width: clamp-xs-l(35px, 82px);
+    height: clamp-xs-l(35px, 82px);
     border-radius: 50%;
     background-color: var(--color-secondary);
     position: absolute;
