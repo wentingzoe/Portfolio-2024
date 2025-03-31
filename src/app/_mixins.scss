@@ -41,6 +41,11 @@ $breakpoint-desktop: 1440px; //l
     @content;
   }
 }
+@mixin desktop-l {
+  @media (min-width: #{$breakpoint-tablet + 1})and (max-width: #{$breakpoint-desktop}) {
+    @content;
+  }
+}
 
 // Responsive Clamp
 @function responsive-clamp($min, $max, $min-viewport, $max-viewport) {
