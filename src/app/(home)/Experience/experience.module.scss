@@ -1,13 +1,15 @@
 .experience {
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   background-color: var(--color-primary);
   position: relative;
   padding: var(--padding-top) var(--padding-side);
 
+  @include tablet {
+    height: auto;
+  }
   @include mobile {
     margin-top: 0;
-    height: auto;
   }
 
   &__title {
@@ -15,10 +17,19 @@
   }
 
   &__content {
-    @include flexbox($dir: row, $justify: space-between, $align: stretch);
+    @include flexbox(row, space-between, flex-start);
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin-bottom: var(--margin-l);
+
+    @include tablet {
+      @include flexbox(column, flex-start, flex-end);
+    }
   }
 
   &__description {
+    width: 100%;
     p {
       margin-bottom: var(--margin-m);
       max-width: 40ch;
@@ -26,10 +37,78 @@
   }
 
   &__formula {
-    @include flexbox($dir: column, $justify: flex-end, $align: flex-end);
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: repeat(4, 20%);
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 60%;
+    right: 0;
+    top: 15%;
+
+    @include desktop-l {
+      width: 80%;
+    }
+    @include tablet {
+      position: relative;
+      width: 90%;
+      top: -5%;
+    }
+
+    @include mobile {
+      width: 100%;
+      top: 5%;
+    }
+    h2 {
+      @include flexbox(center, flex-end);
+      @include responsive-font-size(36px, 108px);
+      text-align: end;
+      position: relative;
+    }
+    span {
+      @include flexbox(center, center);
+      @include responsive-font-size(36px, 108px);
+      position: relative;
+    }
+  }
+
+  &__row1 {
+    grid-column: 2/5;
+    grid-row: 1/2;
+  }
+  &__row2 {
+    grid-column: 2/5;
+    grid-row: 2/3;
+  }
+  &__row3 {
+    grid-column: 2/5;
+    grid-row: 3/4;
+  }
+
+  &__row4 {
+    grid-column: 2/5;
+    grid-row: 4/5;
+
+    padding-top: var(--padding-top-xs);
+  }
+
+  &__tag1 {
+    grid-column: 1/2;
+    grid-row: 2/3;
+  }
+  &__tag2 {
+    grid-column: 1/2;
+    grid-row: 3/4;
+  }
+  &__tag3 {
+    grid-column: 1/2;
+    grid-row: 4/5;
   }
 
   &__line {
+    grid-column: 1/5;
+    grid-row: 4/5;
     height: 0.5px;
     width: 100%;
     background-color: var(--color-light);
