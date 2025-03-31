@@ -18,9 +18,9 @@ export default function Experience() {
         </div>
         <div className={styles.experience__formula}>
           <h2 className={styles.experience__row1}>Code</h2>
-          <span className={styles.experience__tag1}>x</span>
+          <span className={styles.experience__tag1}>×</span>
           <h2 className={styles.experience__row2}>Motion</h2>
-          <span className={styles.experience__tag2}>x</span>
+          <span className={styles.experience__tag2}>×</span>
           <h2 className={styles.experience__row3}>Design</h2>
           <div className={styles.experience__line}></div>
           <span className={styles.experience__tag3}>=</span>
