@@ -1,0 +1,50 @@
+.modal {
+  width: clamp-xs-l(170px, 420px);
+  height: clamp-xs-l(113px, 276px);
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+  z-index: 20;
+
+  &__slider {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    transition: top 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  &__box {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__image {
+    width: 80%;
+    height: auto;
+  }
+
+  &__cursor,
+  &__cursorLabel {
+    width: clamp-xs-l(35px, 82px);
+    height: clamp-xs-l(35px, 82px);
+    border-radius: 50%;
+    background-color: var(--color-secondary);
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 21;
+    // transform: translate(-50%, -50%);
+  }
+
+  &__cursorLabel {
+    background-color: transparent;
+  }
+}

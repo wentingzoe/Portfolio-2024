@@ -1,0 +1,82 @@
+.project {
+  @include flexbox($dir: column, $justify: space-between);
+  width: 100%;
+  padding: 1em;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  &:not(.project__open):hover {
+    background-color: var(--color-light);
+    color: var(--color-primary);
+    transition: background-color 0.3s ease-in-out;
+  }
+
+  &__open {
+    background-color: var(--color-primary) !important;
+    color: var(--color-light) !important;
+  }
+  &__list {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr;
+  }
+
+  &__name {
+    justify-self: start;
+    align-self: center;
+  }
+  &__role {
+    justify-self: center;
+    align-self: center;
+  }
+  &__year {
+    justify-self: end;
+    align-self: center;
+  }
+  &__details {
+    @include flexbox($justify: space-between, $align: flex-start);
+    opacity: 0;
+    height: 0;
+
+    @include mobile {
+      @include flexbox(column-reverse, space-around, center);
+    }
+  }
+  &__detailsBox {
+    @include flexbox($dir: column, $justify: center, $align: space-between);
+    width: 100%;
+  }
+  &__description {
+    max-width: 50ch;
+    padding-top: var(--padding-top-xs);
+
+    @include tablet {
+      max-width: 40ch;
+    }
+  }
+
+  &__tags {
+    @include flexbox(
+      $dir: column,
+      $justify: space-between,
+      $align: space-between
+    );
+    padding-top: var(--padding-top-xs);
+  }
+  &__tag:before {
+    @include text-deco;
+  }
+
+  &__tag {
+    @include flexbox($justify: flex-start, $align: center);
+    padding-top: 0.2rem;
+  }
+
+  &__imageWrapper {
+    @include flexbox($justify: flex-end, $align: center);
+    width: 100%;
+    position: relative;
+  }
+  &__image {
+    height: auto;
+    padding-top: var(--padding-top-xs);
+  }
+}
