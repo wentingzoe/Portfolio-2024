@@ -179,6 +179,10 @@ h1 {
   line-height: 1.065;
 }
 
+h1.small {
+  @include responsive-font-size(50px, 120px);
+}
+
 h2 {
   @include responsive-font-size(54px, 108px);
   font-family: "PP-bold", sans-serif;
