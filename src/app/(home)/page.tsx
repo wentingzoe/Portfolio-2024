@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import styles from "./page.module.scss";
-import { MousePositionProvider } from "@/context/MousePositionContext";
 import { useBreakpoint } from "@/context/BreakpointContext";
 import Hero from "./Hero";
 import AnimatedBackground from "@/components/AnimatedBackground";
@@ -179,23 +178,22 @@ const Home = () => {
   return (
     <main>
       <AnimatedBackground />
-      <MousePositionProvider>
-        <div ref={sectionsRef} className={styles.container}>
-          <section className={`${styles.section} ${styles.section1}`}>
-            <Hero />
-          </section>
-          <section className={`${styles.section} ${styles.section2}`}>
-            <AboutMe expertiseRef={expertiseRef} />
-          </section>
-          <section className={`${styles.section} ${styles.section3}`}>
-            <Experience />
-            <Projects />
-          </section>
-          <section className={`${styles.section} ${styles.section4}`}>
-            <Contact />
-          </section>
-        </div>
-      </MousePositionProvider>
+
+      <div ref={sectionsRef} className={styles.container}>
+        <section className={`${styles.section} ${styles.section1}`}>
+          <Hero />
+        </section>
+        <section className={`${styles.section} ${styles.section2}`}>
+          <AboutMe expertiseRef={expertiseRef} />
+        </section>
+        <section className={`${styles.section} ${styles.section3}`}>
+          <Experience />
+          <Projects />
+        </section>
+        <section className={`${styles.section} ${styles.section4}`}>
+          <Contact />
+        </section>
+      </div>
     </main>
   );
 };
