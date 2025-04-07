@@ -105,7 +105,9 @@ export default function Modal({ projects, modal, projectsRef }: ModalProps) {
         variants={modalScale}
         initial="initial"
         animate={active ? "enter" : "closed"}
-        className={styles.modal}
+        className={`${styles.modal} ${
+          isWorkPage ? styles["modal--work"] : styles["modal--home"]
+        }`}
       >
         <div
           style={{ top: index * -100 + "%" }}
@@ -136,14 +138,18 @@ export default function Modal({ projects, modal, projectsRef }: ModalProps) {
         variants={modalScale}
         initial="initial"
         animate={active ? "enter" : "closed"}
-        className={styles.modal__cursor}
+        className={`${styles.modal__cursor} ${
+          isWorkPage ? styles["modal--work"] : styles["modal--home"]
+        }`}
       ></motion.div>
       <motion.div
         ref={cursorLabel}
         variants={modalScale}
         initial="initial"
         animate={active ? "enter" : "closed"}
-        className={styles.modal__cursorLabel}
+        className={`${styles.modal__cursorLabel} ${
+          isWorkPage ? styles["modal--work"] : styles["modal--home"]
+        }`}
       >
         <p>View</p>
       </motion.div>
