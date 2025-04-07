@@ -1,0 +1,36 @@
+// src/app/work/work.module.scss
+
+.work {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: var(--color-dark, #000);
+  color: var(--color-light, #fff);
+  padding: 4rem 0;
+
+  &__container {
+    margin: 0 auto;
+    padding: 0 var(--padding-side, 2rem);
+  }
+
+  &__filters {
+    @include flexbox(row, flex-start, center);
+  }
+
+  &__filterButton {
+    margin-right: 2rem;
+  }
+
+  &__filterButton--active {
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+  }
+
+  &__list {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-color: var(--color-primary);
+  }
+}
