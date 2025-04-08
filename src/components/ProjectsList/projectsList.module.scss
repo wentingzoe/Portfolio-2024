@@ -1,14 +1,17 @@
 .projectsList {
+  @include flexbox(column, center, center);
   position: relative;
-  align-items: center;
   height: 100%;
   width: 100%;
-  background-color: var(--color-primary);
+  flex: 1;
 
   &__container {
     width: 100%;
-    padding: var(--padding-side);
-    margin: var(--gap-margin) 0;
+    height: 100%;
+    position: relative;
+    flex: 1; /* Fill available space */
+    display: flex;
+    flex-direction: column;
   }
   &__listTitles {
     display: grid;
@@ -16,6 +19,7 @@
     padding: 1rem;
     opacity: 0.8;
     text-transform: uppercase;
+    border-bottom: var(--border);
 
     h6 {
       &:nth-last-child(2) {
@@ -33,10 +37,6 @@
   }
 
   &__line {
-    border-top: var(--border);
-
-    &:last-child {
-      border-bottom: var(--border);
-    }
+    border-bottom: var(--border);
   }
 }

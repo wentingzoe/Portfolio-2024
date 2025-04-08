@@ -32,7 +32,7 @@ export default function ProjectsList({
   const projectsForModal = filteredProjects.map((project) => ({
     name: project.name,
     src: project.src,
-    color: "var(--color-primary)", // Use CSS variable for consistent color
+    color: "var(--color-primary)",
   }));
 
   const refToPage = containerRef;
