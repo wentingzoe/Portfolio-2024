@@ -1,4 +1,3 @@
-// src/app/work/page.tsx
 "use client";
 import { useState, useRef } from "react";
 
@@ -26,32 +25,19 @@ export default function Work() {
 
         {/* Filter Buttons */}
         <div className={styles.work__filters}>
-          <button
-            className={`${styles.work__filterButton} ${
-              activeFilter === "ALL" ? styles.work__filterButton_active : ""
-            }`}
-            onClick={() => handleFilterChange("ALL")}
-          >
-            ALL
-          </button>
-          <button
-            className={`${styles.work__filterButton} ${
-              activeFilter === "DESIGN" ? styles.work__filterButton_active : ""
-            }`}
-            onClick={() => handleFilterChange("DESIGN")}
-          >
-            DESIGN
-          </button>
-          <button
-            className={`${styles.work__filterButton} ${
-              activeFilter === "DEVELOPMENT"
-                ? styles.work__filterButton_active
-                : ""
-            }`}
-            onClick={() => handleFilterChange("DEVELOPMENT")}
-          >
-            DEVELOPMENT
-          </button>
+          {(["ALL", "DESIGN", "DEVELOPMENT"] as FilterType[]).map((filter) => (
+            <button
+              key={filter}
+              className={`${styles.work__filterButton} ${
+                activeFilter === filter
+                  ? styles["work__filterButton--active"]
+                  : ""
+              }`}
+              onClick={() => handleFilterChange(filter)}
+            >
+              {filter}
+            </button>
+          ))}
         </div>
 
         {/* Projects List with active filter */}
