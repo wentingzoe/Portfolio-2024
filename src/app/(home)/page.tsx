@@ -187,8 +187,8 @@ const Home = () => {
           <AboutMe expertiseRef={expertiseRef} />
         </section>
         <section className={`${styles.section} ${styles.section3}`}>
-          <Experience />
           <Projects />
+          <Experience />
         </section>
         <section className={`${styles.section} ${styles.section4}`}>
           <Contact />
