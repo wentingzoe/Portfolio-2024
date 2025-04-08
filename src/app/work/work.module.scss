@@ -1,36 +1,45 @@
-// src/app/work/work.module.scss
-
 .work {
+  margin: 0;
+  width: 100%;
+  max-width: 100vw;
   min-height: 100vh;
-  width: 100vw;
-  background-color: var(--color-dark, #000);
-  color: var(--color-light, #fff);
-  padding: 4rem 0;
+
+  background-color: var(--color-primary);
+  color: var(--color-light);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp-xs-l(60px, 220px) 0;
+  overflow: hidden;
 
   &__container {
-    margin: 0 auto;
     padding: 0 var(--padding-side, 2rem);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   &__filters {
     @include flexbox(row, flex-start, center);
+    padding: clamp-xs-l(10px, 60px) 0;
   }
 
   &__filterButton {
+    @include btn;
     margin-right: 2rem;
+    padding: 1em 3em;
   }
 
   &__filterButton--active {
     background-color: var(--color-secondary);
     color: var(--color-primary);
+    border: var(--color-secondary);
+
+    font-family: "PP-bold", sans-serif;
   }
 
   &__list {
-    position: relative;
-    display: flex;
-    align-items: center;
-    height: 100%;
+    // height: 100%;
     width: 100%;
-    background-color: var(--color-primary);
   }
 }
