@@ -32,6 +32,12 @@ const Home = () => {
   } | null>(null);
   const breakpoint = useBreakpoint();
 
+  const handleProjectExpand = () => {
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100); // Give a small buffer
+  };
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       gsap.registerPlugin(ScrollTrigger);
@@ -42,11 +48,9 @@ const Home = () => {
     const sections = sectionsRef.current?.children;
     if (!sections) return;
 
-    // Clean up any existing ScrollTriggers
     ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
 
     if (breakpoint === "desktop") {
-      // Initialize variables for tracking card flip state
       let cardFlipControls: DesktopCardFlipControls | null = null;
 
       // Main horizontal scrolling timeline
@@ -76,7 +80,6 @@ const Home = () => {
               const localProgress =
                 (progress - aboutMeStart) / (aboutMeEnd - aboutMeStart);
 
-              // Flip cards based on this progress
               cardFlipControls.flipCards(localProgress);
             }
           },
@@ -127,12 +130,17 @@ const Home = () => {
             breakpoint,
           });
 
-          // Type guard to ensure we have desktop controls
           if (result && "flipCards" in result) {
             cardFlipControls = result;
           }
         }
       }, 100);
+
+      const section3 = sections[2];
+      const resizeObserver = new ResizeObserver(() => {
+        ScrollTrigger.refresh();
+      });
+      resizeObserver.observe(section3);
 
       return () => {
         if (cardFlipControls?.cleanup) {
@@ -187,7 +195,7 @@ const Home = () => {
           <AboutMe expertiseRef={expertiseRef} />
         </section>
         <section className={`${styles.section} ${styles.section3}`}>
-          <Projects />
+          <Projects onProjectExpand={handleProjectExpand} />
           <Experience />
         </section>
         <section className={`${styles.section} ${styles.section4}`}>
