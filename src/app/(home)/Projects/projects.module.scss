@@ -1,11 +1,10 @@
 .projects {
   @include flexbox(column, flex-start, flex-start);
   position: relative;
-
-  height: 100%;
   width: 100%;
-
+  height: auto;
   padding: var(--padding-top) var(--padding-side);
+  margin: 0;
   border: red 1px solid;
 
   @include tablet {
@@ -19,5 +18,13 @@
   &__title {
     margin-bottom: var(--margin-l);
     border: red 1px solid;
+  }
+
+  &__container {
+    width: 100%;
+    /* Ensure container takes up all available space */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
 }
