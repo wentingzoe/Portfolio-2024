@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import styles from "./project.module.scss";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 interface ProjectProps {
   index: number;
   project: {
@@ -29,6 +29,8 @@ export default function Project({
 }: ProjectProps) {
   const { name, role, details, src, tags, year, slug } = project;
   const [isHovered, setIsHovered] = useState(false);
+  const detailsRef = useRef<HTMLDivElement>(null);
+  const [detailsHeight, setDetailsHeight] = useState(0);
 
   const handleClick = () => {
     setActiveIndex(isOpen ? null : index);
@@ -57,6 +59,12 @@ export default function Project({
       },
     }),
   };
+
+  useEffect(() => {
+    if (isOpen && detailsRef.current) {
+      setDetailsHeight(detailsRef.current.scrollHeight);
+    }
+  }, [isOpen]);
 
   return (
     <motion.li
@@ -93,17 +101,18 @@ export default function Project({
         className={styles.project__details}
         initial={{ height: 0, opacity: 0 }}
         animate={{
-          height: isOpen ? "auto" : 0,
+          height: isOpen ? detailsHeight : 0,
           opacity: isOpen ? 1 : 0,
           padding: isOpen ? "var(--side-gap-small)" : 0,
         }}
         transition={{
           duration: isOpen ? 0.5 : 0.3,
           ease: "easeInOut",
-          delay: isOpen ? 0.3 : 0,
+          delay: isOpen ? 0.5 : 0,
         }}
       >
         <motion.div
+          ref={detailsRef}
           className={styles.project__detailsBox}
           initial="hidden"
           animate={isOpen ? "visible" : "hidden"}

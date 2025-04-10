@@ -2,6 +2,9 @@
   @include flexbox($dir: column, $justify: space-between);
   width: 100%;
   transition: background-color 0.3s ease, color 0.3s ease;
+  position: relative;
+  overflow: visible;
+  margin: 0;
 
   &:not(.project__open):hover {
     background-color: var(--color-light);
