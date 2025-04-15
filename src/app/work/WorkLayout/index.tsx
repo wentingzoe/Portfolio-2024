@@ -5,6 +5,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ProjectType } from "@/utils/projects-data";
 import styles from "./workLayout.module.scss";
+import MoreInfo from "@/components/MoreInfo";
+import GradientBg from "@/components/GradientBg";
 
 type WorkLayoutProps = {
   project: ProjectType;
@@ -20,31 +22,34 @@ const WorkLayout = ({ project }: WorkLayoutProps) => {
   return (
     <div className={styles.workLayout}>
       {/* Project Header */}
-      <header className={styles.header}>
-        <h1 className={styles.header__title}>{project.name}</h1>
+      <header className={styles.workLayout__header}>
+        <h1 className="small">{project.name}</h1>
 
-        <div className={styles.header__infoGrid}>
-          <div className={styles.header__infoSection}>
-            <h2 className={styles.header__infoTitle}>ROLES / SERVICES</h2>
-            <ul className={styles.header__infoList}>
+        <div className={styles.workLayout__infoGrid}>
+          <div className={styles.workLayout__infoSection}>
+            <h6 className={styles.workLayout__infoTitle}>ROLES / SERVICES</h6>
+            <div className={styles.workLayout__infoText}>
               {project.tags.map((tag, index) => (
-                <li key={index} className={styles.header__infoItem}>
-                  • {tag}
-                </li>
+                <p
+                  key={index}
+                  className={`${styles.workLayout__infoItem} medium`}
+                >
+                  {tag}
+                </p>
               ))}
-            </ul>
+            </div>
           </div>
 
-          <div className={styles.header__infoSection}>
-            <h2 className={styles.header__infoTitle}>CREDITS</h2>
-            <p className={styles.header__infoText}>
+          <div className={styles.workLayout__infoSection}>
+            <h6 className={styles.workLayout__infoTitle}>CREDITS</h6>
+            <p className={`${styles.workLayout__infoText} medium`}>
               Wallrus Creative Technologies
             </p>
           </div>
 
-          <div className={styles.header__infoSection}>
-            <h2 className={styles.header__infoTitle}>LOCATION & YEAR</h2>
-            <p className={styles.header__infoText}>
+          <div className={styles.workLayout__infoSection}>
+            <h6 className={styles.workLayout__infoTitle}>LOCATION & YEAR</h6>
+            <p className={`${styles.workLayout__infoText} medium`}>
               {project.location} © {project.year}
             </p>
           </div>
@@ -52,23 +57,21 @@ const WorkLayout = ({ project }: WorkLayoutProps) => {
       </header>
 
       {/* Hero Image */}
-      <section className={styles.hero}>
+      <section className={styles.workLayout__hero}>
         <Image
-          src={`/images/projects/${project.slug}/hero.jpg`}
+          src={`/images/projects/${project.slug}/hero.png`}
           alt={project.name}
-          width={1400}
-          height={700}
-          className={styles.hero__image}
+          width={1000}
+          height={600}
+          className={styles.workLayout__heroImage}
           priority
         />
 
-        <div className={styles.hero__indicator}>
-          <div className={styles.hero__dot}></div>
-          <div className={styles.hero__line}></div>
-          <div className={styles.hero__dot}></div>
+        <div className={styles.workLayout__indicator}>
+          <MoreInfo />
         </div>
 
-        <div className={styles.hero__seeWebsite}>
+        {/* <div className={styles.hero__seeWebsite}>
           <Link
             href={project.websiteUrl || "#"}
             className={styles.hero__link}
@@ -77,41 +80,52 @@ const WorkLayout = ({ project }: WorkLayoutProps) => {
           >
             SEE WEBSITE
           </Link>
-        </div>
+        </div> */}
       </section>
 
       {/* Project Info */}
-      <section className={styles.info}>
-        <div className={styles.info__grid}>
-          <div className={styles.info__column}>
-            <h2 className={styles.info__title}>OVERVIEW</h2>
+      <section className={styles.workLayout__info}>
+        <div className={styles.workLayout__grid}>
+          <div className={styles.workLayout__column}>
+            <h6 className={styles.workLayout__infoTitle}>OVERVIEW </h6>
             <div
-              className={styles.info__text}
+              className={styles.workLayout__text}
               dangerouslySetInnerHTML={{ __html: project.description }}
             />
           </div>
 
-          <div className={styles.info__column}>
-            <h2 className={styles.info__title}>SUMMARY</h2>
+          <div className={styles.workLayout__column}>
+            <h6 className={styles.workLayout__infoTitle}>SUMMARY</h6>
 
-            <div className={styles.info__summaryGrid}>
-              <div className={styles.info__summarySection}>
-                <h3 className={styles.info__summaryTitle}>Key Features</h3>
-                <ul className={styles.info__summaryList}>
+            <div className={styles.workLayout__summaryContainer}>
+              <div className={styles.workLayout__summarySection}>
+                <h6 className={styles.workLayout__summaryTitle}>
+                  Key Features
+                </h6>
+                <div className={styles.workLayout__summaryList}>
                   {project.features.map((feature, index) => (
-                    <li key={index} className={styles.info__summaryItem}>
-                      • {feature}
-                    </li>
+                    <p key={index} className={styles.workLayout__summaryItem}>
+                      {feature}
+                    </p>
                   ))}
-                </ul>
+                </div>
               </div>
 
-              <div className={styles.info__summarySection}>
-                <h3 className={styles.info__summaryTitle}>Results & Impact</h3>
-                <ul className={styles.info__summaryList}>
+              <div className={styles.workLayout__summarySection}>
+                <h6 className={styles.workLayout__summaryTitle}>
+                  Results & Impact
+                </h6>
+                <ul className={styles.workLayout__summaryList}>
                   {project.results.map((result, index) => (
-                    <li key={index} className={styles.info__summaryItem}>
-                      • {result.title}
+                    <li key={index} className={styles.workLayout__summaryText}>
+                      <p
+                        className={`${styles.workLayout__summarySubtitle} bold`}
+                      >
+                        {result.title}
+                      </p>
+                      <p className={styles.workLayout__summaryDescription}>
+                        {result.description}
+                      </p>
                     </li>
                   ))}
                 </ul>
@@ -123,10 +137,13 @@ const WorkLayout = ({ project }: WorkLayoutProps) => {
 
       {/* Device Mockup */}
       <section className={styles.mockup}>
+        <div className={styles.mockup__background}>
+          <GradientBg />
+        </div>
         <div className={styles.mockup__container}>
           <div className={styles.mockup__laptop}>
             <Image
-              src="/images/laptop-mockup.png"
+              src="/images/devices/device-laptop.png"
               alt="Laptop Mockup"
               width={800}
               height={500}
