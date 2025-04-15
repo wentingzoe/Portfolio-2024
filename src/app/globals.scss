@@ -285,11 +285,12 @@ section {
 
 
 li {
- @include responsive-font-size(8px, 16px);
+ @include responsive-font-size(8px, 18px);
+
    font-family: "PP-light", "PP-regular",sans-serif;
   font-weight: 450;
   font-style: normal;
-  line-height: 1.2;
+  
 }
 
 /* ---- Animation ---- */
