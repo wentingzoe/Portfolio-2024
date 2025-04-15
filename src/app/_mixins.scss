@@ -199,6 +199,22 @@ $breakpoint-desktop: 1440px; //l
   }
 }
 
-@mixin section-padding {
-  padding: clamp-xs-l(25px, 50px);
+@mixin section-padding-vertical {
+  padding-top: clamp-xs-l(60px, 220px);
+  padding-bottom: clamp-xs-l(60px, 220px);
+}
+
+@mixin section-padding-horizontal {
+  padding-left: var(--padding-side, 2rem);
+  padding-right: var(--padding-side, 2rem);
+}
+
+@mixin subtitle-gap {
+  margin-top: clamp-xs-l(10px, 60px);
+  margin-bottom: clamp-xs-l(10px, 60px);
+}
+
+@mixin paraph-gap {
+  margin-top: clamp-xs-l(5px, 15px);
+  margin-bottom: clamp-xs-l(5px, 15px);
 }
