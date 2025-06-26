@@ -96,7 +96,7 @@ export default function Modal({ projects, modal, projectsRef }: ModalProps) {
     moveCursorY(clientY);
     moveCursorLabelX(clientX);
     moveCursorLabelY(clientY);
-  }, [mousePosition, isWorkPage]);
+  }, [mousePosition, isWorkPage, projectsRef]);
 
   return (
     <>
