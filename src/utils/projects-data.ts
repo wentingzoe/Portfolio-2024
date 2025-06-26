@@ -1,5 +1,11 @@
 // src/utils/projects-data.ts
 
+export type GalleryItemType = {
+  image: string;
+  title: string;
+  description: string;
+};
+
 export type ProjectType = {
   id: number;
   name: string;
@@ -15,6 +21,7 @@ export type ProjectType = {
   tags: string[];
   features: string[];
   gallery: string[];
+  galleryWithDescriptions?: GalleryItemType[];
   results: {
     title: string;
     description: string;
@@ -72,6 +79,23 @@ export const projects: ProjectType[] = [
       "leaderboard.jpg",
       "admin-dashboard.jpg"
     ],
+    galleryWithDescriptions: [
+      {
+        image: "quiz.jpg",
+        title: "Interactive Quiz Interface",
+        description: "The quiz interface was designed with user engagement as the primary focus. We implemented real-time feedback mechanisms and dynamic question rendering to create an immersive experience that adapts to the user's skill level and maintains high engagement throughout the event."
+      },
+      {
+        image: "leaderboard.jpg",
+        title: "Real-time Leaderboard",
+        description: "One of the technical highlights was developing a real-time leaderboard system that updates instantly as participants complete challenges. Using WebSocket technology, we ensured that score updates and rankings appear seamlessly without page refreshes, creating healthy competition among participants."
+      },
+      {
+        image: "admin-dashboard.jpg",
+        title: "Admin Dashboard",
+        description: "The comprehensive admin dashboard gives event facilitators complete control over the game flow. From managing questions to monitoring participant progress in real-time, the intuitive interface allows non-technical staff to run complex interactive events with minimal training."
+      }
+    ],
     results: [
       {
         title: "Enhanced User Experience",
@@ -127,6 +151,23 @@ export const projects: ProjectType[] = [
       "exhibition.jpg",
       "monster-detail.jpg"
     ],
+    galleryWithDescriptions: [
+      {
+        image: "homepage.jpg",
+        title: "Immersive Homepage Experience",
+        description: "The homepage was designed to immediately capture visitors' attention with interactive parallax animations that respond to scroll and mouse movements. We implemented custom WebGL effects to create an atmospheric entry point that reflects the exhibition's surreal and mysterious theme."
+      },
+      {
+        image: "exhibition.jpg",
+        title: "Interactive Exhibition Map",
+        description: "The interactive exhibition map allows visitors to explore the physical space digitally before their visit. We developed a custom mapping system with hotspots that reveal content previews and provide wayfinding information, enhancing the overall visitor experience."
+      },
+      {
+        image: "monster-detail.jpg",
+        title: "Monster Detail Experience",
+        description: "Each monster profile page features rich media content with smooth transitions and responsive layouts. We implemented advanced lazy-loading techniques and optimized image rendering to ensure fast load times while maintaining the high-quality visuals essential to showcase the artistic details."
+      }
+    ],
     results: [
       {
         title: "Enhanced User Experience",
@@ -154,7 +195,7 @@ export const projects: ProjectType[] = [
   },
   {
     id: 3,
-    name: "College Jean-de-Brebeuf Touchscreen Wall",
+    name: "College Brebeuf Touchscreen Wall",
     slug: "college-brebeuf-touchscreen",
     role: "Full-stack Developer",
     year: 2023,
@@ -189,6 +230,23 @@ export const projects: ProjectType[] = [
       "carousel.jpg",
       "search.jpg",
       "photo-zoom.jpg"
+    ],
+    galleryWithDescriptions: [
+      {
+        image: "carousel.jpg",
+        title: "Dynamic Carousel Gallery",
+        description: "We engineered a high-performance carousel system optimized for large touchscreen displays. The interface uses hardware-accelerated animations and touch gesture recognition to create a fluid browsing experience even when navigating through thousands of high-resolution graduation photos."
+      },
+      {
+        image: "search.jpg",
+        title: "Advanced Search Functionality",
+        description: "The search functionality incorporates predictive text algorithms and fuzzy matching to help users quickly find specific graduates. We implemented efficient indexing techniques to ensure search queries return results in under 100ms, even on the large touchscreen interface."
+      },
+      {
+        image: "photo-zoom.jpg",
+        title: "Multi-touch Zoom Interface",
+        description: "The photo zoom feature utilizes advanced pinch-to-zoom capabilities with smooth, responsive scaling. We developed a custom caching system that pre-loads higher resolution versions of images when users begin a zoom action, ensuring crisp visuals at any magnification level."
+      }
     ],
     results: [
       {
@@ -211,122 +269,5 @@ export const projects: ProjectType[] = [
       slug: "secret-life-of-monsters"
     }
   },
-  {
-    id: 4,
-    name: "College Jean-de-Brebeuf Touchscreen Wall",
-    slug: "college-brebeuf-touchscreen",
-    role: "Full-stack Developer",
-    year: 2023,
-    location: "Canada",
-    shortDescription: "An interactive graduation photo display application for large-scale TVs with search functionality and administrative capabilities.",
-    description: `
-      <p>The College Jean-de-Brebeuf Touchscreen Wall project involved creating an interactive graduation photo display application for large-scale touchscreen TVs. The system features a carousel-style dynamic homepage with an advanced search engine, zoomable photo interface, and an administrative dashboard for content management.</p>
-      
-      <p>As the Full-stack Developer, I engineered a responsive carousel gallery with an animated search bar, enabling users to browse photos efficiently. The implementation of zoom functionality and optimized image rendering were critical for providing a smooth user experience on the large touchscreen displays.</p>
-      
-      <p>The project required careful consideration of performance optimization for handling large numbers of high-resolution images while maintaining responsive touch interactions. The administrative dashboard allows staff to easily manage and update the photo collection.</p>
-    `,
-    timeline: "January 2023 - March 2023",
-    src: "college-brebeuf-touchscreen.jpg",
-    stack: [
-      "React", 
-      "RESTful APIs", 
-      "SASS", 
-      "Ruby on Rails", 
-      "Jest"
-    ],
-    tags: ["Full-stack Development", "Interactive Display", "Educational Institution"],
-    features: [
-      "Carousel-style dynamic homepage",
-      "Advanced photo search engine",
-      "Zoomable photo interface",
-      "Administrative dashboard",
-      "Touch-optimized interactions",
-      "High-performance image rendering"
-    ],
-    gallery: [
-      "carousel.jpg",
-      "search.jpg",
-      "photo-zoom.jpg"
-    ],
-    results: [
-      {
-        title: "User Engagement",
-        description: "Created an engaging interactive platform for browsing graduation photos."
-      },
-      {
-        title: "Administrative Efficiency",
-        description: "Provided intuitive tools for staff to manage and update content."
-      },
-      {
-        title: "Performance Optimization",
-        description: "Successfully optimized image rendering for high performance on large displays."
-      }
-    ],
-    websiteUrl: "https://brebeuf-mosaic.wallrus.dev/",
-    details: "Engineered an interactive graduation photo display application for large-scale TVs, featuring a carousel-style dynamic homepage with a search engine, zoomable photo interface, and an administrative dashboard. Developed a responsive carousel gallery with an animated search bar, enabling users to browse photos efficiently.",
-    prevProject: {
-      name: "The Secret Life of Monster Website",
-      slug: "secret-life-of-monsters"
-    }
-  },
-  {
-    id: 4,
-    name: "College Jean-de-Brebeuf Touchscreen Wall",
-    slug: "college-brebeuf-touchscreen",
-    role: "Full-stack Developer",
-    year: 2023,
-    location: "Canada",
-    shortDescription: "An interactive graduation photo display application for large-scale TVs with search functionality and administrative capabilities.",
-    description: `
-      <p>The College Jean-de-Brebeuf Touchscreen Wall project involved creating an interactive graduation photo display application for large-scale touchscreen TVs. The system features a carousel-style dynamic homepage with an advanced search engine, zoomable photo interface, and an administrative dashboard for content management.</p>
-      
-      <p>As the Full-stack Developer, I engineered a responsive carousel gallery with an animated search bar, enabling users to browse photos efficiently. The implementation of zoom functionality and optimized image rendering were critical for providing a smooth user experience on the large touchscreen displays.</p>
-      
-      <p>The project required careful consideration of performance optimization for handling large numbers of high-resolution images while maintaining responsive touch interactions. The administrative dashboard allows staff to easily manage and update the photo collection.</p>
-    `,
-    timeline: "January 2023 - March 2023",
-    src: "college-brebeuf-touchscreen.jpg",
-    stack: [
-      "React", 
-      "RESTful APIs", 
-      "SASS", 
-      "Ruby on Rails", 
-      "Jest"
-    ],
-    tags: ["Full-stack Development", "Interactive Display", "Educational Institution"],
-    features: [
-      "Carousel-style dynamic homepage",
-      "Advanced photo search engine",
-      "Zoomable photo interface",
-      "Administrative dashboard",
-      "Touch-optimized interactions",
-      "High-performance image rendering"
-    ],
-    gallery: [
-      "carousel.jpg",
-      "search.jpg",
-      "photo-zoom.jpg"
-    ],
-    results: [
-      {
-        title: "User Engagement",
-        description: "Created an engaging interactive platform for browsing graduation photos."
-      },
-      {
-        title: "Administrative Efficiency",
-        description: "Provided intuitive tools for staff to manage and update content."
-      },
-      {
-        title: "Performance Optimization",
-        description: "Successfully optimized image rendering for high performance on large displays."
-      }
-    ],
-    websiteUrl: "https://brebeuf-mosaic.wallrus.dev/",
-    details: "Engineered an interactive graduation photo display application for large-scale TVs, featuring a carousel-style dynamic homepage with a search engine, zoomable photo interface, and an administrative dashboard. Developed a responsive carousel gallery with an animated search bar, enabling users to browse photos efficiently.",
-    prevProject: {
-      name: "The Secret Life of Monster Website",
-      slug: "secret-life-of-monsters"
-    }
-  }
+  
 ];
