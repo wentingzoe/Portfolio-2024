@@ -6,15 +6,13 @@ export async function generateStaticParams() {
   return projects.map(({ slug }) => ({ slug }));
 }
 
-type WorkPageProps = {
+export default function Page({
+  params,
+}: {
   params: { slug: string };
   searchParams?: Record<string, string | string[] | undefined>;
-};
-
-export default async function WorkPage({ params }: WorkPageProps) {
-  const { slug } = params;
-  const project = projects.find((p) => p.slug === slug);
-
+}) {
+  const project = projects.find((p) => p.slug === params.slug);
   if (!project) notFound();
 
   return <WorkLayout project={project} />;
