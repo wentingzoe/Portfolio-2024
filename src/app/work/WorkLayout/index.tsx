@@ -52,14 +52,14 @@ const WorkLayout = ({ project }: WorkLayoutProps) => {
 
       {/* Hero Image */}
       <section className={styles.workLayout__hero}>
-        <Image
+        {/* <Image
           src={`/images/projects/${project.slug}/hero.png`}
           alt={project.name}
           width={1000}
           height={600}
           className={styles.workLayout__heroImage}
           priority
-        />
+        /> */}
 
         <div className={styles.workLayout__indicator}>
           <MoreInfo />
@@ -120,7 +120,7 @@ const WorkLayout = ({ project }: WorkLayoutProps) => {
 
       {/* Gallery Section with Scroll Animation */}
 
-      <Gallery project={project} />
+      {/* <Gallery project={project} /> */}
 
       {/* Next/Prev Navigation */}
       <section className={styles.navigation}>
