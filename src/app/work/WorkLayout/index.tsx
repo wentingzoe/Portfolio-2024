@@ -2,20 +2,14 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { ProjectType } from "@/utils/projects-data";
 import styles from "./workLayout.module.scss";
 import MoreInfo from "@/components/MoreInfo";
-import GradientBg from "@/components/GradientBg";
+
+import Gallery from "./Gallery";
 
 type WorkLayoutProps = {
   project: ProjectType;
-};
-
-const fadeIn = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: 20 },
 };
 
 const WorkLayout = ({ project }: WorkLayoutProps) => {
@@ -70,17 +64,6 @@ const WorkLayout = ({ project }: WorkLayoutProps) => {
         <div className={styles.workLayout__indicator}>
           <MoreInfo />
         </div>
-
-        {/* <div className={styles.hero__seeWebsite}>
-          <Link
-            href={project.websiteUrl || "#"}
-            className={styles.hero__link}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            SEE WEBSITE
-          </Link>
-        </div> */}
       </section>
 
       {/* Project Info */}
@@ -135,72 +118,25 @@ const WorkLayout = ({ project }: WorkLayoutProps) => {
         </div>
       </section>
 
-      {/* Device Mockup */}
-      <section className={styles.mockup}>
-        <div className={styles.mockup__background}>
-          <GradientBg />
-        </div>
-        <div className={styles.mockup__container}>
-          <div className={styles.mockup__laptop}>
-            <Image
-              src="/images/devices/device-laptop.png"
-              alt="Laptop Mockup"
-              width={800}
-              height={500}
-              className={styles.mockup__device}
-            />
-            <div className={styles.mockup__screen}>
-              <Image
-                src={`/images/projects/${project.slug}/mockup-screen.jpg`}
-                alt={`${project.name} on laptop`}
-                fill
-                className={styles.mockup__content}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Gallery Section with Scroll Animation */}
 
-      {/* Project Gallery */}
-      <section className={styles.gallery}>
-        <div className={styles.gallery__grid}>
-          {project.gallery.map((image, index) => (
-            <div key={index} className={styles.gallery__item}>
-              <Image
-                src={`/images/projects/${project.slug}/${image}`}
-                alt={`${project.name} - Image ${index + 1}`}
-                width={500}
-                height={800}
-                className={styles.gallery__image}
-              />
-            </div>
-          ))}
-        </div>
-      </section>
+      <Gallery project={project} />
 
       {/* Next/Prev Navigation */}
       <section className={styles.navigation}>
         <div className={styles.navigation__container}>
           <Link href="/#projects" className={styles.navigation__back}>
-            Back to Projects
+            <h6> ← Back to Projects</h6>
           </Link>
 
           <div className={styles.navigation__projects}>
-            {project.prevProject && (
-              <Link
-                href={`/work/${project.prevProject.slug}`}
-                className={styles.navigation__project}
-              >
-                ← {project.prevProject.name}
-              </Link>
-            )}
-
             {project.nextProject && (
               <Link
                 href={`/work/${project.nextProject.slug}`}
                 className={styles.navigation__project}
               >
-                {project.nextProject.name} →
+                <h1>NEXT</h1>
+                <h4>{project.nextProject.name} →</h4>
               </Link>
             )}
           </div>
