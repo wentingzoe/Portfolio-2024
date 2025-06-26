@@ -1,12 +1,11 @@
 "use client";
 import React from "react";
-// import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import { ProjectType } from "@/utils/projects-data";
 import styles from "./workLayout.module.scss";
 import MoreInfo from "@/components/MoreInfo";
-
-// import Gallery from "./Gallery";
+import Gallery from "./Gallery";
 
 type WorkLayoutProps = {
   project: ProjectType;
@@ -52,14 +51,14 @@ const WorkLayout = ({ project }: WorkLayoutProps) => {
 
       {/* Hero Image */}
       <section className={styles.workLayout__hero}>
-        {/* <Image
+        <Image
           src={`/images/projects/${project.slug}/hero.png`}
           alt={project.name}
           width={1000}
           height={600}
           className={styles.workLayout__heroImage}
           priority
-        /> */}
+        />
 
         <div className={styles.workLayout__indicator}>
           <MoreInfo />
@@ -120,7 +119,7 @@ const WorkLayout = ({ project }: WorkLayoutProps) => {
 
       {/* Gallery Section with Scroll Animation */}
 
-      {/* <Gallery project={project} /> */}
+      <Gallery project={project} />
 
       {/* Next/Prev Navigation */}
       <section className={styles.navigation}>
