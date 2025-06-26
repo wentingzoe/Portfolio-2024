@@ -1,12 +1,12 @@
 "use client";
 import React from "react";
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";
 import { ProjectType } from "@/utils/projects-data";
 import styles from "./workLayout.module.scss";
 import MoreInfo from "@/components/MoreInfo";
 
-import Gallery from "./Gallery";
+// import Gallery from "./Gallery";
 
 type WorkLayoutProps = {
   project: ProjectType;
