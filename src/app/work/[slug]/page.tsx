@@ -8,7 +8,6 @@ export function generateStaticParams() {
 
 type PageProps = {
   params: Promise<{ slug: string }>;
-  searchParams?: Record<string, string | string[] | undefined>;
 };
 
 export default async function Page({ params }: PageProps) {
