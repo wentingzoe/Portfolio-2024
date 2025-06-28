@@ -5,6 +5,11 @@ import { motion, useInView } from "framer-motion";
 import { ProjectType } from "@/utils/projects-data";
 import styles from "./gallery.module.scss";
 import GradientBg from "@/components/GradientBg";
+import {
+  containerVariants,
+  imageVariants,
+  contentVariants,
+} from "@/utils/animation";
 
 type GalleryProps = {
   project: ProjectType;
@@ -101,47 +106,6 @@ const GalleryItem = ({
   });
 
   // Define animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.4,
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const imageVariants = {
-    hidden: {
-      y: 30,
-      opacity: 0,
-    },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.8,
-        ease: [0.16, 1, 0.3, 1],
-      },
-    },
-  };
-
-  const contentVariants = {
-    hidden: {
-      y: 30,
-      opacity: 0,
-    },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.8,
-        delay: 0.1,
-        ease: [0.16, 1, 0.3, 1],
-      },
-    },
-  };
 
   return (
     <motion.div
