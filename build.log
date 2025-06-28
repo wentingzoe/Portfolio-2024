@@ -1,0 +1,19 @@
+(node:11374) ExperimentalWarning: CommonJS module /Users/zoeyong/.nvm/versions/node/v23.2.0/lib/node_modules/npm/node_modules/debug/src/node.js is loading ES Module /Users/zoeyong/.nvm/versions/node/v23.2.0/lib/node_modules/npm/node_modules/supports-color/index.js using require().
+Support for loading ES Module in require() is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+   ▲ Next.js 15.3.4
+
+   Creating an optimized production build ...
+Failed to compile.
+
+./src/app/(home)/page.tsx + 18 modules
+Unexpected end of JSON input
+
+./src/app/work/WorkLayout/index.tsx + 4 modules
+Unexpected end of JSON input
+
+./node_modules/framer-motion/dist/es/render/components/motion/proxy.mjs + 243 modules
+Unexpected end of JSON input
+
+
+> Build failed because of webpack errors
