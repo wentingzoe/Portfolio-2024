@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import styles from "./textSwitch.module.scss";
+import { wordVariants, letterVariants } from "@/utils/animation";
 
 interface TextSwitchProps {
   items: Array<{ text: string; color?: string }>;
@@ -27,34 +28,6 @@ const TextSwitch: React.FC<TextSwitchProps> = ({
       setMinWidth(textRef.current.clientWidth);
     }
   }, []);
-
-  const wordVariants = {
-    initial: { y: "50%", opacity: 0 },
-    animate: {
-      y: "0%",
-      opacity: 1,
-      transition: { ease: "easeOut", duration: 0.7 },
-    },
-    exit: {
-      y: "-50%",
-      opacity: 0,
-      transition: { ease: "easeIn", duration: 0.4 },
-    },
-  };
-
-  // Character reveal animation, but with normal spacing
-  const letterVariants = {
-    hidden: { y: "100%", opacity: 0 },
-    visible: (i: number) => ({
-      y: "0%",
-      opacity: 1,
-      transition: {
-        delay: i * 0.03,
-        duration: 0.4,
-        ease: "easeOut",
-      },
-    }),
-  };
 
   const TitleTag = size as keyof JSX.IntrinsicElements;
 

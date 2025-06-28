@@ -140,7 +140,7 @@ export const perspectiveRight: Variants = {
   hidden: {
     opacity: 0,
     transform: "rotateX(-90deg) translateX(-100px) translateY(-50px)",
-    transition: { duration: 1, type: "linear", ease: easeExit },
+    transition: { duration: 1, type: "tween", ease: easeExit },
   },
   visible: (custom: number) => ({
     opacity: 1,
@@ -175,6 +175,52 @@ export const modalScale: Variants = {
 };
 
 /* ------------------------------------------------------------------ */
+/*  Project List                                                     */
+/* ------------------------------------------------------------------ */
+export const detailVariants : Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: 0.5 + i * 0.3,
+      duration: 0.4,
+      ease: "easeOut",
+    },
+  }),
+};
+
+/* ------------------------------------------------------------------ */
+/* Text Switch                                                      */
+/* ------------------------------------------------------------------ */
+export const wordVariants : Variants = {
+  initial: { y: "50%", opacity: 0 },
+  animate: {
+    y: "0%",
+    opacity: 1,
+    transition: { ease: "easeOut", duration: 0.7 },
+  },
+  exit: {
+    y: "-50%",
+    opacity: 0,
+    transition: { ease: "easeIn", duration: 0.4 },
+  },
+};
+
+// Character reveal animation, but with normal spacing
+export const letterVariants : Variants = {
+  hidden: { y: "100%", opacity: 0 },
+  visible: (i: number) => ({
+    y: "0%",
+    opacity: 1,
+    transition: {
+      delay: i * 0.03,
+      duration: 0.4,
+      ease: "easeOut",
+    },
+  }),
+};
+/* ------------------------------------------------------------------ */
 /*  Work‑layout gallery                                               */
 /* ------------------------------------------------------------------ */
 
@@ -207,3 +253,5 @@ export const contentVariants: Variants = {
     },
   },
 };
+
+

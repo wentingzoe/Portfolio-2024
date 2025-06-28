@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import styles from "./project.module.scss";
 import { useState, useRef, useEffect } from "react";
+import { detailVariants } from "@/utils/animation";
 interface ProjectProps {
   index: number;
   project: {
@@ -45,19 +46,6 @@ export default function Project({
   const handleMouseLeave = () => {
     setIsHovered(false);
     setModal({ active: false, index });
-  };
-
-  const detailVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: 0.5 + i * 0.3,
-        duration: 0.4,
-        ease: "easeOut",
-      },
-    }),
   };
 
   useEffect(() => {
