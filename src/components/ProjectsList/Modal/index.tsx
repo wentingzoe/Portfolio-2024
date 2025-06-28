@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./modal.module.scss";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -7,20 +7,36 @@ import gsap from "gsap";
 import { modalScale } from "@/utils/animation";
 import { useMousePosition } from "@/context/MousePositionContext";
 
-export default function Modal({
-  projects,
-  modal,
-  projectsRef,
-}: {
-  projects: { src: string; color: string; name: string }[];
-  modal: { active: boolean; index: number };
+interface ModalProps {
+  projects: {
+    src: string;
+    name: string;
+    color?: string;
+  }[];
+  modal: {
+    active: boolean;
+    index: number;
+  };
   projectsRef: React.RefObject<HTMLDivElement>;
-}) {
+  pageRef?: React.RefObject<HTMLDivElement>;
+}
+
+export default function Modal({ projects, modal, projectsRef }: ModalProps) {
   const { active, index } = modal;
   const container = useRef<HTMLDivElement>(null);
   const cursor = useRef<HTMLDivElement>(null);
   const cursorLabel = useRef<HTMLDivElement>(null);
   const mousePosition = useMousePosition();
+  const [isWorkPage, setIsWorkPage] = useState(false);
+
+  useEffect(() => {
+    // Detect if we're on the work page
+    if (window.location.pathname.startsWith("/work")) {
+      setIsWorkPage(true);
+
+      console.log("Work page detected !!!!!");
+    }
+  }, []);
 
   useEffect(() => {
     if (
@@ -31,16 +47,24 @@ export default function Modal({
       !projectsRef.current
     )
       return;
-    const { x, y } = mousePosition;
 
+    const { x, y } = mousePosition;
     const projectsRect = projectsRef.current.getBoundingClientRect();
 
-    const sectionTopOffset = projectsRect.top + window.scrollY;
-    const sectionLeftOffset = projectsRect.left + window.scrollX;
+    let clientX, clientY;
 
-    const clientX = x - sectionLeftOffset + window.scrollX;
-    const clientY = y + window.scrollY - sectionTopOffset;
+    if (isWorkPage) {
+      clientX = x;
+      clientY = y;
+    } else {
+      // For home page, use the original calculation
+      const sectionTopOffset = projectsRect.top + window.scrollY;
+      const sectionLeftOffset = projectsRect.left + window.scrollX;
+      clientX = x - sectionLeftOffset + window.scrollX;
+      clientY = y + window.scrollY - sectionTopOffset;
+    }
 
+    // Apply the positioning with GSAP
     const moveContainerX = gsap.quickTo(container.current, "left", {
       duration: 0.8,
       ease: "power3",
@@ -72,7 +96,8 @@ export default function Modal({
     moveCursorY(clientY);
     moveCursorLabelX(clientX);
     moveCursorLabelY(clientY);
-  }, [mousePosition]);
+  }, [mousePosition, isWorkPage, projectsRef]);
+
   return (
     <>
       <motion.div
@@ -80,35 +105,32 @@ export default function Modal({
         variants={modalScale}
         initial="initial"
         animate={active ? "enter" : "closed"}
-        className={styles.modal}
+        className={`${styles.modal} ${
+          isWorkPage ? styles["modal--work"] : styles["modal--home"]
+        }`}
       >
         <div
           style={{ top: index * -100 + "%" }}
           className={styles.modal__slider}
         >
-          {projects.map(
-            (
-              project: { src: string; color: string; name: string },
-              index: number
-            ) => {
-              const { src, color, name } = project;
-              return (
-                <div
-                  key={`modal_${index}`}
-                  style={{ backgroundColor: color }}
-                  className={styles.modal__box}
-                >
-                  <Image
-                    className={styles.modal__image}
-                    src={`/images/${src}`}
-                    alt={name}
-                    width={300}
-                    height={0}
-                  />
-                </div>
-              );
-            }
-          )}
+          {projects.map((project, idx) => {
+            const { src, name } = project;
+            return (
+              <div
+                key={`modal_${idx}`}
+                style={{ backgroundColor: project.color || "#000000" }}
+                className={styles.modal__box}
+              >
+                <Image
+                  className={styles.modal__image}
+                  src={`/images/${src}`}
+                  alt={name}
+                  width={300}
+                  height={0}
+                />
+              </div>
+            );
+          })}
         </div>
       </motion.div>
       <motion.div
@@ -116,14 +138,18 @@ export default function Modal({
         variants={modalScale}
         initial="initial"
         animate={active ? "enter" : "closed"}
-        className={styles.modal__cursor}
+        className={`${styles.modal__cursor} ${
+          isWorkPage ? styles["modal--work"] : styles["modal--home"]
+        }`}
       ></motion.div>
       <motion.div
         ref={cursorLabel}
         variants={modalScale}
         initial="initial"
         animate={active ? "enter" : "closed"}
-        className={styles.modal__cursorLabel}
+        className={`${styles.modal__cursorLabel} ${
+          isWorkPage ? styles["modal--work"] : styles["modal--home"]
+        }`}
       >
         <p>View</p>
       </motion.div>

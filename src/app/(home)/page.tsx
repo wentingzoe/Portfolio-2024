@@ -4,10 +4,9 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import styles from "./page.module.scss";
-import { MousePositionProvider } from "@/context/MousePositionContext";
 import { useBreakpoint } from "@/context/BreakpointContext";
 import Hero from "./Hero";
-import AnimatedBackground from "@/components/AnimatedBackground";
+import GradientBg from "@/components/GradientBg";
 import Projects from "./Projects";
 import Experience from "./Experience";
 import AboutMe from "./AboutMe";
@@ -31,171 +30,172 @@ const Home = () => {
     cards: HTMLDivElement[];
     section: HTMLDivElement | null;
   } | null>(null);
+
   const breakpoint = useBreakpoint();
 
+  /**
+   * ScrollTrigger recalculation when the Project modal expands.
+   */
+  const handleProjectExpand = () => {
+    setTimeout(() => ScrollTrigger.refresh(), 100);
+  };
+
+  /**
+   * Register ScrollTrigger once on the client.
+   */
   useEffect(() => {
     if (typeof window !== "undefined") {
       gsap.registerPlugin(ScrollTrigger);
     }
   }, []);
 
+  /**
+   * Main animation logic – re‑initialised each time the breakpoint changes.
+   */
   useEffect(() => {
-    const sections = sectionsRef.current?.children;
-    if (!sections) return;
+    const container = sectionsRef.current;
+    if (!container) return;
 
-    // Clean up any existing ScrollTriggers
-    ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    const sections = Array.from(container.children) as HTMLElement[];
+
+    // Clear out any previous ScrollTriggers before creating new ones.
+    ScrollTrigger.getAll().forEach((t) => t.kill());
+
+    /** Collect disposers created inside this effect. */
+    const cleanupFns: (() => void)[] = [];
 
     if (breakpoint === "desktop") {
-      // Initialize variables for tracking card flip state
+      /* ───────────────────────────── Desktop logic ───────────────────────────── */
       let cardFlipControls: DesktopCardFlipControls | null = null;
 
-      // Main horizontal scrolling timeline
-      const mainTimeline = gsap.timeline({
+      const mainTl = gsap.timeline({
         scrollTrigger: {
-          trigger: sectionsRef.current,
+          trigger: container,
           pin: true,
           scrub: 1,
           start: "top top",
           end: () =>
             `+=${
-              (sectionsRef.current?.scrollWidth ?? 0) +
+              container.scrollWidth +
               (sections[2].scrollHeight - window.innerHeight)
             }`,
           invalidateOnRefresh: true,
           anticipatePin: 1,
           onUpdate: (self) => {
             const progress = self.progress;
-            const aboutMeStart = 0.15;
-            const aboutMeEnd = 0.4;
+            const aboutStart = 0.15;
+            const aboutEnd = 0.4;
 
             if (
-              progress >= aboutMeStart &&
-              progress <= aboutMeEnd &&
+              progress >= aboutStart &&
+              progress <= aboutEnd &&
               cardFlipControls
             ) {
-              const localProgress =
-                (progress - aboutMeStart) / (aboutMeEnd - aboutMeStart);
-
-              // Flip cards based on this progress
-              cardFlipControls.flipCards(localProgress);
+              const local = (progress - aboutStart) / (aboutEnd - aboutStart);
+              cardFlipControls.flipCards(local);
             }
           },
         },
       });
 
-      gsap.set(sectionsRef.current, {
-        willChange: "transform",
-      });
+      gsap.set(container, { willChange: "transform" });
 
-      // First horizontal movement: Hero to AboutMe
-      mainTimeline.to(sections, {
-        xPercent: -100,
-        ease: "none",
-        duration: 1,
-      });
+      // Horizontal scroll between sections
+      mainTl
+        .to(sections, { xPercent: -100, ease: "none", duration: 1 })
+        .to(sections, { xPercent: -200, ease: "none", duration: 1 })
+        .to(sections[2], {
+          y: () => `-${sections[2].scrollHeight - window.innerHeight}px`,
+          ease: "none",
+          duration: 1,
+        })
+        .to(sections, { xPercent: -300, ease: "none", duration: 1 });
 
-      // Second horizontal movement: AboutMe to Experience/Projects
-      mainTimeline.to(sections, {
-        xPercent: -200,
-        ease: "none",
-        duration: 1,
-      });
-
-      // Vertical scroll within the Experience/Projects section
-      mainTimeline.to(sections[2], {
-        y: () => `-${sections[2].scrollHeight - window.innerHeight}px`,
-        ease: "none",
-        duration: 1,
-      });
-
-      // Final horizontal movement to Contact
-      mainTimeline.to(sections, {
-        xPercent: -300,
-        ease: "none",
-        duration: 1,
-      });
-
-      // Initialize expertise flip with a delay to ensure DOM is ready
+      // Card‑flip animation inside About Me (desktop)
       setTimeout(() => {
         const cards = expertiseRef.current?.cards;
-        const aboutMeSection = sections?.[1];
+        const aboutMeSection = sections[1];
 
-        if (cards && cards.length > 0 && aboutMeSection) {
+        if (cards?.length && aboutMeSection) {
           const result = cardFlip({
             cards,
-            trigger: aboutMeSection as HTMLElement,
+            trigger: aboutMeSection,
             breakpoint,
           });
 
-          // Type guard to ensure we have desktop controls
           if (result && "flipCards" in result) {
             cardFlipControls = result;
           }
         }
       }, 100);
 
-      return () => {
-        if (cardFlipControls?.cleanup) {
-          cardFlipControls.cleanup();
-        }
-        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-      };
-    } else {
-      // Mobile/tablet handling
-      gsap.set(sections, {
-        xPercent: 0,
-        y: 0,
-        clearProps: "all",
+      // Refresh when Projects/Experience column height changes
+      const section3 = sections[2];
+      const resizeObserver = new ResizeObserver(() => ScrollTrigger.refresh());
+      resizeObserver.observe(section3);
+      cleanupFns.push(() => resizeObserver.disconnect());
+
+      cleanupFns.push(() => {
+        if (cardFlipControls?.cleanup) cardFlipControls.cleanup();
       });
+    } else {
+      /* ─────────────────────── Mobile / Tablet logic ────────────────────────── */
+      gsap.set(sections, { clearProps: "all" });
 
       let mobileFlipControl: MobileCardFlipControls | null = null;
+
       setTimeout(() => {
         const cards = expertiseRef.current?.cards;
-        const aboutMeSection = sections?.[1];
+        const aboutMeSection = sections[1];
 
-        if (cards && cards.length > 0 && aboutMeSection) {
+        if (cards?.length && aboutMeSection) {
           const result = cardFlip({
             cards,
-            trigger: aboutMeSection as HTMLElement,
+            trigger: aboutMeSection,
             breakpoint,
           });
 
-          if (result && "kill" in result) {
+          if (result && "kill" in result && typeof result.kill === "function") {
             mobileFlipControl = result as MobileCardFlipControls;
           }
         }
       }, 100);
 
-      return () => {
-        if (mobileFlipControl) {
-          mobileFlipControl.kill();
-        }
-        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-      };
+      cleanupFns.push(() => {
+        if (mobileFlipControl) mobileFlipControl.kill();
+      });
     }
+
+    return () => {
+      cleanupFns.forEach((fn) => fn());
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
   }, [breakpoint]);
 
   return (
     <main>
-      <AnimatedBackground />
-      <MousePositionProvider>
-        <div ref={sectionsRef} className={styles.container}>
-          <section className={`${styles.section} ${styles.section1}`}>
-            <Hero />
-          </section>
-          <section className={`${styles.section} ${styles.section2}`}>
-            <AboutMe expertiseRef={expertiseRef} />
-          </section>
-          <section className={`${styles.section} ${styles.section3}`}>
-            <Experience />
-            <Projects />
-          </section>
-          <section className={`${styles.section} ${styles.section4}`}>
-            <Contact />
-          </section>
-        </div>
-      </MousePositionProvider>
+      <div className={styles.background}>
+        <GradientBg />
+      </div>
+
+      <div ref={sectionsRef} className={styles.container}>
+        <section className={`${styles.section} ${styles.section1}`}>
+          <Hero />
+        </section>
+
+        <section className={`${styles.section} ${styles.section2}`}>
+          <AboutMe expertiseRef={expertiseRef} />
+        </section>
+
+        <section className={`${styles.section} ${styles.section3}`}>
+          <Projects onProjectExpand={handleProjectExpand} />
+          <Experience />
+        </section>
+
+        <section className={`${styles.section} ${styles.section4}`}>
+          <Contact />
+        </section>
+      </div>
     </main>
   );
 };

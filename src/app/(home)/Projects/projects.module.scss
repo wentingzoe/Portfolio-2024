@@ -1,45 +1,30 @@
 .projects {
+  @include flexbox(column, flex-start, flex-start);
   position: relative;
-  align-items: center;
-  height: 100%;
   width: 100%;
-  background-color: var(--color-primary);
+  height: auto;
+  padding: var(--padding-top) var(--padding-side);
+  margin: 0;
+  border: red 1px solid;
+
+  @include tablet {
+    border: yellowgreen 1px solid;
+  }
+
+  @include mobile {
+    border: blueviolet 1px solid;
+  }
 
   &__title {
-    @include small-title;
+    margin-bottom: var(--margin-l);
+    border: red 1px solid;
   }
+
   &__container {
     width: 100%;
-    padding: var(--padding-side);
-    margin: var(--gap-margin) 0;
-  }
-  &__listTitles {
-    display: grid;
-    grid-template-columns: 2fr 2fr 1fr;
-    padding: 1rem;
-    opacity: 0.8;
-    text-transform: uppercase;
-
-    h6 {
-      &:nth-last-child(2) {
-        justify-self: center;
-      }
-      &:last-child {
-        justify-self: end;
-      }
-    }
-  }
-  &__role {
-    width: 20%;
+    /* Ensure container takes up all available space */
+    flex: 1;
     display: flex;
-    justify-content: center;
-  }
-
-  &__line {
-    border-top: var(--border);
-
-    &:last-child {
-      border-bottom: var(--border);
-    }
+    flex-direction: column;
   }
 }

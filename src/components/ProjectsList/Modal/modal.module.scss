@@ -3,8 +3,20 @@
   height: clamp-xs-l(113px, 276px);
   overflow: hidden;
   pointer-events: none;
-  position: absolute;
-  z-index: 2;
+  z-index: 20;
+
+  &--work {
+    top: 50%;
+    left: 50%;
+    position: fixed;
+    border: yellowgreen 1px solid;
+  }
+
+  &--home {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    border: red 1px solid;
+  }
 
   &__slider {
     height: 100%;
@@ -32,12 +44,12 @@
     height: clamp-xs-l(35px, 82px);
     border-radius: 50%;
     background-color: var(--color-secondary);
-    position: absolute;
+
     display: flex;
     align-items: center;
     justify-content: center;
     pointer-events: none;
-    z-index: 3;
+    z-index: 21;
   }
 
   &__cursorLabel {

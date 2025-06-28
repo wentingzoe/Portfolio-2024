@@ -173,14 +173,25 @@ $breakpoint-desktop: 1440px; //l
 }
 
 @mixin btn {
-  padding: 0.5rem 1rem;
-  width: clamp-xs-l(100px, 150px);
+  @include flexbox($justify: center, $align: center);
+  @include responsive-font-size(8px, 16px);
+  padding: 0.5em 3em;
+  white-space: nowrap;
+  min-width: clamp-xs-l(100px, 150px);
+
+  text-align: center;
+  width: fit-content;
   border: 0.5px solid var(--color-light);
   border-radius: 50px;
   background-color: transparent;
   color: var(--color-light);
   cursor: pointer;
+
   transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: "PP-light", "PP-regular", sans-serif;
+  font-weight: 450;
+  font-style: normal;
+  margin: var(--side-gap-small) 0;
 
   &:hover {
     background-color: var(--color-light);
@@ -188,6 +199,22 @@ $breakpoint-desktop: 1440px; //l
   }
 }
 
-@mixin section-padding {
-  padding: clamp-xs-l(25px, 50px);
+@mixin section-padding-vertical {
+  padding-top: clamp-xs-l(60px, 220px);
+  padding-bottom: clamp-xs-l(60px, 220px);
+}
+
+@mixin section-padding-horizontal {
+  padding-left: var(--padding-side, 2rem);
+  padding-right: var(--padding-side, 2rem);
+}
+
+@mixin subtitle-gap {
+  margin-top: clamp-xs-l(10px, 60px);
+  margin-bottom: clamp-xs-l(10px, 60px);
+}
+
+@mixin paraph-gap {
+  margin-top: clamp-xs-l(5px, 15px);
+  margin-bottom: clamp-xs-l(5px, 15px);
 }

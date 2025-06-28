@@ -1,0 +1,107 @@
+// src/components/Gallery/Gallery.module.scss
+
+.gallery {
+  width: 100%;
+  position: relative;
+  padding-bottom: 6rem;
+  color: var(--color-primary);
+
+  &__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; // Will be set dynamically based on content
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+    border: red solid 1px;
+  }
+
+  &__header {
+    padding: 0 var(--padding-side, 2rem);
+    padding-top: 3rem;
+    padding-bottom: 1.5rem;
+
+    margin-bottom: 3rem;
+  }
+
+  &__title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    z-index: 1;
+  }
+
+  &__container {
+    padding: 0 var(--padding-side, 2rem);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    column-gap: 6rem;
+    row-gap: 6rem;
+  }
+
+  // Each gallery item (image + description)
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+
+    &:nth-child(even) {
+      // For items in right column, add top margin to create staggered effect
+      @media (min-width: 769px) {
+        margin-top: 5rem;
+      }
+    }
+  }
+
+  &__imageContainer {
+    width: 100%;
+    background-color: #e5e5e5;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    position: relative;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease-out;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__sectionName {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--color-light);
+  }
+
+  &__description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-light);
+    opacity: 0.9;
+  }
+
+  // &__background {
+  //   width: 100%;
+  //   height: 100%;
+  //   position: absolute;
+  //   z-index: 0;
+  //   overflow: hidden;
+  // }
+}
