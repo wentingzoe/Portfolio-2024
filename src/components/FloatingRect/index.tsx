@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useLayoutEffect, useRef, useCallback } from "react";
 import gsap from "gsap";
 import styles from "./floatingRect.module.scss";
 import SVGFilter from "./SVGFilter";
@@ -158,7 +158,7 @@ const FloatingRect: React.FC<FloatingRectProps> = ({
     });
   }, [rects, getPrefixedId, animateRect]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const cleanup = () => {
       tweenRefs.current.forEach((tween) => tween?.kill());
       tweenRefs.current.clear();
@@ -168,18 +168,24 @@ const FloatingRect: React.FC<FloatingRectProps> = ({
 
     setFixedRect();
 
-    const initTimer = setTimeout(() => {
+    const initRaf = requestAnimationFrame(() => {
       updateFloatingRects();
-    }, 300);
+    });
 
+    let resizeRaf = 0;
     const handleResize = () => {
-      updateFloatingRects();
+      cancelAnimationFrame(resizeRaf);
+      resizeRaf = requestAnimationFrame(() => {
+        setFixedRect();
+        updateFloatingRects();
+      });
     };
 
     window.addEventListener("resize", handleResize);
 
     return () => {
-      clearTimeout(initTimer);
+      cancelAnimationFrame(initRaf);
+      cancelAnimationFrame(resizeRaf);
       window.removeEventListener("resize", handleResize);
       cleanup();
     };
